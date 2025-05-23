@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+      "baseUrl": "src",
+      "paths": {
+        "@/*": ["*"]          // now "@/components/…", "@/lib/…" always means src/…
+      }
+    }
+  }

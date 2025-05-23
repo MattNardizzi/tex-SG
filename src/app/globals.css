@@ -1,37 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Theme Colors */
+/* Theme colours (light/dark) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-/* Typography + Global Layout */
 body {
-  color: var(--foreground);
   background: var(--background);
-  font-family: 'Space Grotesk', sans-serif;
+  color: var(--foreground);
 }
 
-/* Marquee Animation for Market Ticker */
+/* Marquee helper */
 @keyframes marquee {
   0%   { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
-
 .animate-marquee {
-  display: inline-block;
   white-space: nowrap;
+  display: inline-block;
   animation: marquee 20s linear infinite;
 }

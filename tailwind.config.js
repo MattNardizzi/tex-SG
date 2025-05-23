@@ -1,31 +1,27 @@
-# overwrite or create tailwind.config.js at the project root
-cat > tailwind.config.js <<'EOF'
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/app/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
-    './src/components/ui/**/*.{js,ts,jsx,tsx}',
-    './src/components/panels/**/*.{js,ts,jsx,tsx}',
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        grotesk: ['"Space Grotesk"', 'sans-serif'],
-      },
-      width: {
-        panel: '16rem',   // side-panel width – adjust later if you wish
-      },
-      height: {
-        spine: '90vh',    // canvas height inside the viewport
-      },
-      colors: {
-        primary: '#7d3cff',
+    content: [
+      './src/app/**/*.{js,ts,jsx,tsx}',
+      './src/components/**/*.{js,ts,jsx,tsx}',
+    ],
+    theme: {
+      extend: {
+        /* 1 – fonts */
+        fontFamily: { grotesk: ['"Space Grotesk"', 'sans-serif'] },
+  
+        /* 2 – layout helpers */
+        width:  { panel: '16rem' },   // 256 px
+        height: { spine: '90vh'  },
+  
+        /* 3 – color palette */
+        colors: {
+          primary:   '#7d3cff',   // purple accent
+          bg:        '#0a0a0a',   // page background
+          fg:        '#ededed',   // page foreground
+          panelBg:   '#10101080', // translucent panel
+          panelRing: '#ffffff33',
+        },
       },
     },
-  },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
-};
-EOF
+    plugins: [require('@tailwindcss/typography')],
+  };

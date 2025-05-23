@@ -84,7 +84,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[0.25, 4.06467072]} />
+      <planeGeometry args={[0.25, 3.575]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

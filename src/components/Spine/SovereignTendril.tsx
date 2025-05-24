@@ -1,45 +1,35 @@
 'use client'
 
 import * as THREE from 'three'
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import { shaderMaterial } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
 import vertexShader from '@/shaders/tendrilVertex.glsl'
 import fragmentShader from '@/shaders/tendrilFragment.glsl'
 
-// 🎨 Define the custom shader material
+// 🎨 Define the shader material
 const TendrilMaterial = shaderMaterial(
   { uTime: 0, uColor: new THREE.Color(0.1, 0.8, 1.0) },
   vertexShader,
   fragmentShader
 )
 
-// 🧠 Register with Three.js
 extend({ TendrilMaterial })
-
-/* eslint-disable @typescript-eslint/no-namespace */
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      tendrilMaterial: {
-        ref?: React.Ref<THREE.ShaderMaterial>
-        attach?: string
-        [key: string]: unknown
-      }
-    }
-  }
-}
-/* eslint-enable @typescript-eslint/no-namespace */
 
 export default function SovereignTendril() {
   const meshRef = useRef<THREE.Mesh>(null)
-  const materialRef = useRef<THREE.ShaderMaterial>(null)
 
-  const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16)
+  // ✅ Memoized material instance — Vercel-safe
+  const material = useMemo(() => new TendrilMaterial(), [])
+
+  const geometry = useMemo(
+    () => new THREE.TorusKnotGeometry(1, 0.3, 100, 16),
+    []
+  )
 
   useFrame(({ clock }) => {
-    if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value = clock.getElapsedTime()
+    if (material) {
+      material.uniforms.uTime.value = clock.getElapsedTime()
     }
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.002
@@ -47,8 +37,6 @@ export default function SovereignTendril() {
   })
 
   return (
-    <mesh ref={meshRef} geometry={geometry}>
-      <tendrilMaterial ref={materialRef} attach="material" />
-    </mesh>
+    <mesh ref={meshRef} geometry={geometry} material={material} />
   )
 }

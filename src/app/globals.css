@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for Light and Dark Mode */
+/* Root-level CSS Variables for Theme Control */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,8 +15,18 @@
   }
 }
 
-/* Base Body Styling */
+/* Full-page and font reset */
+html,
+body,
+#__next {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base body styling using Tailwind utilities + fallback */
 body {
-  @apply bg-[var(--background)] text-[var(--foreground)] antialiased;
+  @apply antialiased bg-[var(--background)] text-[var(--foreground)];
   font-family: Arial, Helvetica, sans-serif;
 }

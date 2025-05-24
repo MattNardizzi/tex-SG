@@ -16,13 +16,11 @@ export default function SovereignStatusPanel() {
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data)
-
         const updated = [
           { label: 'Dominant Trait', value: data.dominant_trait || '—' },
           { label: 'Agent Focus', value: data.agent_focus || '—' },
           { label: 'Swarm Status', value: `Coherence ${Math.round((data.coherence || 0) * 100)}%` },
         ]
-
         setForkstreamData(updated)
       } catch (err) {
         console.error('WebSocket parse error:', err)
@@ -38,14 +36,14 @@ export default function SovereignStatusPanel() {
   }, [])
 
   return (
-    <div className="absolute top-12 right-6 z-40">
-      <div className="relative flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm rounded-md px-2 py-1.5 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] max-w-[180px] text-white">
+    <div className="absolute top-12 right-6 z-40 w-[200px]">
+      <div className="flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm rounded-md px-2.5 py-2 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] text-white text-[10px] leading-tight font-grotesk">
         
         {/* Header */}
-        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider mb-1">
+        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider mb-0.5">
           TEX: SOVEREIGN COGNITION
         </div>
-        <div className="text-[7px] text-white/40 font-medium mb-2 tracking-wide">
+        <div className="text-[7px] text-white/40 font-medium tracking-wide mb-1">
           Godmind · Forkstream ⑂
         </div>
 
@@ -56,10 +54,10 @@ export default function SovereignStatusPanel() {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.15 }}
-            className="flex justify-between text-[9px] font-light text-white/70"
+            className="flex justify-between text-[9px] text-white/80"
           >
             <span>{item.label}</span>
-            <span className="text-cyan-200/80">{item.value}</span>
+            <span className="text-cyan-200/90">{item.value}</span>
           </motion.div>
         ))}
 

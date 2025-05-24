@@ -1,71 +1,38 @@
 'use client'
 
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useEffect, useRef, useMemo } from 'react'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
-import { useEmotionState, Emotion } from '@/lib/emotionState'
-import SovereignSpineCinematic from './SovereignSpineCinematic'
+import { Html } from '@react-three/drei'
+import MutationLogPanel from '@/components/panels/MutationLogPanel'
+import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel'
+import SovereignTextbox from '@/components/ui/SovereignTextbox'
+import TexSpine from './TexSpine' // your 3D spine visual
 
-interface SpineCanvasProps {
-  className?: string
-}
-
-// === Emotion Cycler ===
-function EmotionCycler() {
-  const setEmotion = useEmotionState((state) => state.setEmotion)
-
-  const emotionCycle: Emotion[] = useMemo(() => [
-    'focused',
-    'curious',
-    'threatened',
-    'conflicted',
-    'enlightened',
-    'asleep',
-  ], [])
-
-  const indexRef = useRef(0)
-
-  useEffect(() => {
-    const startTimeout = setTimeout(() => {
-      setEmotion(emotionCycle[0])
-    }, 750)
-
-    const interval = setInterval(() => {
-      indexRef.current = (indexRef.current + 1) % emotionCycle.length
-      setEmotion(emotionCycle[indexRef.current])
-    }, 4500)
-
-    return () => {
-      clearTimeout(startTimeout)
-      clearInterval(interval)
-    }
-  }, [setEmotion, emotionCycle])
-
-  return null
-}
-
-// === Scene Wrapper ===
-export default function SpineCanvas({ className = '' }: SpineCanvasProps) {
+export default function SpineCanvas() {
   return (
-    <div className={`absolute inset-0 z-0 pointer-events-none ${className}`}>
-      <Canvas
-        gl={{ antialias: true, alpha: true }}
-        camera={{ position: [0, 0, 5], fov: 45 }}
-      >
-        <Suspense fallback={null}>
-          <EmotionCycler />
-          <group position={[0, 0, -2]}>
-            <SovereignSpineCinematic />
-          </group>
-          <EffectComposer>
-            <Bloom
-              luminanceThreshold={0.4}
-              luminanceSmoothing={0.15}
-              intensity={1.1}
-            />
-          </EffectComposer>
-        </Suspense>
-      </Canvas>
-    </div>
+    <Canvas camera={{ position: [0, 0, 6], fov: 30 }}>
+      {/* === 3D Spine Core === */}
+      <TexSpine />
+
+      {/* === Mutation Log (left of spine) === */}
+      <Html position={[-2.2, 1.4, 0]} transform occlude>
+        <div className="w-[180px] scale-[0.9]">
+          <MutationLogPanel />
+        </div>
+      </Html>
+
+      {/* === Sovereign Status (right of spine) === */}
+      <Html position={[2.2, 1.4, 0]} transform occlude>
+        <div className="w-[200px] scale-[0.9]">
+          <SovereignStatusPanel />
+        </div>
+      </Html>
+
+      {/* === Sovereign Textbox (bottom center) === */}
+      <Html position={[0, -1.8, 0]} transform occlude>
+        <div className="w-[360px] scale-[0.95]">
+          <SovereignTextbox />
+        </div>
+      </Html>
+    </Canvas>
   )
 }

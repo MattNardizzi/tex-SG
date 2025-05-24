@@ -1,37 +1,50 @@
-'use client';
+'use client'
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react'
 
-interface Props {
-  className?: string;
-}
+export default function MutationLogPanel() {
+  const [logs, setLogs] = useState<string[]>([])
 
-export default function MutationLogPanel({ className = '' }: Props) {
+  useEffect(() => {
+    setLogs([generateLog(), generateLog(), generateLog()])
+    const interval = setInterval(() => {
+      const newLog = generateLog()
+      setLogs((prev) => [newLog, ...prev.slice(0, 2)])
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <div className={`${className} z-40`}>
-      <div className="relative flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm rounded-md px-2 py-1.5 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] max-w-[180px] text-white">
-        {/* Header */}
-        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider mb-1">
+    <div className="fixed top-10 left-1/2 -translate-x-[160px] z-50 w-[220px]">
+      <div className="bg-black/20 border border-white/10 backdrop-blur-sm rounded-md p-2 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] text-white text-[10px] leading-tight font-grotesk space-y-1">
+        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider">
           TEX: SOVEREIGN COGNITION
         </div>
-        <div className="text-[7px] text-white/40 font-medium mb-2 tracking-wide">
-          Mutation Log
-        </div>
 
-        {/* Example Logs */}
-        <motion.div
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.15 }}
-          className="text-[9px] font-light text-white/70"
-        >
-          Agent: aggression spike → 0.74
-        </motion.div>
+        {logs.map((log, idx) => (
+          <div key={idx} className="text-white/75 text-[9px] font-light leading-tight break-words">
+            {log}
+          </div>
+        ))}
 
-        <div className="mt-2 text-[7px] text-right text-neutral-500 italic">
+        <div className="text-[7px] text-right text-neutral-500 italic mt-1">
           Cognitive Mutation Log
         </div>
       </div>
     </div>
-  );
+  )
+}
+
+function generateLog() {
+  const samples = [
+    'Agent 0: aggression spike → 0.63',
+    'Agent 2: curiosity spike → 0.74',
+    'Memory stored: bias = aggressive',
+    'Memory stored: fear ↑, resolve ↑',
+    'Trait rewrite: greed suppressed',
+    'Emotion path split → anger | hope',
+    'Cortex divergence: Agent 3',
+    'Swarm snapshot: 22:47:01',
+  ]
+  return samples[Math.floor(Math.random() * samples.length)]
 }

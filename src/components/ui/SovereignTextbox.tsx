@@ -30,7 +30,6 @@ export default function SovereignTextbox() {
 
       const data = await res.json()
       const reply = data.response || '⚠️ No response received.'
-
       setMessages([...updated, { sender: 'tex', text: reply }])
     } catch {
       setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }])
@@ -41,8 +40,8 @@ export default function SovereignTextbox() {
   }
 
   return (
-    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[420px] font-grotesk">
-      <div className="relative flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-4 py-1">
+    <div className="w-[90%] max-w-[420px] font-grotesk">
+      <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-4 py-1">
         
         {/* Message Log */}
         <div className="max-h-24 overflow-y-auto text-xs text-white space-y-0.5 mb-1 px-0.5 font-normal">

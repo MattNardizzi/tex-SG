@@ -7,22 +7,25 @@ import SovereignTextbox from '@/components/ui/SovereignTextbox';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-screen bg-black font-grotesk overflow-hidden">
-      {/* Mutation Log Panel (self-positioned) */}
-      <MutationLogPanel />
+    <main className="relative h-screen w-screen bg-black font-grotesk overflow-hidden">
 
-      {/* Sovereign Status Panel (self-positioned) */}
-      <SovereignStatusPanel />
+      {/* Mutation Log Panel (150px left of center) */}
+      <MutationLogPanel
+        className="absolute top-12 left-[calc(50%-150px)]"
+      />
 
-      {/* Central Spine Canvas */}
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <div className="w-full max-w-[90vw] h-[90vh]">
-          <SpineCanvas className="w-full h-full" />
-        </div>
+      {/* Sovereign Status Panel (150px right of center) */}
+      <SovereignStatusPanel
+        className="absolute top-12 left-[calc(50%+150px)] -translate-x-full"
+      />
+
+      {/* Central Canvas */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <SpineCanvas className="h-[90vh] w-full max-w-[90vw]" />
       </div>
 
       {/* Bottom-Centered Textbox */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 w-[90%] max-w-[420px]">
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[400px]">
         <SovereignTextbox />
       </div>
     </main>

@@ -2,15 +2,22 @@
 
 import { useState } from 'react'
 
+type Sender = 'user' | 'tex'
+
+interface Message {
+  sender: Sender
+  text: string
+}
+
 export default function SovereignTextbox() {
   const [input, setInput] = useState('')
-  const [messages, setMessages] = useState<{ sender: 'user' | 'tex'; text: string }[]>([])
+  const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(false)
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return
 
-    const updated = [...messages, { sender: 'user', text: input }]
+    const updated: Message[] = [...messages, { sender: 'user', text: input }]
     setMessages(updated)
     setLoading(true)
 

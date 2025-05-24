@@ -6,39 +6,40 @@ import { motion } from 'framer-motion'
 export default function SovereignStatusPanel() {
   const [forkstreamData, setForkstreamData] = useState([
     { label: 'Dominant Trait', value: 'Loading...' },
-    { label: 'Agent Focus', value: 'Loading...' },
-    { label: 'Swarm Status', value: 'Loading...' },
+    { label: 'Agent Focus',   value: 'Loading...' },
+    { label: 'Swarm Status',  value: 'Loading...' },
   ])
 
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:8000/ws/tex')
-
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data)
-        const updated = [
+        setForkstreamData([
           { label: 'Dominant Trait', value: data.dominant_trait || '—' },
-          { label: 'Agent Focus', value: data.agent_focus || '—' },
-          { label: 'Swarm Status', value: `Coherence ${Math.round((data.coherence || 0) * 100)}%` },
-        ]
-        setForkstreamData(updated)
+          { label: 'Agent Focus',   value: data.agent_focus   || '—' },
+          {
+            label: 'Swarm Status',
+            value: `Coherence ${Math.round((data.coherence || 0) * 100)}%`
+          },
+        ])
       } catch (err) {
         console.error('WebSocket parse error:', err)
       }
     }
-
-    socket.onerror = (event) => {
-      console.error('WebSocket error:', event)
+    socket.onerror = (e) => {
+      console.error('WebSocket error:', e)
       alert('⚠️ WebSocket connection failed. Check server status and URL.')
     }
-
-    return () => socket.close()
+    return () => { socket.close() }
   }, [])
 
   return (
-    <div className="absolute top-12 right-6 z-40 w-[200px]">
-      <div className="flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm rounded-md px-2.5 py-2 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] text-white text-[10px] leading-tight font-grotesk">
-        
+    <div className="absolute top-12 right-6 z-40 w-[20vw] max-w-[200px]">
+      <div className="flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm
+                      rounded-md px-2.5 py-2 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06]
+                      text-white text-[10px] leading-tight font-grotesk">
+
         {/* Header */}
         <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider mb-0.5">
           TEX: SOVEREIGN COGNITION
@@ -47,7 +48,7 @@ export default function SovereignStatusPanel() {
           Godmind · Forkstream ⑂
         </div>
 
-        {/* Forkstream Data */}
+        {/* Data rows */}
         {forkstreamData.map((item, idx) => (
           <motion.div
             key={idx}

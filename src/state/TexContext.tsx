@@ -1,7 +1,5 @@
 // src/state/TexContext.tsx
 
-import { createContext } from 'react';
-
 // 🔵 Mood → Color map
 const emotionColorMap: Record<string, string> = {
   Focused: '#00ffaa',
@@ -24,9 +22,6 @@ const defaultState: TexState = {
   pulse: 0.2,
   emotionColor: emotionColorMap['Focused'],
 };
-
-// 🔧 Context setup (inactive for now)
-const _TexStateContext = createContext<TexState>(defaultState);
 
 // ✅ Safe-mode hook returning static state
 export const useTexState = () => {

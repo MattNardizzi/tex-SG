@@ -1,7 +1,7 @@
 'use client'
 
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useMemo } from 'react'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useEmotionState, Emotion } from '@/lib/emotionState'
 import SovereignSpineCinematic from './SovereignSpineCinematic'
@@ -15,14 +15,16 @@ function CameraBreather() {
 
 function EmotionCycler() {
   const setEmotion = useEmotionState((state) => state.setEmotion)
-  const emotionCycle: Emotion[] = [
+
+  // ✅ Make emotionCycle stable for ESLint
+  const emotionCycle: Emotion[] = useMemo(() => [
     'focused',
     'curious',
     'threatened',
     'conflicted',
     'enlightened',
     'asleep',
-  ]
+  ], [])
 
   useEffect(() => {
     let i = 0
@@ -31,7 +33,7 @@ function EmotionCycler() {
       i = (i + 1) % emotionCycle.length
     }, 2800)
     return () => clearInterval(interval)
-  }, [setEmotion])
+  }, [setEmotion, emotionCycle]) // ✅ All dependencies covered
 
   return null
 }

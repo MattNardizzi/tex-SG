@@ -25,7 +25,7 @@ export default function SovereignTextbox() {
       const reply = data.response || '⚠️ No response received.'
 
       setMessages([...updated, { sender: 'tex', text: reply }])
-    } catch (_) {
+    } catch {
       setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }])
     }
 

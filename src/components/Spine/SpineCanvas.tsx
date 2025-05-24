@@ -1,7 +1,7 @@
 'use client'
 
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef, useMemo } from 'react'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useEmotionState, Emotion } from '@/lib/emotionState'
 import SovereignSpineCinematic from './SovereignSpineCinematic'
@@ -9,14 +9,17 @@ import SovereignSpineCinematic from './SovereignSpineCinematic'
 // === Emotion Cycler ===
 function EmotionCycler() {
   const setEmotion = useEmotionState((state) => state.setEmotion)
-  const emotionCycle: Emotion[] = [
+
+  // ✅ Memoized array to avoid dependency warning
+  const emotionCycle: Emotion[] = useMemo(() => [
     'focused',
     'curious',
     'threatened',
     'conflicted',
     'enlightened',
     'asleep',
-  ]
+  ], [])
+
   const indexRef = useRef(0)
 
   useEffect(() => {
@@ -33,7 +36,7 @@ function EmotionCycler() {
       clearTimeout(startTimeout)
       clearInterval(interval)
     }
-  }, [setEmotion])
+  }, [setEmotion, emotionCycle])
 
   return null
 }

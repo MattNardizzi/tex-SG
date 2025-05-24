@@ -6,11 +6,14 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { useEmotionState, Emotion } from '@/lib/emotionState'
 import SovereignSpineCinematic from './SovereignSpineCinematic'
 
+interface SpineCanvasProps {
+  className?: string
+}
+
 // === Emotion Cycler ===
 function EmotionCycler() {
   const setEmotion = useEmotionState((state) => state.setEmotion)
 
-  // ✅ Memoized array to avoid dependency warning
   const emotionCycle: Emotion[] = useMemo(() => [
     'focused',
     'curious',
@@ -42,9 +45,9 @@ function EmotionCycler() {
 }
 
 // === Scene Wrapper ===
-export default function SpineCanvas() {
+export default function SpineCanvas({ className = '' }: SpineCanvasProps) {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none">
+    <div className={`absolute inset-0 z-0 pointer-events-none ${className}`}>
       <Canvas
         gl={{ antialias: true, alpha: true }}
         camera={{ position: [0, 0, 5], fov: 45 }}

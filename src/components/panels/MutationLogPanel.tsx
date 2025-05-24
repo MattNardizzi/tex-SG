@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-export default function MutationLogPanel() {
+interface MutationLogPanelProps {
+  className?: string
+}
+
+export default function MutationLogPanel({ className = '' }: MutationLogPanelProps) {
   const [logs, setLogs] = useState<string[]>([])
 
   useEffect(() => {
@@ -15,19 +19,22 @@ export default function MutationLogPanel() {
   }, [])
 
   return (
-    <div className="fixed top-10 left-1/2 -translate-x-[160px] z-50 w-[220px]">
-      <div className="bg-black/20 border border-white/10 backdrop-blur-sm rounded-md p-2 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] text-white text-[10px] leading-tight font-grotesk space-y-1">
-        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider">
+    <div className={className}>
+      <div className="relative flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm rounded-md px-2 py-1.5 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] max-w-[180px] text-white">
+        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider mb-1">
           TEX: SOVEREIGN COGNITION
         </div>
 
         {logs.map((log, idx) => (
-          <div key={idx} className="text-white/75 text-[9px] font-light leading-tight break-words">
+          <span
+            key={idx}
+            className="text-[9px] text-white/75 font-light leading-tight whitespace-normal break-words pl-[2px]"
+          >
             {log}
-          </div>
+          </span>
         ))}
 
-        <div className="text-[7px] text-right text-neutral-500 italic mt-1">
+        <div className="mt-2 text-[7px] text-right text-neutral-500 italic">
           Cognitive Mutation Log
         </div>
       </div>

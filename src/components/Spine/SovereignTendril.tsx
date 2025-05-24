@@ -7,18 +7,17 @@ import { extend, useFrame, ReactThreeFiber } from '@react-three/fiber'
 import vertexShader from '@/shaders/tendrilVertex.glsl'
 import fragmentShader from '@/shaders/tendrilFragment.glsl'
 
-// 🔧 Create custom shader material
+// 🔧 Create the custom shader material
 const TendrilMaterial = shaderMaterial(
-  { uTime: 0, uColor: new THREE.Color(0.1, 0.8, 1) },
+  { uTime: 0, uColor: new THREE.Color(0.1, 0.8, 1.0) },
   vertexShader,
   fragmentShader
 )
 
-// 📦 Register with Three.js
+// 📦 Register as a JSX intrinsic element
 extend({ TendrilMaterial })
 
 /* eslint-disable @typescript-eslint/no-namespace */
-// ✅ Allow JSX to recognize <tendrilMaterial />
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -26,10 +25,11 @@ declare global {
     }
   }
 }
+/* eslint-enable @typescript-eslint/no-namespace */
 
 export default function SovereignTendril() {
   const ref = useRef<THREE.Mesh>(null)
-  const mat = useRef<any>(null)
+  const mat = useRef<ReactThreeFiber.Object3DNode<typeof TendrilMaterial, typeof TendrilMaterial>>(null)
 
   const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16)
 

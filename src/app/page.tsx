@@ -1,29 +1,38 @@
 'use client';
 
+import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import SpineCanvas from '@/components/Spine/SpineCanvas';
-import MutationLogPanel from '@/components/panels/MutationLogPanel';
-import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
-import SovereignTextbox from '@/components/ui/SovereignTextbox';
+import {
+  MutationLogPanelR3F,
+  SovereignStatusPanelR3F,
+  SovereignTextboxR3F
+} from '@/components/panels/FiberPanels';
 
 export default function Home() {
   return (
-    <main className="relative h-screen w-screen bg-black font-grotesk overflow-hidden">
+    <main className="relative h-screen w-screen bg-black overflow-hidden font-grotesk">
+      <Canvas gl={{ antialias: true, alpha: true }} camera={{ position: [0, 0, 5], fov: 45 }}>
+        <Suspense fallback={null}>
+          {/* 3D Spine Animation */}
+          <SpineCanvas />
 
-      {/* Mutation Log Panel – 150px left of center */}
-      <MutationLogPanel className="absolute top-12 left-[calc(50%-150px)]" />
+          {/* Panels rendered as HTML inside the 3D scene */}
+          <MutationLogPanelR3F />
+          <SovereignStatusPanelR3F />
+          <SovereignTextboxR3F />
 
-      {/* Sovereign Status Panel – 150px right of center */}
-      <SovereignStatusPanel className="absolute top-12 left-[calc(50%+150px)] -translate-x-full" />
-
-      {/* Central 3D Canvas */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <SpineCanvas className="h-[90vh] w-full max-w-[90vw]" />
-      </div>
-
-      {/* Textbox at bottom center */}
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[400px]">
-        <SovereignTextbox />
-      </div>
+          {/* Post-processing effects */}
+          <EffectComposer>
+            <Bloom
+              luminanceThreshold={0.4}
+              luminanceSmoothing={0.15}
+              intensity={1.1}
+            />
+          </EffectComposer>
+        </Suspense>
+      </Canvas>
     </main>
   );
 }

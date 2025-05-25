@@ -2,38 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
-type TickerData = {
-  [symbol: string]: {
-    price: number;
-    change: number | null;
-    direction: 'up' | 'down' | 'neutral';
-  };
-};
-
 export default function MutationLogPanel() {
   const [logs, setLogs] = useState<string[]>([]);
-  const [tickerData, setTickerData] = useState<TickerData>({});
 
   useEffect(() => {
     setLogs([generateLog(), generateLog(), generateLog()]);
     const interval = setInterval(() => {
       const newLog = generateLog();
-      setLogs((prev) => [newLog, ...prev.slice(0, 4)]);
+      setLogs((prev) => [newLog, ...prev.slice(0, 2)]); // keep only 3 logs
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/ws/polygon');
-    ws.onmessage = (event) => {
-      try {
-        const update = JSON.parse(event.data);
-        setTickerData((prev) => ({ ...prev, ...update }));
-      } catch (error) {
-        console.error('WebSocket message error:', error);
-      }
-    };
-    return () => ws.close();
   }, []);
 
   return (
@@ -43,21 +21,8 @@ export default function MutationLogPanel() {
         TEX: MUTATION LOG
       </div>
 
-      {/* Ticker */}
-      <div className="bg-black/60 rounded-md px-3 py-2 border border-white/10 text-green-400 font-mono text-[13px] shadow-sm flex flex-wrap gap-x-3 gap-y-1">
-        {Object.keys(tickerData).length === 0 ? (
-          <span className="text-white/40">Waiting for market data...</span>
-        ) : (
-          Object.entries(tickerData).map(([symbol, { price }]) => (
-            <div key={symbol} className="whitespace-nowrap">
-              {symbol.toUpperCase()}: ${typeof price === 'number' ? price.toFixed(2) : '0.00'}
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* Logs */}
-      <div className="h-[140px] overflow-hidden space-y-2">
+      {/* Mutation Logs */}
+      <div className="h-[100px] overflow-hidden space-y-2">
         {logs.map((log, idx) => (
           <div
             key={idx}

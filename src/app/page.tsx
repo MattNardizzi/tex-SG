@@ -8,7 +8,7 @@ import SovereignTextbox from '@/components/ui/SovereignTextbox';
 
 export default function Page() {
   return (
-    <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans">
+    <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans antialiased">
       {/* ✅ Real Market Ticker */}
       <MarketTicker />
 

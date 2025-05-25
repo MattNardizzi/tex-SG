@@ -18,7 +18,7 @@ export default function MutationLogPanel() {
     <div className="w-[320px] bg-black/40 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[inset_0_0_3px_#ffffff0a,_0_0_6px_#00ffff15] text-sm space-y-2">
       {/* Header */}
       <div className="text-[12px] text-cyan-300 font-semibold tracking-wide uppercase">
-        TEX: SOVEREIGN COGNITION
+        TEX: MUTATION LOG
       </div>
 
       {/* Log Entries */}

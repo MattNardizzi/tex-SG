@@ -29,18 +29,23 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 100.0, 2.0));
+    return exp(-pow((x - 0.5) * 90.0, 2.0));
   }
 
-  float helix(float x, float y, float t) {
-    float ripple = sin(y * 36.0 + t * 8.0 + x * 40.0);
-    return 0.5 + 0.5 * ripple;
+  float dualHelix(float x, float y, float t) {
+    float h1 = sin(y * 48.0 + x * 60.0 + t * 8.0);
+    float h2 = sin(y * 48.0 - x * 60.0 - t * 8.0);
+    return 0.5 + 0.25 * h1 * h2;
   }
 
-  float breachMask(float y) {
-    float fadeTop = smoothstep(0.97, 0.75, y);
-    float fadeBottom = smoothstep(0.03, 0.25, y);
-    return fadeTop * fadeBottom;
+  float taperFade(float y) {
+    float top = smoothstep(1.0, 0.82, y);
+    float bottom = smoothstep(0.0, 0.18, y);
+    return top * bottom;
+  }
+
+  float radialFade(vec2 uv) {
+    return smoothstep(0.5, 0.1, length(uv - vec2(0.5)));
   }
 
   void main() {
@@ -51,11 +56,16 @@ const fragmentShader = `
     float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
     float core = crystalCore(vUv.x);
-    float helixWrap = helix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.3, 0.0, abs(vUv.x - 0.5)) * 0.2;
+    float helix = dualHelix(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.35, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float breach = breachMask(vUv.y);
-    float total = (core * 1.5 + helixWrap * 0.2 + aura) * shimmer * flicker * pulse * breach;
+    float fadeY = taperFade(vUv.y);
+    float fadeRadial = radialFade(vUv);
+    float total = (core * 1.6 + helix * 0.25 + aura) * pulse * shimmer * flicker * fadeY * fadeRadial;
+
+    if (blendFactor > 0.95) {
+      total += 0.05 * sin(t * 12.0); // Emotion threshold flare
+    }
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -103,9 +113,9 @@ export default function SovereignFilamentGenesis() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.05 * Math.sin(t * 2.5);
+    const scale = 1 + 0.04 * Math.sin(t * 2.5);
     if (meshRef.current) {
-      meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
+      meshRef.current.scale.set(scale, 1 + scale * 0.08, 1);
     }
   });
 

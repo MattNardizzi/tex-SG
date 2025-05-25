@@ -41,22 +41,22 @@ export default function SovereignTextbox() {
   };
 
   return (
-    <div className="relative w-full max-w-[860px] mx-auto mt-10 px-4 z-10">
-      <div className="rounded-2xl border border-white/10 bg-black/25 backdrop-blur-md shadow-[0_0_40px_#00ffff22,inset_0_0_2px_#ffffff09] p-6 flex flex-col space-y-4 transition-all duration-300 focus-within:shadow-[0_0_80px_#00ffff33]">
+    <div className="w-full max-w-3xl mx-auto px-4 mt-8 z-10">
+      <div className="bg-black/30 border border-white/10 backdrop-blur-md rounded-2xl shadow-[0_0_40px_#00ffff15] transition-all duration-300 focus-within:shadow-[0_0_60px_#00ffff33] px-6 py-4 space-y-3">
 
-        {/* Live Log Feed */}
-        <div className="max-h-[80px] overflow-y-auto px-1 text-[15px] font-light text-white/90 leading-tight tracking-wide space-y-1.5">
+        {/* Message Log */}
+        <div className="max-h-[70px] overflow-y-auto text-sm text-white/90 font-light tracking-wide leading-tight space-y-1.5 px-1">
           {messages.map((msg, i) => (
             <div
               key={i}
               className={`transition-all ${msg.sender === 'user' ? 'text-cyan-300' : 'text-gray-300'}`}
             >
-              <span className="font-semibold">{msg.sender === 'user' ? 'You' : 'Tex'}:</span> {msg.text}
+              <span className="font-medium">{msg.sender === 'user' ? 'You' : 'Tex'}:</span> {msg.text}
             </div>
           ))}
         </div>
 
-        {/* Text Command Input */}
+        {/* Input + Button */}
         <div className="flex items-center gap-4">
           <input
             type="text"
@@ -65,21 +65,22 @@ export default function SovereignTextbox() {
             onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
             disabled={loading}
-            className="flex-1 bg-transparent text-white text-[18px] tracking-wide font-medium outline-none placeholder-white/40 px-3 py-2"
+            className="flex-1 bg-transparent text-white text-[18px] placeholder-white/40 outline-none font-medium tracking-wide px-2"
             style={{
               fontFamily: `'Inter', system-ui, sans-serif`,
               textRendering: 'optimizeLegibility',
+              WebkitFontSmoothing: 'antialiased',
             }}
           />
 
           <button
             onClick={sendMessage}
-            className={`w-[42px] h-[42px] rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/10 shadow-[0_0_12px_#00ffff44] transition-all duration-200 hover:shadow-[0_0_24px_#00ffff66] ${
+            aria-label="Send"
+            className={`w-[42px] h-[42px] rounded-full grid place-items-center border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_0_10px_#00ffff44] hover:shadow-[0_0_20px_#00ffff66] transition-all ${
               loading ? 'animate-spin' : 'hover:scale-105'
             }`}
-            aria-label="Send"
           >
-            <div className="w-2.5 h-2.5 bg-cyan-300 rounded-full animate-ping" />
+            <div className="w-[10px] h-[10px] bg-cyan-300 rounded-full animate-ping" />
           </button>
         </div>
       </div>

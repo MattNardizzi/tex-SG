@@ -3,15 +3,14 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function MutationLogPanel() {
+export default function SovereignSwarmPanel() {
   const [logs, setLogs] = useState<string[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pulseKey, setPulseKey] = useState(0);
 
   useEffect(() => {
     const pushLog = () => {
       const newLog = generateLog();
-      setLogs((prev) => [newLog, ...prev.slice(0, 2)]);
+      setLogs((prev) => [newLog, ...prev.slice(0, 3)]);
       setPulseKey((prev) => prev + 1);
     };
 
@@ -22,32 +21,25 @@ export default function MutationLogPanel() {
 
   return (
     <div
-      className="w-[310px] px-5 py-4 rounded-xl backdrop-blur-md bg-black/30 border border-white/10 text-white space-y-3"
-      style={{
-        fontFamily: `'Inter', system-ui, sans-serif`,
-        WebkitFontSmoothing: 'antialiased',
-        MozOsxFontSmoothing: 'grayscale',
-        textRendering: 'optimizeLegibility',
-        boxShadow: '0 0 20px #00ffff0f',
-      }}
+      className="w-[340px] px-5 py-5 rounded-2xl backdrop-blur-md bg-black/30 border border-white/10 shadow-[inset_0_0_2px_#ffffff10,_0_0_14px_#00ffff10] text-white space-y-5"
+      style={{ fontFamily: `'Inter', system-ui, sans-serif` }}
     >
       {/* Title */}
-      <div
-        className="text-[16px] font-semibold uppercase tracking-wide text-cyan-300"
-        style={{
-          textShadow: `
-            0 0 5px #00ffffaa,
-            0 0 12px #00ffff55,
-            0 0 20px #00ffff33
-          `,
-          letterSpacing: '0.05em',
-        }}
-      >
-        TEX: MUTATION LOG
+      <div className="text-[16px] font-semibold uppercase tracking-wide text-cyan-300"
+        style={{ textShadow: `0 0 5px #00ffffaa, 0 0 12px #00ffff55, 0 0 20px #00ffff33` }}>
+        Sovereign Swarm Panel
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-y-2 text-sm">
+        <Stat label="Swarm Size" value="27" />
+        <Stat label="Dominant Emotion" value="Resolve" glow="#00ffee" />
+        <Stat label="Risk Bias" value="Aggressive" glow="#ff4d4d" />
+        <Stat label="Drift Score" value="0.48" glow="#ffd966" />
       </div>
 
       {/* Logs */}
-      <div className="h-[105px] overflow-hidden space-y-1.5 text-[13.5px] leading-snug tracking-wide">
+      <div className="h-[120px] overflow-hidden space-y-1.5 text-[13.5px] leading-snug tracking-wide">
         <AnimatePresence initial={false}>
           {logs.map((log, i) => (
             <motion.div
@@ -69,7 +61,26 @@ export default function MutationLogPanel() {
 
       {/* Footer */}
       <div className="pt-1 text-[12px] text-right text-white/30 italic tracking-wider">
-        Cognitive Mutation Uplink
+        Swarm Cognitive Feed
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value, glow }: { label: string, value: string, glow?: string }) {
+  return (
+    <div className="flex flex-col">
+      <div className="text-white/50 text-[12px] uppercase tracking-wide">{label}</div>
+      <div
+        className="text-[14.5px] font-medium"
+        style={{
+          color: glow || '#ffffff',
+          textShadow: glow
+            ? `0 0 4px ${glow}55, 0 0 8px ${glow}44`
+            : 'none',
+        }}
+      >
+        {value}
       </div>
     </div>
   );
@@ -91,6 +102,7 @@ function generateLog(): string {
     'Trait rewrite: greed suppressed',
     'Cortex divergence: Agent 3',
     'Swarm snapshot: 22:47:01',
+    'Drift signal: resolve ↑ +0.25',
   ];
   return samples[Math.floor(Math.random() * samples.length)];
 }

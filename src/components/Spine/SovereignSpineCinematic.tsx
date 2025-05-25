@@ -29,12 +29,13 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0)); // razor core
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // razor-sharp core
   }
 
   float helixWrap(float x, float y, float t) {
-    float offset = 0.12 * sin(y * 40.0 + t * 8.0);
-    return exp(-pow((x - 0.5 - offset) * 30.0, 2.0)); // subtle orbit
+    float offset = 0.06 * sin(y * 40.0 + t * 8.0); // tighter orbit
+    float dist = abs(x - 0.5 - offset);
+    return pow(1.0 - smoothstep(0.0, 0.02, dist), 2.5); // sharper line
   }
 
   float taperFade(float y) {
@@ -54,15 +55,15 @@ const fragmentShader = `
     float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
     float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
-    float core = crystalCore(vUv.x);
-    float helix = helixWrap(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.14;
+    float core = crystalCore(vUv.x);                      // dominant
+    float helix = helixWrap(vUv.x, vUv.y, t) * 0.25;      // subtle shimmer
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.1;
 
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
 
     float total =
-      (core * 1.7 + helix * 0.4 + aura) *
+      (core * 1.75 + helix + aura) *
       shimmer * flicker * pulse *
       fadeY * fadeRadial;
 

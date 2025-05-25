@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 
 export default function SovereignStatusPanel() {
   const [forkstreamData, setForkstreamData] = useState([
-    { label: 'Dominant Trait', value: 'Loading...' },
     { label: 'Agent Focus', value: 'Loading...' },
     { label: 'Swarm Status', value: 'Loading...' },
   ]);
@@ -16,7 +15,6 @@ export default function SovereignStatusPanel() {
       try {
         const data = JSON.parse(event.data);
         setForkstreamData([
-          { label: 'Dominant Trait', value: data.dominant_trait || '—' },
           { label: 'Agent Focus', value: data.agent_focus || '—' },
           {
             label: 'Swarm Status',
@@ -34,7 +32,7 @@ export default function SovereignStatusPanel() {
   }, []);
 
   return (
-    <div className="w-[300px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5 text-base text-white">
+    <div className="w-[320px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5 text-base text-white">
       {/* Header */}
       <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider">
         TEX: SOVEREIGN COGNITION

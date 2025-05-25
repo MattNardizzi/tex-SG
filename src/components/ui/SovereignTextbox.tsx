@@ -60,12 +60,12 @@ export default function SovereignTextbox() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
           placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
-          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-sm tracking-wide py-1"
+          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-base tracking-wide py-1"
           disabled={loading}
         />
         <button
           onClick={sendMessage}
-          className={`w-[22px] h-[22px] rounded-full relative ${
+          className={`w-[26px] h-[26px] rounded-full relative ${
             loading ? 'animate-spin' : 'animate-pulse'
           } bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa]`}
           aria-label="Send"

@@ -9,24 +9,27 @@ export default function MutationLogPanel() {
     setLogs([generateLog(), generateLog(), generateLog()]);
     const interval = setInterval(() => {
       const newLog = generateLog();
-      setLogs((prev) => [newLog, ...prev.slice(0, 2)]); // keep only 3 logs
+      setLogs((prev) => [newLog, ...prev.slice(0, 2)]);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="w-[300px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5">
-      {/* Header with glow */}
-      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider drop-shadow-[0_0_6px_#00ffffaa]">
+    <div className="w-[280px] bg-black/70 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.06)] space-y-4">
+      {/* Header with true glow */}
+      <div
+        className="text-[15px] text-cyan-300 font-bold uppercase tracking-wider"
+        style={{ textShadow: '0 0 6px rgba(0, 255, 255, 0.5)' }}
+      >
         TEX: MUTATION LOG
       </div>
 
-      {/* Mutation Logs */}
-      <div className="h-[100px] overflow-hidden space-y-2">
+      {/* Logs */}
+      <div className="h-[90px] overflow-hidden space-y-1.5">
         {logs.map((log, idx) => (
           <div
             key={idx}
-            className="text-[16px] text-white font-normal leading-snug break-words"
+            className="text-[14px] text-white font-normal leading-snug break-words"
           >
             {log}
           </div>
@@ -34,7 +37,7 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-2 text-[12px] text-right text-white/50 italic">
+      <div className="pt-1 text-[11px] text-right text-white/40 italic">
         Cognitive Mutation Log
       </div>
     </div>

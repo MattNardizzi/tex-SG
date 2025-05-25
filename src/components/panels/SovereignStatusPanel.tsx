@@ -32,20 +32,24 @@ export default function SovereignStatusPanel() {
   }, []);
 
   return (
-    <div className="w-[280px] bg-black/70 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.06)] space-y-4 text-white">
-      {/* Header with glow */}
+    <div
+      className="w-[280px] bg-black/70 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.06)] space-y-4 antialiased text-white"
+      style={{ textRendering: 'optimizeLegibility', WebkitFontSmoothing: 'antialiased' }}
+    >
+      {/* Glowing Header */}
       <div
         className="text-[15px] text-cyan-300 font-bold uppercase tracking-wider"
-        style={{ textShadow: '0 0 6px rgba(0, 255, 255, 0.5)' }}
+        style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.4)' }}
       >
         TEX: SOVEREIGN COGNITION
       </div>
 
+      {/* Subheading */}
       <div className="text-[11px] text-white/50 tracking-wide">
         Godmind · Forkstream ⑂
       </div>
 
-      {/* Data Rows */}
+      {/* Animated Data Rows */}
       <div className="space-y-2">
         {forkstreamData.map((item, idx) => (
           <motion.div
@@ -53,7 +57,7 @@ export default function SovereignStatusPanel() {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="text-[14px] leading-tight"
+            className="text-[13.5px] leading-tight"
           >
             <div className="flex flex-col">
               <span className="text-white">{item.label}</span>

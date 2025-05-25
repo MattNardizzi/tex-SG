@@ -29,17 +29,17 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 80.0, 2.0));
+    return exp(-pow((x - 0.5) * 100.0, 2.0));
   }
 
   float helix(float x, float y, float t) {
-    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0);
+    float ripple = sin(y * 36.0 + t * 8.0 + x * 40.0);
     return 0.5 + 0.5 * ripple;
   }
 
   float breachMask(float y) {
-    float fadeTop = smoothstep(0.95, 0.7, y);
-    float fadeBottom = smoothstep(0.05, 0.3, y);
+    float fadeTop = smoothstep(0.97, 0.75, y);
+    float fadeBottom = smoothstep(0.03, 0.25, y);
     return fadeTop * fadeBottom;
   }
 
@@ -52,10 +52,10 @@ const fragmentShader = `
 
     float core = crystalCore(vUv.x);
     float helixWrap = helix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
+    float aura = smoothstep(0.3, 0.0, abs(vUv.x - 0.5)) * 0.2;
 
     float breach = breachMask(vUv.y);
-    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * breach;
+    float total = (core * 1.5 + helixWrap * 0.2 + aura) * shimmer * flicker * pulse * breach;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;

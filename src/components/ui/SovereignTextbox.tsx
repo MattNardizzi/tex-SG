@@ -24,13 +24,14 @@ export default function SovereignTextbox() {
     try {
       const res = await fetch('https://fc2c-13-58-212-225.ngrok-free.app/think', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ prompt: input }),
       });
 
       const data = await res.json();
       const reply = data.response || '⚠️ No response received.';
-
       setMessages([...updated, { sender: 'tex', text: reply }]);
     } catch (err) {
       console.error('[TEX ERROR]', err);

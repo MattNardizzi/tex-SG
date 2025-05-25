@@ -28,14 +28,13 @@ const fragmentShader = `
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
   }
 
-  float plasmaCore(float x) {
+  float crystalCore(float x) {
     return exp(-pow((x - 0.5) * 90.0, 2.0));
   }
 
   float helix(float x, float y, float t) {
-    float wave1 = sin(y * 48.0 + x * 50.0 + t * 6.0);
-    float wave2 = sin(y * 48.0 - x * 50.0 - t * 6.0);
-    return 0.5 + 0.25 * wave1 * wave2;
+    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0);
+    return 0.5 + 0.5 * ripple;
   }
 
   float taperFade(float y) {
@@ -45,29 +44,24 @@ const fragmentShader = `
   }
 
   float radialFade(vec2 uv) {
-    return smoothstep(0.52, 0.08, length(uv - vec2(0.5)));
-  }
-
-  float emotionFlare(float t, float b) {
-    return b > 0.96 ? 0.05 * sin(t * 15.0) : 0.0;
+    return smoothstep(0.52, 0.1, length(uv - vec2(0.5)));
   }
 
   void main() {
     float t = time;
 
-    float pulse = 0.88 + 0.12 * sin(t * 2.2);
-    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 3.5));
-    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 70.0);
+    float pulse = 0.88 + 0.12 * sin(t * 2.5);
+    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
+    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
-    float core = plasmaCore(vUv.x);
-    float spiral = helix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.35, 0.0, abs(vUv.x - 0.5)) * 0.25;
+    float core = crystalCore(vUv.x);
+    float helixWrap = helix(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
-    float flare = emotionFlare(t, blendFactor);
 
-    float total = (core * 1.4 + spiral * 0.4 + aura + flare) * pulse * flicker * shimmer * fadeY * fadeRadial;
+    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -115,7 +109,7 @@ export default function SovereignSpineCinematic() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.04 * Math.sin(t * 3.0);
+    const scale = 1 + 0.04 * Math.sin(t * 2.5);
     if (meshRef.current) {
       meshRef.current.scale.set(scale, 1 + scale * 0.08, 1);
     }
@@ -123,7 +117,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 3.6]} /> {/* ← Shortened height */}
+      <planeGeometry args={[0.42, 3.6]} /> {/* shortened height */}
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

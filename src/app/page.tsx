@@ -1,6 +1,6 @@
 'use client';
 
-import MutationLogPanel from '@/components/panels/MutationLogPanel';
+import { MutationLogPanelR3F } from '@/components/panels/FiberPanels';
 import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
 import SpineCanvas from '@/components/Spine/SpineCanvas';
 import MarketTicker from '@/components/ui/MarketTicker';
@@ -14,7 +14,7 @@ export default function Page() {
 
       {/* ✅ Left Panel */}
       <div className="absolute top-20 left-8 z-20">
-        <MutationLogPanel />
+      <MutationLogPanelR3F />
       </div>
 
       {/* ✅ Right Panel */}

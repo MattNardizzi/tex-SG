@@ -15,18 +15,18 @@ export default function MutationLogPanel() {
   }, []);
 
   return (
-    <div className="w-[340px] bg-black/70 border border-white/10 rounded-xl p-6 backdrop-blur-lg shadow-[0_0_10px_rgba(0,255,255,0.12)] text-base space-y-3">
+    <div className="w-[340px] bg-black/70 border border-white/10 rounded-xl p-6 backdrop-blur-lg shadow-[0_0_10px_rgba(0,255,255,0.12)] text-base space-y-4">
       {/* Header */}
-      <div className="text-[14px] text-cyan-300 font-semibold uppercase tracking-wide">
+      <div className="text-[17px] text-cyan-300 font-semibold uppercase tracking-wider">
         TEX: MUTATION LOG
       </div>
 
       {/* Fixed Height Log Section */}
-      <div className="h-[120px] overflow-hidden space-y-1">
+      <div className="h-[140px] overflow-hidden space-y-2">
         {logs.map((log, idx) => (
           <div
             key={idx}
-            className="text-[13px] text-white font-normal leading-snug break-words"
+            className="text-[16px] text-white font-normal leading-snug break-words"
           >
             {log}
           </div>
@@ -34,7 +34,7 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-3 text-[11px] text-right text-white/60 italic">
+      <div className="pt-3 text-[12px] text-right text-white/60 italic">
         Cognitive Mutation Log
       </div>
     </div>

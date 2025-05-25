@@ -60,24 +60,30 @@ export default function SovereignTextbox() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
           placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
-          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-base tracking-wide py-1"
+          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-[18px] tracking-wide py-1"
           disabled={loading}
         />
         <button
           onClick={sendMessage}
-          className={`w-[26px] h-[26px] rounded-full relative ${
+          className={`w-[34px] h-[34px] rounded-full relative ${
             loading ? 'animate-spin' : 'animate-pulse'
-          } bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa]`}
+          } bg-[#1a1a1a] shadow-[0_0_12px_#ccccccbb] p-0`}
           aria-label="Send"
         >
-          <svg width="100%" height="100%" viewBox="0 0 100 100" className="text-[#cccccc]">
+          <svg
+            width="100%"
+            height="100%"
+            viewBox="0 0 100 100"
+            className="text-[#cccccc]"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+          >
             <circle
               cx="50"
               cy="50"
               r="38"
-              stroke="currentColor"
-              strokeWidth="3.5"
-              fill="none"
               strokeDasharray="270"
               strokeDashoffset="30"
             />

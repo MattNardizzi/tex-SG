@@ -5,7 +5,8 @@ import { Suspense, useEffect, useRef, useMemo } from 'react';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { useEmotionState, Emotion } from '@/lib/emotionState';
 import SovereignSpineCinematic from './SovereignSpineCinematic';
-import { MutationLogPanelR3F, SovereignStatusPanelR3F, SovereignTextboxR3F } from '@/components/panels/FiberPanels';
+// 🔒 Temporarily disabled R3F HUD panels to fix build
+// import { MutationLogPanelR3F, SovereignStatusPanelR3F, SovereignTextboxR3F } from '@/components/panels/FiberPanels';
 
 interface SpineCanvasProps {
   className?: string;
@@ -55,10 +56,12 @@ export default function SpineCanvas({ className = '' }: SpineCanvasProps) {
             <SovereignSpineCinematic />
           </group>
 
-          {/* 🧠 R3F HUD Elements */}
+          {/* 🧠 R3F HUD Elements (Temporarily disabled for deployment) */}
+          {/*
           <MutationLogPanelR3F />
           <SovereignStatusPanelR3F />
           <SovereignTextboxR3F />
+          */}
 
           <EffectComposer>
             <Bloom luminanceThreshold={0.4} luminanceSmoothing={0.15} intensity={1.1} />

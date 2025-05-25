@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { MutationLogPanelR3F as MutationLogPanel } from '@/components/panels/FiberPanels';
-import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
+// 🔒 Temporarily disable to fix build
+// import { MutationLogPanelR3F as MutationLogPanel } from '@/components/panels/FiberPanels';
+// import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
 import MarketTicker from '@/components/ui/MarketTicker';
 import SovereignTextbox from '@/components/ui/SovereignTextbox';
 
@@ -17,15 +18,16 @@ export default function Page() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Ensure R3F hooks only mount on client
     setIsClient(true);
   }, []);
 
   return (
     <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans antialiased">
+      {/* ✅ Market Ticker */}
       <MarketTicker />
 
-      {/* Panels */}
+      {/* 🔒 Disabled Panels to Fix Deployment */}
+      {/*
       <div className="absolute top-20 left-8 z-20">
         <MutationLogPanel />
       </div>
@@ -33,13 +35,14 @@ export default function Page() {
       <div className="absolute top-20 right-8 z-20 text-right">
         <SovereignStatusPanel />
       </div>
+      */}
 
-      {/* Core 3D Experience */}
+      {/* ✅ Spine Canvas */}
       <div className="absolute inset-0 flex items-center justify-center z-0">
         {isClient && <SpineCanvas />}
       </div>
 
-      {/* Bottom Console */}
+      {/* ✅ Input Console */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-30">
         <SovereignTextbox />
       </div>

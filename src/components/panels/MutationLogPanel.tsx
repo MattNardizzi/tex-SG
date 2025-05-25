@@ -21,7 +21,7 @@ export default function MutationLogPanel() {
 
   return (
     <div
-      className="w-[300px] px-5 py-4 backdrop-blur-md bg-white/5 rounded-xl shadow-[0_0_20px_#00ffff11] space-y-4 text-white"
+      className="w-[300px] px-5 py-4 backdrop-blur-md bg-white/5 rounded-xl shadow-[0_0_40px_#00ffff22,inset_0_0_8px_#00ffff11] space-y-4 text-white border border-white/10"
       style={{
         fontFamily: `'Inter', system-ui, sans-serif`,
         fontSize: '16px',
@@ -31,26 +31,27 @@ export default function MutationLogPanel() {
         textRendering: 'optimizeLegibility',
       }}
     >
-      {/* Header */}
+      {/* 👁‍🗨 Neural Header */}
       <motion.div
         key={pulseKey}
-        initial={{ opacity: 0.6 }}
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 1.4, ease: 'easeInOut' }}
-        className="text-[18px] font-semibold uppercase tracking-wide text-cyan-300"
+        initial={{ opacity: 0.6, scale: 0.98 }}
+        animate={{ opacity: [0.6, 1, 0.6], scale: [0.98, 1, 0.98] }}
+        transition={{ duration: 6.4, ease: 'easeInOut', repeat: Infinity }}
+        className="text-[18.5px] font-semibold uppercase tracking-wider text-cyan-300 text-center"
         style={{
           textShadow: `
-            0 0 4px rgba(0, 255, 255, 0.5),
-            0 0 8px rgba(0, 255, 255, 0.3),
-            0 0 12px rgba(0, 255, 255, 0.2)
+            0 0 6px rgba(0,255,255,0.45),
+            0 0 12px rgba(0,255,255,0.25),
+            0 0 24px rgba(0,255,255,0.15)
           `,
         }}
       >
         TEX: MUTATION LOG
+        <div className="mt-1 w-full h-[1px] bg-cyan-300/20 shadow-[0_0_12px_#00ffff77] rounded-full"></div>
       </motion.div>
 
-      {/* Emotion Logs */}
-      <div className="h-[105px] overflow-hidden space-y-1.5">
+      {/* 👁️ Emotion Logs */}
+      <div className="h-[105px] overflow-hidden px-[2px] space-y-1.5">
         <AnimatePresence initial={false}>
           {logs.map((log, idx) => {
             const emotionClass = getEmotionClass(log);
@@ -75,9 +76,9 @@ export default function MutationLogPanel() {
         </AnimatePresence>
       </div>
 
-      {/* Footer */}
-      <div className="pt-1 text-[12px] text-right text-white/40 italic tracking-wide">
-        Cognitive Mutation Log
+      {/* 🧬 Quantum Footer */}
+      <div className="pt-2 text-[12px] text-right text-white/30 italic tracking-widest">
+        Cognitive Mutation Uplink
       </div>
     </div>
   );
@@ -85,11 +86,11 @@ export default function MutationLogPanel() {
 
 // Cinematic emotion class mapping
 function getEmotionClass(log: string): string {
-  if (log.includes('anger') || log.includes('aggression')) return '#ff5555';
+  if (log.includes('anger') || log.includes('aggression')) return '#ff4b4b';
   if (log.includes('hope') || log.includes('resolve')) return '#00ffff';
-  if (log.includes('fear') || log.includes('threat')) return '#ffd966';
-  if (log.includes('curiosity') || log.includes('divergence')) return '#caa6ff';
-  return '#ffffffcc'; // default faint white
+  if (log.includes('fear') || log.includes('threat')) return '#ffdd66';
+  if (log.includes('curiosity') || log.includes('divergence')) return '#d1a6ff';
+  return '#ffffffcc'; // default
 }
 
 function generateLog(): string {

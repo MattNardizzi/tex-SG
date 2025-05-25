@@ -29,33 +29,32 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 100.0, 2.0));
+    return exp(-pow((x - 0.5) * 80.0, 2.0));
   }
 
   float helix(float x, float y, float t) {
-    float ripple = sin(y * 36.0 + t * 8.0 + x * 40.0);
+    float ripple = sin(y * 40.0 + t * 5.5 + x * 60.0); // tighter and more complex
     return 0.5 + 0.5 * ripple;
   }
 
-  float breachMask(float y) {
-    float fadeTop = smoothstep(0.97, 0.75, y);
-    float fadeBottom = smoothstep(0.03, 0.25, y);
-    return fadeTop * fadeBottom;
+  float taperMask(float y) {
+    float top = smoothstep(0.7, 1.0, y);
+    float bottom = smoothstep(0.3, 0.0, y);
+    return top * bottom;
   }
 
   void main() {
     float t = time;
-
-    float pulse = 0.85 + 0.15 * sin(t * 2.5);
-    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
-    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
+    float pulse = 0.85 + 0.15 * sin(t * 2.0);
+    float flicker = 0.96 + 0.04 * noise(vec2(t * 0.7, vUv.y * 3.5));
+    float shimmer = 0.95 + 0.05 * sin((vUv.y + t * 0.2) * 80.0);
 
     float core = crystalCore(vUv.x);
     float helixWrap = helix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.3, 0.0, abs(vUv.x - 0.5)) * 0.2;
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float breach = breachMask(vUv.y);
-    float total = (core * 1.5 + helixWrap * 0.2 + aura) * shimmer * flicker * pulse * breach;
+    float taper = taperMask(vUv.y);
+    float total = (core * 1.5 + helixWrap * 0.35 + aura) * shimmer * flicker * pulse * taper;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -103,15 +102,15 @@ export default function SovereignFilamentGenesis() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.05 * Math.sin(t * 2.5);
+    const scale = 1 + 0.04 * Math.sin(t * 3.2);
     if (meshRef.current) {
-      meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
+      meshRef.current.scale.set(scale, 1 + scale * 0.08, 1);
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 4.8]} />
+    <mesh ref={meshRef} position={[0, -0.1, 0]}>
+      <planeGeometry args={[0.36, 3.6]} /> {/* ⬅️ shortened height, slightly slimmer */}
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

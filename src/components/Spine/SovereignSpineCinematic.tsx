@@ -29,11 +29,11 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Sparkle = perfect, don't touch
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Sharper sparkle core
   }
 
   float helix(float x, float y, float t) {
-    float ripple = sin(y * 28.0 + t * 6.3 + x * 34.0); // Restore sharp helix
+    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0); // Original sharp helix
     return 0.5 + 0.5 * ripple;
   }
 
@@ -61,7 +61,7 @@ const fragmentShader = `
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
 
-    float total = (core * 1.4 + helixWrap * 0.33 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
+    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -117,7 +117,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 3.6]} /> {/* height = perfect */}
+      <planeGeometry args={[0.42, 3.6]} /> {/* Final locked height */}
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

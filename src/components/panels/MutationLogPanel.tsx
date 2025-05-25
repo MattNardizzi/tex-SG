@@ -15,13 +15,17 @@ export default function MutationLogPanel() {
   }, []);
 
   return (
-    <div className="w-[280px] bg-black/70 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.06)] space-y-4 antialiased text-white"
-         style={{ textRendering: 'optimizeLegibility', WebkitFontSmoothing: 'antialiased' }}>
-      
-      {/* Header with subtle glow */}
+    <div
+      className="w-[280px] px-5 py-4 backdrop-blur-sm bg-white/5 rounded-xl shadow-[0_0_12px_#00ffff11] space-y-4 text-white"
+      style={{
+        textRendering: 'optimizeLegibility',
+        WebkitFontSmoothing: 'antialiased',
+      }}
+    >
+      {/* Header */}
       <div
-        className="text-[15px] font-bold uppercase tracking-wider text-cyan-300"
-        style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.4)' }}
+        className="text-[15px] font-bold uppercase tracking-wide text-cyan-300"
+        style={{ textShadow: '0 0 6px rgba(0,255,255,0.4)' }}
       >
         TEX: MUTATION LOG
       </div>
@@ -31,7 +35,7 @@ export default function MutationLogPanel() {
         {logs.map((log, idx) => (
           <div
             key={idx}
-            className="text-[13.5px] font-light leading-snug text-white"
+            className="text-[13.25px] font-light leading-snug text-white/90"
           >
             {log}
           </div>
@@ -39,7 +43,7 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-1 text-[11px] text-right text-white/40 italic">
+      <div className="pt-1 text-[11px] text-right text-white/40 italic tracking-wide">
         Cognitive Mutation Log
       </div>
     </div>

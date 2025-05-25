@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function MutationLogPanel() {
   const [logs, setLogs] = useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pulseKey, setPulseKey] = useState(0);
 
   useEffect(() => {

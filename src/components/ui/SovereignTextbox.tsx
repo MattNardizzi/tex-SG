@@ -17,7 +17,7 @@ export default function SovereignTextbox() {
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
-    const updated = [...messages, { sender: 'user', text: input }];
+    const updated: Message[] = [...messages, { sender: 'user' as const, text: input }];
     setMessages(updated);
     setLoading(true);
 
@@ -29,9 +29,9 @@ export default function SovereignTextbox() {
       });
       const data = await res.json();
       const reply = data.response || '⚠️ No response received.';
-      setMessages([...updated, { sender: 'tex', text: reply }]);
+      setMessages([...updated, { sender: 'tex' as const, text: reply }]);
     } catch {
-      setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }]);
+      setMessages([...updated, { sender: 'tex' as const, text: '❌ Tex encountered a network error.' }]);
     }
 
     setInput('');
@@ -41,7 +41,6 @@ export default function SovereignTextbox() {
   return (
     <div className="w-full max-w-[420px] px-4">
       <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-4 py-2">
-        
         {/* Message Log */}
         <div className="max-h-28 overflow-y-auto text-xs text-white space-y-0.5 mb-2 px-0.5 font-normal">
           {messages.map((msg, i) => (
@@ -54,7 +53,7 @@ export default function SovereignTextbox() {
           ))}
         </div>
 
-        {/* Input + Pulse Ring Button */}
+        {/* Input + Button */}
         <div className="flex items-center gap-3">
           <input
             type="text"
@@ -65,18 +64,12 @@ export default function SovereignTextbox() {
             className="flex-1 text-sm bg-transparent outline-none text-white placeholder-white/40 tracking-wide py-1.5"
             disabled={loading}
           />
-
           <button
             onClick={sendMessage}
             className={`w-[24px] h-[24px] rounded-full relative ${loading ? 'animate-spin' : 'animate-pulse'} bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa] p-0`}
             aria-label="Send"
           >
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 100 100"
-              className="text-[#cccccc]"
-            >
+            <svg width="100%" height="100%" viewBox="0 0 100 100" className="text-[#cccccc]">
               <circle
                 cx="50"
                 cy="50"

@@ -25,28 +25,32 @@ const fragmentShader = `
   }
 
   float noise(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 80.0, 2.0));
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Sharper sparkle core
   }
 
   float helix(float x, float y, float t) {
-    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0);
+    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0); // Original sharp helix
     return 0.5 + 0.5 * ripple;
   }
 
-  float breachMask(float y) {
-    float fadeTop = smoothstep(0.95, 0.7, y);
-    float fadeBottom = smoothstep(0.05, 0.3, y);
-    return fadeTop * fadeBottom;
+  float taperFade(float y) {
+    float top = smoothstep(1.0, 0.82, y);
+    float bottom = smoothstep(0.0, 0.18, y);
+    return top * bottom;
+  }
+
+  float radialFade(vec2 uv) {
+    return smoothstep(0.52, 0.1, length(uv - vec2(0.5)));
   }
 
   void main() {
     float t = time;
 
-    float pulse = 0.85 + 0.15 * sin(t * 2.5);
+    float pulse = 0.88 + 0.12 * sin(t * 2.5);
     float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
     float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
@@ -54,8 +58,10 @@ const fragmentShader = `
     float helixWrap = helix(vUv.x, vUv.y, t);
     float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float breach = breachMask(vUv.y);
-    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * breach;
+    float fadeY = taperFade(vUv.y);
+    float fadeRadial = radialFade(vUv);
+
+    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -64,7 +70,7 @@ const fragmentShader = `
   }
 `;
 
-export default function SovereignFilamentGenesis() {
+export default function SovereignSpineCinematic() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -103,15 +109,15 @@ export default function SovereignFilamentGenesis() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.05 * Math.sin(t * 2.5);
+    const scale = 1 + 0.04 * Math.sin(t * 2.5);
     if (meshRef.current) {
-      meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
+      meshRef.current.scale.set(scale, 1 + scale * 0.08, 1);
     }
   });
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 4.8]} />
+      <planeGeometry args={[0.42, 3.6]} /> {/* Final locked height */}
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

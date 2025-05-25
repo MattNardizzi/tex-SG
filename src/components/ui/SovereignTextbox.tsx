@@ -30,13 +30,9 @@ export default function SovereignTextbox() {
 
       const data = await res.json();
       const reply = data.response || '⚠️ No response received.';
-
       setMessages([...updated, { sender: 'tex', text: reply }]);
     } catch {
-      setMessages([
-        ...updated,
-        { sender: 'tex', text: '❌ Tex encountered a network error.' },
-      ]);
+      setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }]);
     }
 
     setInput('');
@@ -44,30 +40,31 @@ export default function SovereignTextbox() {
   };
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto mt-8 px-3 z-10">
-      <div className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_0_30px_#00ffff15,inset_0_0_2px_#ffffff09] p-4 flex flex-col space-y-3 transition-all duration-300 focus-within:shadow-[0_0_60px_#00ffff33]">
-        
+    <div className="relative w-full max-w-3xl mx-auto mt-10 px-4 z-10">
+      <div
+        className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-5 space-y-4 shadow-[0_0_40px_#00ffff22,inset_0_0_3px_#00ffff33]"
+        style={{
+          transition: 'all 0.3s ease',
+          fontFamily: `'Inter', system-ui, sans-serif`,
+        }}
+      >
         {/* Message Log */}
-        <div className="max-h-[90px] overflow-y-auto px-1 text-sm leading-tight font-light tracking-wide text-white/90 space-y-2">
+        <div className="max-h-[90px] overflow-y-auto text-sm text-white/90 leading-snug tracking-wide space-y-1.5 px-1">
           {messages.map((msg, i) => (
             <div
               key={i}
-              className={`relative transition-all px-2 py-1 rounded-md ${
-                msg.sender === 'user'
-                  ? 'text-cyan-300 bg-white/5 border border-cyan-500/10'
-                  : 'text-gray-300 bg-white/5 border border-white/5'
+              className={`transition-all ${
+                msg.sender === 'user' ? 'text-cyan-300' : 'text-gray-300'
               }`}
             >
-              <span className="font-medium">
-                {msg.sender === 'user' ? 'You' : 'Tex'}:
-              </span>{' '}
+              <span className="font-medium">{msg.sender === 'user' ? 'You' : 'Tex'}:</span>{' '}
               {msg.text}
             </div>
           ))}
         </div>
 
         {/* Input + Send */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <input
             type="text"
             value={input}
@@ -75,9 +72,8 @@ export default function SovereignTextbox() {
             onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
             disabled={loading}
-            className="flex-1 bg-transparent text-white text-[17px] tracking-wide outline-none placeholder-white/40 px-2 py-1 font-medium border-b border-white/10 focus:border-cyan-400 transition-all duration-200"
+            className="flex-1 bg-transparent text-white text-[17px] tracking-wide outline-none placeholder-white/40 px-3 py-2 font-medium"
             style={{
-              fontFamily: `'Inter', system-ui, sans-serif`,
               textRendering: 'optimizeLegibility',
               WebkitFontSmoothing: 'antialiased',
             }}
@@ -85,16 +81,17 @@ export default function SovereignTextbox() {
 
           <button
             onClick={sendMessage}
-            className={`w-[40px] h-[40px] rounded-full grid place-items-center bg-black/30 backdrop-blur-sm border border-white/10 shadow-[0_0_10px_#00ffff33] transition-all duration-200 ${
-              loading ? 'animate-pulse' : 'hover:shadow-[0_0_24px_#00ffff66] hover:scale-105'
+            className={`w-[42px] h-[42px] rounded-full relative grid place-items-center bg-black/40 backdrop-blur-sm border border-white/10 shadow-[0_0_8px_#00ffff33] transition-all duration-200 ${
+              loading ? 'animate-pulse' : 'hover:shadow-[0_0_20px_#00ffff88] hover:scale-105'
             }`}
             aria-label="Send"
           >
-            {loading ? (
-              <div className="w-2.5 h-2.5 bg-cyan-300 rounded-full animate-ping" />
-            ) : (
-              <div className="w-[10px] h-[10px] bg-cyan-300 rounded-full shadow-[0_0_8px_#00ffffaa]" />
-            )}
+            <div
+              className="w-[10px] h-[10px] bg-cyan-300 rounded-full"
+              style={{
+                boxShadow: '0 0 6px rgba(0,255,255,0.5)',
+              }}
+            />
           </button>
         </div>
       </div>

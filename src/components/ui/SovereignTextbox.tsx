@@ -39,10 +39,10 @@ export default function SovereignTextbox() {
   };
 
   return (
-    <div className="w-full max-w-[560px] px-4 mt-[-50px]">
-      <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-6 py-3.5">
-        {/* Message Log */}
-        <div className="max-h-36 overflow-y-auto text-xs text-white space-y-1 mb-3 px-0.5 font-normal">
+    <div className="w-full max-w-[500px] px-4 mt-[-20px]">
+      <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-5 py-4 min-h-[180px]">
+        {/* Message Log (taller) */}
+        <div className="max-h-[100px] overflow-y-auto text-xs text-white space-y-1 mb-3 px-0.5 font-normal">
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -54,7 +54,7 @@ export default function SovereignTextbox() {
         </div>
 
         {/* Input + Button */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 mt-auto">
           <input
             type="text"
             value={input}

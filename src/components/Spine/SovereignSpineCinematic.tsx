@@ -28,14 +28,14 @@ const fragmentShader = `
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
   }
 
-  float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0));
+  float plasmaCore(float x) {
+    return exp(-pow((x - 0.5) * 100.0, 2.0));
   }
 
   float dualHelix(float x, float y, float t) {
-    float h1 = sin(y * 48.0 + x * 60.0 + t * 8.0);
-    float h2 = sin(y * 48.0 - x * 60.0 - t * 8.0);
-    return 0.5 + 0.25 * h1 * h2;
+    float a = sin(y * 42.0 + x * 60.0 + t * 6.5);
+    float b = sin(y * 42.0 - x * 60.0 - t * 6.5);
+    return 0.5 + 0.25 * a * b;
   }
 
   float taperFade(float y) {
@@ -45,36 +45,38 @@ const fragmentShader = `
   }
 
   float radialFade(vec2 uv) {
-    return smoothstep(0.5, 0.1, length(uv - vec2(0.5)));
+    return smoothstep(0.52, 0.1, length(uv - vec2(0.5)));
+  }
+
+  float flarePulse(float t, float blend) {
+    return blend > 0.98 ? 0.06 * sin(t * 20.0) : 0.0;
   }
 
   void main() {
     float t = time;
 
     float pulse = 0.85 + 0.15 * sin(t * 2.5);
-    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
-    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
+    float flicker = 0.96 + 0.04 * noise(vec2(t * 0.5, vUv.y * 5.0));
+    float shimmer = 0.95 + 0.05 * sin((vUv.y + t * 0.3) * 80.0);
 
-    float core = crystalCore(vUv.x);
+    float core = plasmaCore(vUv.x);
     float helix = dualHelix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.35, 0.0, abs(vUv.x - 0.5)) * 0.25;
+    float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float fadeY = taperFade(vUv.y);
-    float fadeRadial = radialFade(vUv);
-    float total = (core * 1.6 + helix * 0.25 + aura) * pulse * shimmer * flicker * fadeY * fadeRadial;
+    float taper = taperFade(vUv.y);
+    float radial = radialFade(vUv);
+    float flare = flarePulse(t, blendFactor);
 
-    if (blendFactor > 0.95) {
-      total += 0.05 * sin(t * 12.0); // Emotion threshold flare
-    }
+    float total = (core * 1.7 + helix * 0.3 + aura + flare) * taper * radial * pulse * shimmer * flicker;
 
-    vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 color = normalize(blend + 0.0001) * total;
+    vec3 blendedColor = mix(currentColor, targetColor, easeInOut(blendFactor));
+    vec3 color = normalize(blendedColor + 0.0001) * total;
 
     gl_FragColor = vec4(color, total);
   }
 `;
 
-export default function SovereignFilamentGenesis() {
+export default function SovereignSpineCinematic() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -113,7 +115,7 @@ export default function SovereignFilamentGenesis() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.04 * Math.sin(t * 2.5);
+    const scale = 1 + 0.04 * Math.sin(t * 3.0);
     if (meshRef.current) {
       meshRef.current.scale.set(scale, 1 + scale * 0.08, 1);
     }
@@ -121,7 +123,7 @@ export default function SovereignFilamentGenesis() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 4.8]} />
+      <planeGeometry args={[0.44, 4.8]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

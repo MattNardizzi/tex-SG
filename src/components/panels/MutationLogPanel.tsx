@@ -21,8 +21,13 @@ export default function MutationLogPanel() {
 
   return (
     <div
-      className="w-[290px] px-5 py-4 backdrop-blur-md bg-white/5 rounded-xl shadow-[0_0_20px_#00ffff11] space-y-4 text-white"
-      style={{ textRendering: 'optimizeLegibility', WebkitFontSmoothing: 'antialiased' }}
+      className="w-[290px] px-5 py-4 backdrop-blur-md bg-white/5 rounded-xl shadow-[0_0_20px_#00ffff11] space-y-4 text-white antialiased subpixel-antialiased"
+      style={{
+        textRendering: 'optimizeLegibility',
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+        fontFamily: `'Inter', system-ui, sans-serif`,
+      }}
     >
       {/* Header with flicker pulse */}
       <motion.div
@@ -30,7 +35,7 @@ export default function MutationLogPanel() {
         initial={{ opacity: 0.6 }}
         animate={{ opacity: [0.6, 1, 0.6] }}
         transition={{ duration: 1.2, ease: 'easeInOut' }}
-        className="text-[15px] font-bold uppercase tracking-wider text-cyan-300"
+        className="text-[16px] font-bold uppercase tracking-wider text-cyan-300"
         style={{ textShadow: '0 0 6px rgba(0,255,255,0.4)' }}
       >
         TEX: MUTATION LOG
@@ -46,7 +51,7 @@ export default function MutationLogPanel() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className={`text-[13.25px] font-light leading-snug ${getEmotionClass(log)}`}
+              className={`text-[14.25px] font-light leading-snug ${getEmotionClass(log)}`}
             >
               {log}
             </motion.div>
@@ -55,7 +60,7 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-1 text-[11px] text-right text-white/40 italic tracking-wide">
+      <div className="pt-1 text-[12px] text-right text-white/40 italic tracking-wide">
         Cognitive Mutation Log
       </div>
     </div>

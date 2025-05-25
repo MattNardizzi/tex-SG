@@ -3,74 +3,114 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
+interface TelemetryData {
+  label: string;
+  value: string;
+  emotion?: string;
+}
+
 export default function SovereignStatusPanel() {
-  const [forkstreamData, setForkstreamData] = useState([
-    { label: 'Agent Focus', value: 'Loading...' },
-    { label: 'Swarm Status', value: 'Loading...' },
+  const [telemetry, setTelemetry] = useState<TelemetryData[]>([
+    { label: 'Agent Focus', value: 'Initializing...', emotion: 'neutral' },
+    { label: 'Swarm Sync', value: 'Awaiting signal...', emotion: 'neutral' },
   ]);
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:8000/ws/tex');
+    const wsUrl =
+      process.env.NEXT_PUBLIC_WS_URL?.replace('http', 'ws') ||
+      'ws://localhost:8000/ws/tex';
+
+    const socket = new WebSocket(wsUrl);
+
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        setForkstreamData([
-          { label: 'Agent Focus', value: data.agent_focus || '—' },
+        setTelemetry([
           {
-            label: 'Swarm Status',
+            label: 'Agent Focus',
+            value: data.agent_focus || '—',
+            emotion: data.emotion || 'curious',
+          },
+          {
+            label: 'Swarm Sync',
             value: `Coherence ${Math.round((data.coherence || 0) * 100)}%`,
+            emotion: data.coherence > 0.8 ? 'hope' : data.coherence > 0.5 ? 'fear' : 'anger',
           },
         ]);
       } catch (err) {
-        console.error('WebSocket parse error:', err);
+        console.error('[TELEMETRY PARSE ERROR]', err);
       }
     };
+
     socket.onerror = (e) => {
-      console.error('WebSocket error:', e);
+      console.error('[WEBSOCKET ERROR]', e);
     };
-    return () => socket.close();
+
+    return () => {
+      socket.close();
+    };
   }, []);
 
   return (
     <div
-      className="w-[280px] bg-black/70 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.06)] space-y-4 antialiased text-white"
-      style={{ textRendering: 'optimizeLegibility', WebkitFontSmoothing: 'antialiased' }}
+      className="w-[300px] bg-gradient-to-b from-black/80 to-zinc-900/60 border border-white/10 rounded-2xl p-6 text-white backdrop-blur-lg shadow-[0_0_16px_rgba(0,255,255,0.08)] space-y-6"
+      style={{
+        textRendering: 'optimizeLegibility',
+        WebkitFontSmoothing: 'antialiased',
+      }}
     >
-      {/* Glowing Header */}
+      {/* Title */}
       <div
-        className="text-[15px] text-cyan-300 font-bold uppercase tracking-wider"
-        style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.4)' }}
+        className="text-[15px] text-cyan-300 font-bold uppercase tracking-widest"
+        style={{ textShadow: '0 0 6px rgba(0,255,255,0.4)' }}
       >
-        TEX: SOVEREIGN COGNITION
+        NEURO TELEMETRY
       </div>
 
-      {/* Subheading */}
-      <div className="text-[11px] text-white/50 tracking-wide">
-        Godmind · Forkstream ⑂
+      {/* Subtitle */}
+      <div className="text-[11px] text-white/40 tracking-wide italic">
+        Cognitive Sync · Agentic Pulse
       </div>
 
-      {/* Animated Data Rows */}
-      <div className="space-y-2">
-        {forkstreamData.map((item, idx) => (
+      {/* Dynamic Data */}
+      <div className="space-y-3 text-[13.5px]">
+        {telemetry.map((item, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="text-[13.5px] leading-tight"
+            className="flex flex-col"
           >
-            <div className="flex flex-col">
-              <span className="text-white">{item.label}</span>
-              <span className="text-cyan-200 ml-1">{item.value}</span>
-            </div>
+            <span className="text-white">{item.label}</span>
+            <span className={`ml-1 font-mono ${emotionClass(item.emotion)}`}>
+              {item.value}
+            </span>
           </motion.div>
         ))}
       </div>
 
       {/* Footer */}
-      <div className="pt-1 text-[11px] text-right text-white/40 italic">
-        Sovereign Interface · Live Sync
+      <div className="pt-2 text-[11px] text-right text-white/40 italic">
+        Live Signal · Forkstream ⑂
       </div>
     </div>
   );
+}
+
+function emotionClass(emotion?: string): string {
+  switch (emotion) {
+    case 'anger':
+      return 'text-red-400';
+    case 'fear':
+      return 'text-yellow-400';
+    case 'hope':
+      return 'text-green-400';
+    case 'joy':
+      return 'text-pink-400';
+    case 'curious':
+      return 'text-cyan-300';
+    default:
+      return 'text-white/60';
+  }
 }

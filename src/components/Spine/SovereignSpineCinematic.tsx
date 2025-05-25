@@ -14,7 +14,7 @@ const vertexShader = `
   }
 `;
 
-// Fragment Shader: Enhanced Aura + Shimmer + Boost
+// Fragment Shader (Balanced glow, aura, shimmer)
 const fragmentShader = `
   uniform float time;
   uniform vec3 currentColor;
@@ -29,16 +29,16 @@ const fragmentShader = `
   void main() {
     float pulse = 0.75 + 0.25 * sin(time * 2.5);
     float shimmer = 0.95 + 0.05 * sin((vUv.y + time * 0.3) * 40.0);
-    float width = 12.0 + pulse * 5.0;
+    float width = 10.0 + pulse * 4.0;
 
     float xFalloff = exp(-pow((vUv.x - 0.5) * width, 2.0));
     float yTaper = smoothstep(0.05, 0.5, vUv.y) * smoothstep(0.95, 0.5, vUv.y);
-    float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.45;
+    float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.3;
 
     float base = xFalloff * yTaper * pulse * shimmer + aura;
 
     vec3 blendedColor = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 finalColor = normalize(blendedColor + 0.001) * base * 1.2;
+    vec3 finalColor = normalize(blendedColor + 0.001) * base;
 
     gl_FragColor = vec4(finalColor, base);
   }
@@ -91,7 +91,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.175, 0]}>
-      <planeGeometry args={[0.6, 4.5]} />
+      <planeGeometry args={[0.4, 4.5]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

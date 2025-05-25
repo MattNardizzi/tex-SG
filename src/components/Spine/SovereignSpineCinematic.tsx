@@ -29,13 +29,12 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0)); // razor-sharp core
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Enhanced sparkle beam
   }
 
-  float helixWrap(float x, float y, float t) {
-    float offset = 0.06 * sin(y * 40.0 + t * 8.0); // tighter orbit
-    float dist = abs(x - 0.5 - offset);
-    return pow(1.0 - smoothstep(0.0, 0.02, dist), 2.5); // sharper line
+  float helix(float x, float y, float t) {
+    float ripple = sin(y * 36.0 + t * 8.0 + x * 40.0); // Best helix motion
+    return 0.5 + 0.5 * ripple;
   }
 
   float taperFade(float y) {
@@ -55,17 +54,14 @@ const fragmentShader = `
     float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
     float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
-    float core = crystalCore(vUv.x);                      // dominant
-    float helix = helixWrap(vUv.x, vUv.y, t) * 0.25;      // subtle shimmer
-    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.1;
+    float core = crystalCore(vUv.x);
+    float helixWrap = helix(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.3, 0.0, abs(vUv.x - 0.5)) * 0.16;
 
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
 
-    float total =
-      (core * 1.75 + helix + aura) *
-      shimmer * flicker * pulse *
-      fadeY * fadeRadial;
+    float total = (core * 1.6 + helixWrap * 0.25 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;

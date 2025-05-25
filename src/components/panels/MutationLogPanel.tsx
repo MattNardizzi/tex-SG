@@ -31,7 +31,7 @@ export default function MutationLogPanel() {
         textRendering: 'optimizeLegibility',
       }}
     >
-      {/* Header with pulse */}
+      {/* Header */}
       <motion.div
         key={pulseKey}
         initial={{ opacity: 0.6 }}
@@ -43,25 +43,29 @@ export default function MutationLogPanel() {
         TEX: MUTATION LOG
       </motion.div>
 
-      {/* Animated Logs */}
+      {/* Emotion Logs */}
       <div className="h-[105px] overflow-hidden space-y-1.5">
         <AnimatePresence initial={false}>
-          {logs.map((log, idx) => (
-            <motion.div
-              key={log + idx}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className={`text-white ${getEmotionClass(log)}`}
-              style={{
-                fontWeight: 300,
-                letterSpacing: '0.01em',
-              }}
-            >
-              {log}
-            </motion.div>
-          ))}
+          {logs.map((log, idx) => {
+            const emotionClass = getEmotionClass(log);
+            return (
+              <motion.div
+                key={log + idx}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="text-white"
+                style={{
+                  color: emotionClass,
+                  fontWeight: 300,
+                  letterSpacing: '0.01em',
+                }}
+              >
+                {log}
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </div>
 
@@ -73,16 +77,15 @@ export default function MutationLogPanel() {
   );
 }
 
-// Emotion highlighting
+// Cinematic emotion class mapping
 function getEmotionClass(log: string): string {
-  if (log.includes('anger') || log.includes('aggression')) return 'text-red-400';
-  if (log.includes('hope') || log.includes('resolve')) return 'text-cyan-400';
-  if (log.includes('fear') || log.includes('threat')) return 'text-yellow-300';
-  if (log.includes('curiosity') || log.includes('divergence')) return 'text-purple-300';
-  return '';
+  if (log.includes('anger') || log.includes('aggression')) return '#ff5555';
+  if (log.includes('hope') || log.includes('resolve')) return '#00ffff';
+  if (log.includes('fear') || log.includes('threat')) return '#ffd966';
+  if (log.includes('curiosity') || log.includes('divergence')) return '#caa6ff';
+  return '#ffffffcc'; // default faint white
 }
 
-// Log generator
 function generateLog(): string {
   const samples = [
     'Agent 0: aggression spike → 0.63',

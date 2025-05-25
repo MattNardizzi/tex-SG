@@ -115,7 +115,7 @@ export function SovereignTextboxR3F() {
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
-    const updated = [...messages, { sender: 'user', text: input }];
+    const updated: { sender: 'user' | 'tex'; text: string }[] = [...messages, { sender: 'user', text: input }];
     setMessages(updated);
     setLoading(true);
     try {
@@ -172,7 +172,7 @@ export function SovereignTextboxR3F() {
               />
             </svg>
           </button>
-    </div>
+        </div>
       </div>
     </Html>
   );

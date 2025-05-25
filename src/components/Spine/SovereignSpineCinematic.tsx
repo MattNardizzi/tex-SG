@@ -28,34 +28,39 @@ const fragmentShader = `
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
   }
 
-  float fractalPulse(float x, float width) {
-    return exp(-pow((x - 0.5) * width, 2.0));
+  float crystalCore(float x) {
+    return exp(-pow((x - 0.5) * 80.0, 2.0));
   }
 
-  float ghostField(float y, float time) {
-    float decay = smoothstep(0.22, 0.5, y) * smoothstep(0.78, 0.5, y);
-    float pulse = 0.94 + 0.06 * sin(y * 120.0 + time * 5.0);
-    return decay * pulse;
+  float helix(float x, float y, float t) {
+    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0);
+    return 0.5 + 0.5 * ripple;
+  }
+
+  float breachMask(float y) {
+    float fadeTop = smoothstep(0.95, 0.7, y);
+    float fadeBottom = smoothstep(0.05, 0.3, y);
+    return fadeTop * fadeBottom;
   }
 
   void main() {
     float t = time;
-    float pulse = 0.82 + 0.18 * sin(t * 2.4);
-    float flicker = 0.96 + 0.04 * noise(vec2(t * 0.2, vUv.y * 4.0));
-    float shimmer = 0.95 + 0.05 * sin((vUv.y + t * 0.33) * 60.0);
 
-    float core = fractalPulse(vUv.x, 60.0);
-    float sheath = fractalPulse(vUv.x, 16.0);
-    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.3;
+    float pulse = 0.85 + 0.15 * sin(t * 2.5);
+    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
+    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
-    float yMask = ghostField(vUv.y, t);
+    float core = crystalCore(vUv.x);
+    float helixWrap = helix(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float light = (core * 1.3 + sheath + aura) * shimmer * flicker * yMask;
+    float breach = breachMask(vUv.y);
+    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * breach;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 final = normalize(blend + 0.0001) * light;
+    vec3 color = normalize(blend + 0.0001) * total;
 
-    gl_FragColor = vec4(final, light);
+    gl_FragColor = vec4(color, total);
   }
 `;
 
@@ -78,7 +83,7 @@ export default function SovereignFilamentGenesis() {
       threatened: '#ff2222',
       conflicted: '#a64aff',
       enlightened: '#ffffff',
-      asleep: '#555555',
+      asleep: '#444444',
     };
 
     const nextColor = new THREE.Color(emotionColors[emotion] || '#00ccff');
@@ -98,9 +103,9 @@ export default function SovereignFilamentGenesis() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.045 * Math.sin(t * 2.4);
+    const scale = 1 + 0.05 * Math.sin(t * 2.5);
     if (meshRef.current) {
-      meshRef.current.scale.set(scale, 1 + scale * 0.12, 1);
+      meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
     }
   });
 

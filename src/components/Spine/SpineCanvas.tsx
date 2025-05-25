@@ -1,28 +1,67 @@
 'use client';
 
-import SpineCanvas from '../components/Spine/SpineCanvas';
-import MutationLogPanel from '../components/panels/MutationLogPanel';
-import SovereignStatusPanel from '../components/panels/SovereignStatusPanel';
-import SovereignTextbox from '../components/ui/SovereignTextbox';
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useEffect, useRef, useMemo } from 'react';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import SovereignSpineCinematic from '@/components/Spine/SovereignSpineCinematic';
+import { useEmotionState, Emotion } from '@/lib/emotionState';
 
-export default function MainPage() {
+interface SpineCanvasProps {
+  className?: string;
+}
+
+// === Emotion Cycler ===
+function EmotionCycler() {
+  const setEmotion = useEmotionState((state) => state.setEmotion);
+
+  const emotionCycle: Emotion[] = useMemo(
+    () => ['focused', 'curious', 'threatened', 'conflicted', 'enlightened', 'asleep'],
+    []
+  );
+
+  const indexRef = useRef(0);
+
+  useEffect(() => {
+    const startTimeout = setTimeout(() => {
+      setEmotion(emotionCycle[0]);
+    }, 750);
+
+    const interval = setInterval(() => {
+      indexRef.current = (indexRef.current + 1) % emotionCycle.length;
+      setEmotion(emotionCycle[indexRef.current]);
+    }, 4500);
+
+    return () => {
+      clearTimeout(startTimeout);
+      clearInterval(interval);
+    };
+  }, [setEmotion, emotionCycle]);
+
+  return null;
+}
+
+// === Main Spine Canvas ===
+export default function SpineCanvas({ className = '' }: SpineCanvasProps) {
   return (
-    <div className="relative w-full h-screen bg-black font-grotesk overflow-hidden">
-      {/* Live R3F Canvas Scene */}
-      <SpineCanvas />
-
-      {/* UI Panels */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="absolute top-5 left-5 pointer-events-auto">
-          <MutationLogPanel />
-        </div>
-        <div className="absolute top-5 right-5 pointer-events-auto">
-          <SovereignStatusPanel />
-        </div>
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-auto">
-          <SovereignTextbox />
-        </div>
-      </div>
+    <div className={`absolute inset-0 z-0 pointer-events-none ${className}`}>
+      <Canvas
+        gl={{ antialias: true, alpha: true }}
+        camera={{ position: [0, 0, 5], fov: 45 }}
+      >
+        <Suspense fallback={null}>
+          <EmotionCycler />
+          <group position={[0, 0, -2]}>
+            <SovereignSpineCinematic />
+          </group>
+          <EffectComposer>
+            <Bloom
+              luminanceThreshold={0.4}
+              luminanceSmoothing={0.15}
+              intensity={1.1}
+            />
+          </EffectComposer>
+        </Suspense>
+      </Canvas>
     </div>
   );
 }

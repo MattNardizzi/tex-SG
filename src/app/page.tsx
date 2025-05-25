@@ -4,17 +4,14 @@ import { useState } from 'react';
 import MutationLogPanel from '@/components/panels/MutationLogPanel';
 import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
 import SpineCanvas from '@/components/Spine/SpineCanvas';
-import MarketTicker from '@/components/ui/MarketTicker'; // ✅ Make sure this path is correct
+import MarketTicker from '@/components/ui/MarketTicker';
+import SovereignTextbox from '@/components/ui/SovereignTextbox';
 
 export default function Page() {
-  const [input, setInput] = useState('');
-
   return (
     <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans">
-      {/* Global Market Ticker at the very top */}
-      <div className="fixed top-0 left-0 w-full z-50 bg-black/80 px-6 py-2 text-green-400 font-mono text-sm border-b border-white/10 shadow-md backdrop-blur-md flex items-center justify-center gap-6">
-        <MarketTicker />
-      </div>
+      {/* Global Market Ticker */}
+      <MarketTicker />
 
       {/* Left Panel */}
       <div className="absolute top-20 left-8 z-20">
@@ -33,20 +30,7 @@ export default function Page() {
 
       {/* Bottom Textbox */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30">
-        <div className="w-[360px] bg-black/60 border border-white/10 backdrop-blur-md rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.08)] px-4 py-3 flex items-center justify-between">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Speak to Tex..."
-            className="w-full bg-transparent text-white text-sm placeholder-white/30 outline-none"
-          />
-          <button className="ml-3 text-white hover:text-cyan-300 transition-all">
-            <div className="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center shadow-[0_0_6px_rgba(255,255,255,0.2)]">
-              ●
-            </div>
-          </button>
-        </div>
+        <SovereignTextbox />
       </div>
     </div>
   );

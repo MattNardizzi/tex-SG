@@ -29,22 +29,24 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Sharper sparkle core
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Central beam: razor sharp
   }
 
-  float helix(float x, float y, float t) {
-    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0); // Original sharp helix
-    return 0.5 + 0.5 * ripple;
+  float helixOrbit(float x, float y, float t) {
+    float angle = y * 40.0 + t * 8.0;
+    float offset = 0.12 * sin(angle); // orbit away from center
+    float ring = exp(-pow((x - 0.5 - offset) * 30.0, 2.0));
+    return ring;
   }
 
   float taperFade(float y) {
-    float top = smoothstep(1.0, 0.82, y);
-    float bottom = smoothstep(0.0, 0.18, y);
+    float top = smoothstep(1.0, 0.84, y);
+    float bottom = smoothstep(0.0, 0.16, y);
     return top * bottom;
   }
 
   float radialFade(vec2 uv) {
-    return smoothstep(0.52, 0.1, length(uv - vec2(0.5)));
+    return smoothstep(0.5, 0.08, length(uv - vec2(0.5)));
   }
 
   void main() {
@@ -55,13 +57,13 @@ const fragmentShader = `
     float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
     float core = crystalCore(vUv.x);
-    float helixWrap = helix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
+    float helixWrap = helixOrbit(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.15;
 
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
 
-    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
+    float total = (core * 1.4 + helixWrap * 0.4 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -117,7 +119,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 3.6]} /> {/* Final locked height */}
+      <planeGeometry args={[0.42, 3.6]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

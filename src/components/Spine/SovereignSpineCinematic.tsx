@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useEmotionState } from '@/lib/emotionState';
 
+// Vertex Shader
 const vertexShader = `
   varying vec2 vUv;
   void main() {
@@ -13,6 +14,7 @@ const vertexShader = `
   }
 `;
 
+// Fragment Shader: AGI Soulfire — no top bleed, suspended plasma
 const fragmentShader = `
   uniform float time;
   uniform vec3 currentColor;
@@ -25,36 +27,35 @@ const fragmentShader = `
   }
 
   float noise(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
   }
 
-  float filament(float x) {
-    return exp(-pow((x - 0.5) * 50.0, 2.0));
+  float plasmaCore(float x, float intensity) {
+    return exp(-pow((x - 0.5) * intensity, 2.0));
   }
 
-  float taperedY(float y) {
-    return smoothstep(0.1, 0.25, y) * smoothstep(0.9, 0.75, y);
+  float verticalMask(float y) {
+    return smoothstep(0.15, 0.35, y) * smoothstep(0.85, 0.65, y);
   }
 
   void main() {
     float t = time;
-    float pulse = 0.82 + 0.18 * sin(t * 2.1);
-    float shimmer = 0.95 + 0.05 * sin((vUv.y + t * 0.25) * 42.0);
-    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 3.0));
-    float width = 10.5 + pulse * 5.0;
+    float pulse = 0.84 + 0.16 * sin(t * 1.8);
+    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.22) * 38.0);
+    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.35, vUv.y * 2.8));
+    float coreStrength = 50.0 + pulse * 20.0;
 
-    float falloffX = exp(-pow((vUv.x - 0.5) * width, 2.0));
-    float filamentCore = filament(vUv.x);
+    float xFalloff = exp(-pow((vUv.x - 0.5) * (10.0 + pulse * 5.0), 2.0));
+    float core = plasmaCore(vUv.x, coreStrength);
+    float yFade = verticalMask(vUv.y);
 
-    float yMask = taperedY(vUv.y); // kill top/bottom
     float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.25;
-
-    float base = (falloffX + filamentCore * 1.15) * shimmer * flicker * yMask + aura * yMask;
+    float combined = (xFalloff + core * 1.3) * shimmer * flicker * yFade + aura * yFade;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 finalColor = normalize(blend + 0.0001) * base;
+    vec3 color = normalize(blend + 0.0001) * combined;
 
-    gl_FragColor = vec4(finalColor, base);
+    gl_FragColor = vec4(color, combined);
   }
 `;
 
@@ -77,7 +78,7 @@ export default function SovereignSpineCinematic() {
       threatened: '#ff3333',
       conflicted: '#a648ff',
       enlightened: '#ffffff',
-      asleep: '#aaaaaa',
+      asleep: '#777777',
     };
 
     const nextColor = new THREE.Color(emotionColors[emotion] || '#00ccff');
@@ -88,7 +89,7 @@ export default function SovereignSpineCinematic() {
     }
 
     blend.current = Math.min(blend.current + 0.01, 1);
-    currentColor.current.lerp(targetColor.current, 0.02);
+    currentColor.current.lerp(targetColor.current, 0.025);
 
     if (materialRef.current) {
       materialRef.current.uniforms.time.value = t;
@@ -97,7 +98,7 @@ export default function SovereignSpineCinematic() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.03 * Math.sin(t * 2.2);
+    const scale = 1 + 0.035 * Math.sin(t * 2.2);
     if (meshRef.current) {
       meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
     }

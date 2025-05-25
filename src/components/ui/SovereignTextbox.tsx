@@ -22,7 +22,7 @@ export default function SovereignTextbox() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://3.16.135.49:8000/think', {
+      const res = await fetch('http://3.16.135.49:5001/think', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: input }),

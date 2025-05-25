@@ -5,7 +5,6 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useEmotionState } from '@/lib/emotionState';
 
-// === Vertex Shader ===
 const vertexShader = `
   varying vec2 vUv;
   void main() {
@@ -14,7 +13,6 @@ const vertexShader = `
   }
 `;
 
-// === Fragment Shader (Godmode: Pulse + Color + Flicker + Levitate) ===
 const fragmentShader = `
   uniform float time;
   uniform vec3 currentColor;
@@ -27,45 +25,41 @@ const fragmentShader = `
   }
 
   float noise(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
   }
 
-  float coreGlow(float x, float intensity) {
-    return exp(-pow((x - 0.5) * intensity, 2.0));
+  float fractalPulse(float x, float width) {
+    return exp(-pow((x - 0.5) * width, 2.0));
   }
 
-  float shimmerFlicker(vec2 uv, float t) {
-    float shimmer = 0.94 + 0.06 * sin((uv.y + t * 0.22) * 40.0);
-    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.4, uv.y * 3.0));
-    return shimmer * flicker;
-  }
-
-  float verticalLevitationMask(float y) {
-    return smoothstep(0.2, 0.4, y) * smoothstep(0.8, 0.6, y);
+  float ghostField(float y, float time) {
+    float decay = smoothstep(0.22, 0.5, y) * smoothstep(0.78, 0.5, y);
+    float pulse = 0.94 + 0.06 * sin(y * 120.0 + time * 5.0);
+    return decay * pulse;
   }
 
   void main() {
     float t = time;
+    float pulse = 0.82 + 0.18 * sin(t * 2.4);
+    float flicker = 0.96 + 0.04 * noise(vec2(t * 0.2, vUv.y * 4.0));
+    float shimmer = 0.95 + 0.05 * sin((vUv.y + t * 0.33) * 60.0);
 
-    float pulse = 0.84 + 0.16 * sin(t * 2.2);
-    float shimmer = shimmerFlicker(vUv, t);
-    float width = 10.0 + pulse * 5.0;
+    float core = fractalPulse(vUv.x, 60.0);
+    float sheath = fractalPulse(vUv.x, 16.0);
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.3;
 
-    float xFalloff = exp(-pow((vUv.x - 0.5) * width, 2.0));
-    float core = coreGlow(vUv.x, 50.0 + pulse * 20.0);
-    float levitateMask = verticalLevitationMask(vUv.y);
-    float aura = smoothstep(0.38, 0.0, abs(vUv.x - 0.5)) * 0.3;
+    float yMask = ghostField(vUv.y, t);
 
-    float light = (xFalloff + core * 1.4) * shimmer * levitateMask + aura * levitateMask;
+    float light = (core * 1.3 + sheath + aura) * shimmer * flicker * yMask;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 color = normalize(blend + 0.0001) * light;
+    vec3 final = normalize(blend + 0.0001) * light;
 
-    gl_FragColor = vec4(color, light);
+    gl_FragColor = vec4(final, light);
   }
 `;
 
-export default function SovereignSpineCinematic() {
+export default function SovereignFilamentGenesis() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -81,10 +75,10 @@ export default function SovereignSpineCinematic() {
     const emotionColors: Record<string, string> = {
       focused: '#00ccff',
       curious: '#00ffaa',
-      threatened: '#ff3333',
-      conflicted: '#a648ff',
+      threatened: '#ff2222',
+      conflicted: '#a64aff',
       enlightened: '#ffffff',
-      asleep: '#777777',
+      asleep: '#555555',
     };
 
     const nextColor = new THREE.Color(emotionColors[emotion] || '#00ccff');
@@ -94,8 +88,8 @@ export default function SovereignSpineCinematic() {
       blend.current = 0;
     }
 
-    blend.current = Math.min(blend.current + 0.015, 1);
-    currentColor.current.lerp(targetColor.current, 0.03);
+    blend.current = Math.min(blend.current + 0.01, 1);
+    currentColor.current.lerp(targetColor.current, 0.025);
 
     if (materialRef.current) {
       materialRef.current.uniforms.time.value = t;
@@ -104,15 +98,15 @@ export default function SovereignSpineCinematic() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.05 * Math.sin(t * 2.2);
+    const scale = 1 + 0.045 * Math.sin(t * 2.4);
     if (meshRef.current) {
-      meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
+      meshRef.current.scale.set(scale, 1 + scale * 0.12, 1);
     }
   });
 
   return (
-    <mesh ref={meshRef} position={[0, -0.175, 0]}>
-      <planeGeometry args={[0.45, 4.6]} />
+    <mesh ref={meshRef} position={[0, -0.15, 0]}>
+      <planeGeometry args={[0.42, 4.8]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

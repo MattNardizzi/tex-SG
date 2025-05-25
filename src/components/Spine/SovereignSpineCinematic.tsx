@@ -29,11 +29,11 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0));
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Tighter, sharper sparkle
   }
 
   float helix(float x, float y, float t) {
-    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0);
+    float ripple = sin(y * 20.0 + t * 5.5 + x * 25.0); // Softer, smoother twist
     return 0.5 + 0.5 * ripple;
   }
 
@@ -117,7 +117,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 3.6]} /> {/* shortened height */}
+      <planeGeometry args={[0.42, 3.6]} /> {/* Perfect height retained */}
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

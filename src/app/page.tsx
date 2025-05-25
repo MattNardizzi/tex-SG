@@ -4,19 +4,25 @@ import { useState } from 'react';
 import MutationLogPanel from '@/components/panels/MutationLogPanel';
 import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
 import SpineCanvas from '@/components/Spine/SpineCanvas';
+import MarketTicker from '@/components/ui/MarketTicker'; // ✅ Make sure this path is correct
 
 export default function Page() {
   const [input, setInput] = useState('');
 
   return (
     <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans">
-      {/* Left Panel – no extra div */}
-      <div className="absolute top-8 left-8 z-20">
+      {/* Global Market Ticker at the very top */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-black/80 px-6 py-2 text-green-400 font-mono text-sm border-b border-white/10 shadow-md backdrop-blur-md flex items-center justify-center gap-6">
+        <MarketTicker />
+      </div>
+
+      {/* Left Panel */}
+      <div className="absolute top-20 left-8 z-20">
         <MutationLogPanel />
       </div>
 
-      {/* Right Panel – no extra div */}
-      <div className="absolute top-8 right-8 z-20 text-right">
+      {/* Right Panel */}
+      <div className="absolute top-20 right-8 z-20 text-right">
         <SovereignStatusPanel />
       </div>
 

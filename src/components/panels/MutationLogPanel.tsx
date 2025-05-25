@@ -9,29 +9,32 @@ export default function MutationLogPanel() {
     setLogs([generateLog(), generateLog(), generateLog()]);
     const interval = setInterval(() => {
       const newLog = generateLog();
-      setLogs((prev) => [newLog, ...prev.slice(0, 2)]);
+      setLogs((prev) => [newLog, ...prev.slice(0, 4)]);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="w-[200px] bg-black/30 text-white p-3 rounded-md border border-white/10 backdrop-blur-md shadow-[inset_0_0_2px_#ffffff05,_0_0_4px_#00ffff10]">
-      <div className="text-[9px] text-cyan-200/90 font-semibold uppercase tracking-wider mb-2">
+    <div className="w-[320px] bg-black/40 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[inset_0_0_3px_#ffffff0a,_0_0_6px_#00ffff15] text-sm space-y-2">
+      {/* Header */}
+      <div className="text-[12px] text-cyan-300 font-semibold tracking-wide uppercase">
         TEX: SOVEREIGN COGNITION
       </div>
 
+      {/* Log Entries */}
       <div className="space-y-1">
         {logs.map((log, idx) => (
           <div
             key={idx}
-            className="text-[10px] text-white/80 font-light leading-tight break-words pl-[2px]"
+            className="text-[11px] text-white/90 font-light leading-tight pl-1"
           >
             {log}
           </div>
         ))}
       </div>
 
-      <div className="mt-3 text-[8px] text-right text-neutral-500 italic">
+      {/* Footer */}
+      <div className="pt-2 text-[10px] text-right text-white/40 italic">
         Cognitive Mutation Log
       </div>
     </div>

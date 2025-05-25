@@ -5,7 +5,6 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useEmotionState } from '@/lib/emotionState';
 
-// Vertex Shader
 const vertexShader = `
   varying vec2 vUv;
   void main() {
@@ -14,7 +13,6 @@ const vertexShader = `
   }
 `;
 
-// Fragment Shader: final optimized beam
 const fragmentShader = `
   uniform float time;
   uniform vec3 currentColor;
@@ -31,7 +29,11 @@ const fragmentShader = `
   }
 
   float filament(float x) {
-    return exp(-pow((x - 0.5) * 45.0, 2.0));
+    return exp(-pow((x - 0.5) * 50.0, 2.0));
+  }
+
+  float taperedY(float y) {
+    return smoothstep(0.1, 0.25, y) * smoothstep(0.9, 0.75, y);
   }
 
   void main() {
@@ -41,18 +43,18 @@ const fragmentShader = `
     float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 3.0));
     float width = 10.5 + pulse * 5.0;
 
-    float xFalloff = exp(-pow((vUv.x - 0.5) * width, 2.0));
-    float yEdge = smoothstep(0.04, 0.0, vUv.y) * smoothstep(0.96, 1.0, vUv.y); // prevents beam going to top/bottom
+    float falloffX = exp(-pow((vUv.x - 0.5) * width, 2.0));
+    float filamentCore = filament(vUv.x);
 
-    float filamentGlow = filament(vUv.x);
-    float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.3;
+    float yMask = taperedY(vUv.y); // kill top/bottom
+    float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float intensity = (xFalloff + filamentGlow * 1.2) * yEdge * shimmer * flicker + aura;
+    float base = (falloffX + filamentCore * 1.15) * shimmer * flicker * yMask + aura * yMask;
 
-    vec3 blended = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 color = normalize(blended + 0.0001) * intensity;
+    vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
+    vec3 finalColor = normalize(blend + 0.0001) * base;
 
-    gl_FragColor = vec4(color, intensity);
+    gl_FragColor = vec4(finalColor, base);
   }
 `;
 
@@ -95,7 +97,7 @@ export default function SovereignSpineCinematic() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.035 * Math.sin(t * 2.2);
+    const scale = 1 + 0.03 * Math.sin(t * 2.2);
     if (meshRef.current) {
       meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
     }

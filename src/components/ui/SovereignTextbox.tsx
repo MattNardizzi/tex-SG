@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 type Sender = 'user' | 'tex';
-
 interface Message {
   sender: Sender;
   text: string;
@@ -17,7 +16,7 @@ export default function SovereignTextbox() {
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
-    const updated = [...messages, { sender: 'user', text: input }];
+    const updated: Message[] = [...messages, { sender: 'user', text: input }];
     setMessages(updated);
     setLoading(true);
 
@@ -39,15 +38,12 @@ export default function SovereignTextbox() {
   };
 
   return (
-    <div className="w-full max-w-[500px] px-4 mt-[-20px]">
-      <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_20px_#00ffff08,inset_0_0_2px_#ffffff06] px-5 py-4 min-h-[160px]">
+    <div className="w-full max-w-[520px] px-6">
+      <div className="flex flex-col min-h-[180px] bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-5 py-4">
         {/* Message Log */}
-        <div className="flex-1 overflow-y-auto text-xs text-white space-y-1 mb-3 px-0.5 font-normal max-h-[80px]">
+        <div className="max-h-36 overflow-y-auto text-sm text-white space-y-1 mb-3 px-0.5 font-normal">
           {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={msg.sender === 'user' ? 'text-cyan-400' : 'text-gray-300'}
-            >
+            <div key={i} className={msg.sender === 'user' ? 'text-cyan-400' : 'text-gray-300'}>
               <strong>{msg.sender === 'user' ? 'You' : 'Tex'}:</strong> {msg.text}
             </div>
           ))}

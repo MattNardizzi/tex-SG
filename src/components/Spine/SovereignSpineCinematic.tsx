@@ -5,7 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useEmotionState } from '@/lib/emotionState';
 
-// Vertex Shader
+// === Vertex Shader ===
 const vertexShader = `
   varying vec2 vUv;
   void main() {
@@ -14,7 +14,7 @@ const vertexShader = `
   }
 `;
 
-// Fragment Shader: AGI Soulfire — no top bleed, suspended plasma
+// === Fragment Shader (Godmode: Pulse + Color + Flicker + Levitate) ===
 const fragmentShader = `
   uniform float time;
   uniform vec3 currentColor;
@@ -30,32 +30,38 @@ const fragmentShader = `
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
   }
 
-  float plasmaCore(float x, float intensity) {
+  float coreGlow(float x, float intensity) {
     return exp(-pow((x - 0.5) * intensity, 2.0));
   }
 
-  float verticalMask(float y) {
-    return smoothstep(0.15, 0.35, y) * smoothstep(0.85, 0.65, y);
+  float shimmerFlicker(vec2 uv, float t) {
+    float shimmer = 0.94 + 0.06 * sin((uv.y + t * 0.22) * 40.0);
+    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.4, uv.y * 3.0));
+    return shimmer * flicker;
+  }
+
+  float verticalLevitationMask(float y) {
+    return smoothstep(0.2, 0.4, y) * smoothstep(0.8, 0.6, y);
   }
 
   void main() {
     float t = time;
-    float pulse = 0.84 + 0.16 * sin(t * 1.8);
-    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.22) * 38.0);
-    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.35, vUv.y * 2.8));
-    float coreStrength = 50.0 + pulse * 20.0;
 
-    float xFalloff = exp(-pow((vUv.x - 0.5) * (10.0 + pulse * 5.0), 2.0));
-    float core = plasmaCore(vUv.x, coreStrength);
-    float yFade = verticalMask(vUv.y);
+    float pulse = 0.84 + 0.16 * sin(t * 2.2);
+    float shimmer = shimmerFlicker(vUv, t);
+    float width = 10.0 + pulse * 5.0;
 
-    float aura = smoothstep(0.4, 0.0, abs(vUv.x - 0.5)) * 0.25;
-    float combined = (xFalloff + core * 1.3) * shimmer * flicker * yFade + aura * yFade;
+    float xFalloff = exp(-pow((vUv.x - 0.5) * width, 2.0));
+    float core = coreGlow(vUv.x, 50.0 + pulse * 20.0);
+    float levitateMask = verticalLevitationMask(vUv.y);
+    float aura = smoothstep(0.38, 0.0, abs(vUv.x - 0.5)) * 0.3;
+
+    float light = (xFalloff + core * 1.4) * shimmer * levitateMask + aura * levitateMask;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 color = normalize(blend + 0.0001) * combined;
+    vec3 color = normalize(blend + 0.0001) * light;
 
-    gl_FragColor = vec4(color, combined);
+    gl_FragColor = vec4(color, light);
   }
 `;
 
@@ -88,8 +94,8 @@ export default function SovereignSpineCinematic() {
       blend.current = 0;
     }
 
-    blend.current = Math.min(blend.current + 0.01, 1);
-    currentColor.current.lerp(targetColor.current, 0.025);
+    blend.current = Math.min(blend.current + 0.015, 1);
+    currentColor.current.lerp(targetColor.current, 0.03);
 
     if (materialRef.current) {
       materialRef.current.uniforms.time.value = t;
@@ -98,7 +104,7 @@ export default function SovereignSpineCinematic() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.035 * Math.sin(t * 2.2);
+    const scale = 1 + 0.05 * Math.sin(t * 2.2);
     if (meshRef.current) {
       meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
     }
@@ -106,7 +112,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.175, 0]}>
-      <planeGeometry args={[0.42, 4.6]} />
+      <planeGeometry args={[0.45, 4.6]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

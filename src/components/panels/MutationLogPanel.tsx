@@ -36,9 +36,15 @@ export default function MutationLogPanel() {
         key={pulseKey}
         initial={{ opacity: 0.6 }}
         animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 1.2, ease: 'easeInOut' }}
+        transition={{ duration: 1.4, ease: 'easeInOut' }}
         className="text-[18px] font-semibold uppercase tracking-wide text-cyan-300"
-        style={{ textShadow: '0 0 6px rgba(0,255,255,0.4)' }}
+        style={{
+          textShadow: `
+            0 0 4px rgba(0, 255, 255, 0.5),
+            0 0 8px rgba(0, 255, 255, 0.3),
+            0 0 12px rgba(0, 255, 255, 0.2)
+          `,
+        }}
       >
         TEX: MUTATION LOG
       </motion.div>
@@ -55,10 +61,10 @@ export default function MutationLogPanel() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="text-white"
                 style={{
                   color: emotionClass,
                   fontWeight: 300,
+                  fontSize: '14px',
                   letterSpacing: '0.01em',
                 }}
               >
@@ -70,7 +76,7 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-1 text-[13px] text-right text-white/40 italic tracking-wide">
+      <div className="pt-1 text-[12px] text-right text-white/40 italic tracking-wide">
         Cognitive Mutation Log
       </div>
     </div>

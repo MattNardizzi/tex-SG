@@ -39,9 +39,9 @@ export default function SovereignTextbox() {
   };
 
   return (
-    <div className="w-[460px] min-h-[140px] px-5 py-4 bg-white/5 border border-white/10 rounded-xl shadow-[0_0_20px_#00ffff15,inset_0_0_2px_#ffffff06] backdrop-blur-md flex flex-col space-y-3">
+    <div className="w-[540px] min-h-[80px] px-5 py-2 bg-white/5 border border-white/10 rounded-xl shadow-[0_0_20px_#00ffff15,inset_0_0_2px_#ffffff06] backdrop-blur-md flex flex-col justify-between">
       {/* Message Log */}
-      <div className="max-h-[80px] overflow-y-auto text-xs text-white space-y-1 px-1 font-light">
+      <div className="max-h-[45px] overflow-y-auto text-xs text-white px-1 font-light leading-snug">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -53,21 +53,21 @@ export default function SovereignTextbox() {
       </div>
 
       {/* Input Row */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mt-1.5">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
           placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
-          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-sm tracking-wide py-2"
+          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-sm tracking-wide py-1"
           disabled={loading}
         />
         <button
           onClick={sendMessage}
-          className={`w-6 h-6 rounded-full relative ${
+          className={`w-[22px] h-[22px] rounded-full relative ${
             loading ? 'animate-spin' : 'animate-pulse'
-          } bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa] p-0`}
+          } bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa]`}
           aria-label="Send"
         >
           <svg width="100%" height="100%" viewBox="0 0 100 100" className="text-[#cccccc]">

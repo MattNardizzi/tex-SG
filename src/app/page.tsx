@@ -1,10 +1,10 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import TexScene from '@/components/3d/TexScene';
-import MutationLogPanel from '@/components/ui/MutationLogPanel';
-import SovereignStatusPanel from '@/components/ui/SovereignStatusPanel';
-import SovereignTextbox from '@/components/ui/SovereignTextbox';
+import TexScene from '../../components/_3d/TexScene';
+import MutationLogPanel from '../../components/panels/MutationLogPanel';
+import SovereignStatusPanel from '../../components/panels/SovereignStatusPanel';
+import SovereignTextbox from '../../components/ui/SovereignTextbox';
 
 export default function MainPage() {
   return (

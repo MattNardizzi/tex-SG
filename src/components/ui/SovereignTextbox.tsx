@@ -22,7 +22,7 @@ export default function SovereignTextbox() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://3.16.135.49:5001/think', {
+      const res = await fetch('http://localhost:5001/think', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: input }),
@@ -32,7 +32,8 @@ export default function SovereignTextbox() {
       const reply = data.response || '⚠️ No response received.';
 
       setMessages([...updated, { sender: 'tex', text: reply }]);
-    } catch {
+    } catch (err) {
+      console.error('[TEX ERROR]', err);
       setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }]);
     }
 

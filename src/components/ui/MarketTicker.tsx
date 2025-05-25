@@ -29,7 +29,7 @@ const MarketTicker = () => {
   }, []);
 
   return (
-    <div className="w-screen bg-black/80 px-20 py-2 fixed top-0 left-0 z-50 text-green-400 font-mono text-sm border-b border-white/10 shadow-lg backdrop-blur-md flex items-center justify-center gap-10">
+    <div className="w-screen bg-black/85 px-16 py-3 fixed top-0 left-0 z-50 text-green-400 font-mono text-[15px] border-b border-white/10 shadow-md backdrop-blur-lg flex items-center justify-center gap-10">
       {Object.keys(data).length === 0 ? (
         <span className="text-gray-400">Waiting for data...</span>
       ) : (

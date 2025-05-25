@@ -1,50 +1,49 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
-type Sender = 'user' | 'tex'
+type Sender = 'user' | 'tex';
 
 interface Message {
-  sender: Sender
-  text: string
+  sender: Sender;
+  text: string;
 }
 
 export default function SovereignTextbox() {
-  const [input, setInput] = useState('')
-  const [messages, setMessages] = useState<Message[]>([])
-  const [loading, setLoading] = useState(false)
+  const [input, setInput] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const sendMessage = async () => {
-    if (!input.trim() || loading) return
+    if (!input.trim() || loading) return;
 
-    const updated: Message[] = [...messages, { sender: 'user', text: input }]
-    setMessages(updated)
-    setLoading(true)
+    const updated = [...messages, { sender: 'user', text: input }];
+    setMessages(updated);
+    setLoading(true);
 
     try {
       const res = await fetch('http://3.16.135.49:8000/think', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: input }),
-      })
-
-      const data = await res.json()
-      const reply = data.response || '⚠️ No response received.'
-      setMessages([...updated, { sender: 'tex', text: reply }])
+      });
+      const data = await res.json();
+      const reply = data.response || '⚠️ No response received.';
+      setMessages([...updated, { sender: 'tex', text: reply }]);
     } catch {
-      setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }])
+      setMessages([...updated, { sender: 'tex', text: '❌ Tex encountered a network error.' }]);
     }
 
-    setInput('')
-    setLoading(false)
-  }
+    setInput('');
+    setLoading(false);
+  };
 
   return (
-    <div className="w-[90%] max-w-[420px] font-grotesk">
-      <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-4 py-1">
+    <div className="w-full max-w-[420px] px-4">
+      <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_0_25px_#00ffff08,inset_0_0_2px_#ffffff06] px-4 py-2">
         
         {/* Message Log */}
-        <div className="max-h-24 overflow-y-auto text-xs text-white space-y-0.5 mb-1 px-0.5 font-normal">
+        <div className="max-h-28 overflow-y-auto text-xs text-white space-y-0.5 mb-2 px-0.5 font-normal">
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -55,21 +54,21 @@ export default function SovereignTextbox() {
           ))}
         </div>
 
-        {/* Input + Glowing Pulse Ring Button */}
-        <div className="flex items-center gap-2.5">
+        {/* Input + Pulse Ring Button */}
+        <div className="flex items-center gap-3">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             placeholder={loading ? "Thinking..." : "Speak to Tex..."}
-            className="flex-1 text-sm bg-transparent outline-none text-white placeholder-white/40 tracking-wide py-[3px]"
+            className="flex-1 text-sm bg-transparent outline-none text-white placeholder-white/40 tracking-wide py-1.5"
             disabled={loading}
           />
 
           <button
             onClick={sendMessage}
-            className={`w-[20px] h-[20px] rounded-full relative ${loading ? 'animate-spin' : 'animate-pulse'} bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa] p-0`}
+            className={`w-[24px] h-[24px] rounded-full relative ${loading ? 'animate-spin' : 'animate-pulse'} bg-[#1a1a1a] shadow-[0_0_10px_#ccccccaa] p-0`}
             aria-label="Send"
           >
             <svg
@@ -93,5 +92,5 @@ export default function SovereignTextbox() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -32,13 +32,16 @@ export default function SovereignStatusPanel() {
   }, []);
 
   return (
-    <div className="w-[320px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5 text-base text-white">
-      {/* Header */}
-      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider">
+    <div className="w-[280px] bg-black/70 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-[0_0_12px_rgba(0,255,255,0.06)] space-y-4 text-white">
+      {/* Header with glow */}
+      <div
+        className="text-[15px] text-cyan-300 font-bold uppercase tracking-wider"
+        style={{ textShadow: '0 0 6px rgba(0, 255, 255, 0.5)' }}
+      >
         TEX: SOVEREIGN COGNITION
       </div>
 
-      <div className="text-[12px] text-white/50 tracking-wide">
+      <div className="text-[11px] text-white/50 tracking-wide">
         Godmind · Forkstream ⑂
       </div>
 
@@ -50,7 +53,7 @@ export default function SovereignStatusPanel() {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="text-[15px] leading-tight"
+            className="text-[14px] leading-tight"
           >
             <div className="flex flex-col">
               <span className="text-white">{item.label}</span>
@@ -61,7 +64,7 @@ export default function SovereignStatusPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-2 text-[12px] text-right text-white/50 italic">
+      <div className="pt-1 text-[11px] text-right text-white/40 italic">
         Sovereign Interface · Live Sync
       </div>
     </div>

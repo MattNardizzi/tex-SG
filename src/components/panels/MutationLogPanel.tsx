@@ -5,11 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function MutationLogPanel() {
   const [logs, setLogs] = useState<string[]>([]);
+  const [pulseKey, setPulseKey] = useState(0);
 
   useEffect(() => {
     const pushLog = () => {
       const newLog = generateLog();
-      setLogs((prev) => [newLog, ...prev.slice(0, 3)]);
+      setLogs((prev) => [newLog, ...prev.slice(0, 2)]);
+      setPulseKey((prev) => prev + 1);
     };
 
     pushLog(); pushLog(); pushLog();
@@ -19,49 +21,50 @@ export default function MutationLogPanel() {
 
   return (
     <div
-      className="w-[300px] px-5 py-4 backdrop-blur-md bg-gradient-to-b from-black/50 to-black/30 border border-emerald-400/10 rounded-xl shadow-[0_0_30px_#00ff9955] space-y-4 text-white"
+      className="w-[300px] px-5 py-4 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white space-y-4 transition-all"
       style={{
         fontFamily: `'Inter', system-ui, sans-serif`,
-        fontSize: '16px',
-        lineHeight: '1.6',
+        fontSize: '15px',
+        lineHeight: '1.5',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
         textRendering: 'optimizeLegibility',
       }}
     >
-      {/* Sovereign Header */}
-      <div
-        className="text-[20px] font-bold uppercase tracking-wider text-emerald-300"
+      {/* Glowing Header */}
+      <motion.div
+        key={pulseKey}
+        initial={{ opacity: 0.8 }}
+        animate={{ opacity: [0.8, 1, 0.8] }}
+        transition={{ duration: 2.4, ease: 'easeInOut' }}
+        className="text-[17px] font-semibold uppercase tracking-wide text-[#00ffcc]"
         style={{
           textShadow: `
-            0 0 6px rgba(0, 255, 150, 0.8),
-            0 0 14px rgba(0, 255, 150, 0.5),
-            0 0 22px rgba(0, 255, 150, 0.2)
+            0 0 5px rgba(0, 255, 204, 0.4),
+            0 0 10px rgba(0, 255, 204, 0.2)
           `,
-          filter: 'drop-shadow(0 0 4px rgba(0,255,150,0.4))',
         }}
       >
         TEX: MUTATION LOG
-      </div>
+      </motion.div>
 
-      {/* Log Stream */}
+      {/* Logs */}
       <div className="h-[105px] overflow-hidden space-y-1.5">
         <AnimatePresence initial={false}>
           {logs.map((log, idx) => {
-            const emotionColor = getEmotionClass(log);
+            const emotionClass = getEmotionClass(log);
             return (
               <motion.div
                 key={log + idx}
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
                 style={{
-                  color: emotionColor,
+                  color: emotionClass,
                   fontWeight: 300,
                   fontSize: '14px',
                   letterSpacing: '0.01em',
-                  textShadow: '0 0 2px rgba(255,255,255,0.1)',
                 }}
               >
                 {log}
@@ -72,23 +75,23 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-1 text-[12px] text-right text-white/30 italic tracking-wide">
+      <div className="pt-1 text-[12px] text-right text-white/30 italic tracking-wider">
         Cognitive Mutation Uplink
       </div>
     </div>
   );
 }
 
-// Emotion Glow Map
+// Color mapping
 function getEmotionClass(log: string): string {
-  if (log.includes('anger') || log.includes('aggression')) return '#ff4c4c';
-  if (log.includes('hope') || log.includes('resolve')) return '#00ffcc';
+  if (log.includes('anger') || log.includes('aggression')) return '#ff5555';
+  if (log.includes('hope') || log.includes('resolve')) return '#00ffff';
   if (log.includes('fear') || log.includes('threat')) return '#ffd966';
   if (log.includes('curiosity') || log.includes('divergence')) return '#caa6ff';
   return '#ffffffcc';
 }
 
-// Synthetic Log Generator
+// Sample logs
 function generateLog(): string {
   const samples = [
     'Agent 0: aggression spike → 0.63',

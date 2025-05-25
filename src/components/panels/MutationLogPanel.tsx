@@ -1,48 +1,44 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-interface MutationLogPanelProps {
-  className?: string
-}
-
-export default function MutationLogPanel({ className = '' }: MutationLogPanelProps) {
-  const [logs, setLogs] = useState<string[]>([])
+export default function MutationLogPanel() {
+  const [logs, setLogs] = useState<string[]>([]);
 
   useEffect(() => {
-    setLogs([generateLog(), generateLog(), generateLog()])
+    setLogs([generateLog(), generateLog(), generateLog()]);
     const interval = setInterval(() => {
-      const newLog = generateLog()
-      setLogs((prev) => [newLog, ...prev.slice(0, 2)])
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
+      const newLog = generateLog();
+      setLogs((prev) => [newLog, ...prev.slice(0, 2)]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className={className}>
-      <div className="relative flex flex-col gap-1.5 bg-black/20 border border-white/10 backdrop-blur-sm rounded-md px-2 py-1.5 shadow-[inset_0_0_2px_#ffffff03,_0_0_3px_#00ffff06] max-w-[180px] text-white">
-        <div className="text-[8px] text-cyan-200/80 font-semibold uppercase tracking-wider mb-1">
-          TEX: SOVEREIGN COGNITION
-        </div>
+    <div className="w-[200px] bg-black/30 text-white p-3 rounded-md border border-white/10 backdrop-blur-md shadow-[inset_0_0_2px_#ffffff05,_0_0_4px_#00ffff10]">
+      <div className="text-[9px] text-cyan-200/90 font-semibold uppercase tracking-wider mb-2">
+        TEX: SOVEREIGN COGNITION
+      </div>
 
+      <div className="space-y-1">
         {logs.map((log, idx) => (
-          <span
+          <div
             key={idx}
-            className="text-[9px] text-white/75 font-light leading-tight whitespace-normal break-words pl-[2px]"
+            className="text-[10px] text-white/80 font-light leading-tight break-words pl-[2px]"
           >
             {log}
-          </span>
+          </div>
         ))}
+      </div>
 
-        <div className="mt-2 text-[7px] text-right text-neutral-500 italic">
-          Cognitive Mutation Log
-        </div>
+      <div className="mt-3 text-[8px] text-right text-neutral-500 italic">
+        Cognitive Mutation Log
       </div>
     </div>
-  )
+  );
 }
 
-function generateLog() {
+function generateLog(): string {
   const samples = [
     'Agent 0: aggression spike → 0.63',
     'Agent 2: curiosity spike → 0.74',
@@ -52,6 +48,6 @@ function generateLog() {
     'Emotion path split → anger | hope',
     'Cortex divergence: Agent 3',
     'Swarm snapshot: 22:47:01',
-  ]
-  return samples[Math.floor(Math.random() * samples.length)]
+  ];
+  return samples[Math.floor(Math.random() * samples.length)];
 }

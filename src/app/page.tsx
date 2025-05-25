@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-// 🔒 Temporarily disable to fix build
 // import { MutationLogPanelR3F as MutationLogPanel } from '@/components/panels/FiberPanels';
-// import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
+import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
 import MarketTicker from '@/components/ui/MarketTicker';
 import SovereignTextbox from '@/components/ui/SovereignTextbox';
 
-// Safe dynamic load to prevent R3F hook usage during SSR
+// ✅ Dynamic R3F Canvas
 const SpineCanvas = dynamic(() => import('@/components/Spine/SpineCanvas'), {
   ssr: false,
   loading: () => <div className="absolute inset-0 bg-black" />,
@@ -26,18 +25,21 @@ export default function Page() {
       {/* ✅ Market Ticker */}
       <MarketTicker />
 
-      {/* 🔒 Disabled Panels to Fix Deployment */}
-      {/*
-      <div className="absolute top-20 left-8 z-20">
-        <MutationLogPanel />
-      </div>
+      {/* ✅ Panels */}
+      {isClient && (
+        <>
+          {/*
+          <div className="absolute top-20 left-8 z-20">
+            <MutationLogPanel />
+          </div>
+          */}
+          <div className="absolute top-20 right-8 z-20 text-right">
+            <SovereignStatusPanel />
+          </div>
+        </>
+      )}
 
-      <div className="absolute top-20 right-8 z-20 text-right">
-        <SovereignStatusPanel />
-      </div>
-      */}
-
-      {/* ✅ Spine Canvas */}
+      {/* ✅ 3D Canvas */}
       <div className="absolute inset-0 flex items-center justify-center z-0">
         {isClient && <SpineCanvas />}
       </div>

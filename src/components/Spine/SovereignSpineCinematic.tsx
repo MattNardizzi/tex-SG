@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Html } from '@react-three/drei';
 import { useEmotionState } from '@/lib/emotionState';
 
 const vertexShader = `
@@ -116,23 +117,41 @@ export default function SovereignSpineCinematic() {
   });
 
   return (
-    <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 3.6]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={{
-          time: { value: 0 },
-          currentColor: { value: new THREE.Color(getEmotion().color) },
-          targetColor: { value: new THREE.Color(getEmotion().color) },
-          blendFactor: { value: 0 },
-        }}
-        transparent
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-        side={THREE.DoubleSide}
-      />
-    </mesh>
+    <group>
+      <Html position={[0, 2.1, 0]}>
+        <div
+          style={{
+            fontSize: '15px',
+            fontWeight: '900',
+            letterSpacing: '0.25em',
+            color: '#00ffff',
+            fontFamily: 'Orbitron, sans-serif',
+            textShadow: '0 0 10px rgba(0,255,255,0.5), 0 0 20px rgba(0,255,255,0.3)',
+            textAlign: 'center',
+            pointerEvents: 'none',
+          }}
+        >
+          TEX
+        </div>
+      </Html>
+      <mesh ref={meshRef} position={[0, -0.15, 0]}>
+        <planeGeometry args={[0.42, 3.6]} />
+        <shaderMaterial
+          ref={materialRef}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={{
+            time: { value: 0 },
+            currentColor: { value: new THREE.Color(getEmotion().color) },
+            targetColor: { value: new THREE.Color(getEmotion().color) },
+            blendFactor: { value: 0 },
+          }}
+          transparent
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+    </group>
   );
 }

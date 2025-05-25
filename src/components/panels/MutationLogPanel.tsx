@@ -2,8 +2,17 @@
 
 import { useEffect, useState } from 'react';
 
+type TickerData = {
+  [symbol: string]: {
+    price: number;
+    change: number | null;
+    direction: 'up' | 'down' | 'neutral';
+  };
+};
+
 export default function MutationLogPanel() {
   const [logs, setLogs] = useState<string[]>([]);
+  const [tickerData, setTickerData] = useState<TickerData>({});
 
   useEffect(() => {
     setLogs([generateLog(), generateLog(), generateLog()]);
@@ -14,14 +23,40 @@ export default function MutationLogPanel() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8000/ws/polygon');
+    ws.onmessage = (event) => {
+      try {
+        const update = JSON.parse(event.data);
+        setTickerData((prev) => ({ ...prev, ...update }));
+      } catch (error) {
+        console.error('WebSocket message error:', error);
+      }
+    };
+    return () => ws.close();
+  }, []);
+
   return (
-    <div className="w-[340px] bg-black/70 border border-white/10 rounded-xl p-6 backdrop-blur-lg shadow-[0_0_10px_rgba(0,255,255,0.12)] text-base space-y-4">
+    <div className="w-[300px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5">
       {/* Header */}
-      <div className="text-[17px] text-cyan-300 font-semibold uppercase tracking-wider">
+      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider">
         TEX: MUTATION LOG
       </div>
 
-      {/* Fixed Height Log Section */}
+      {/* Ticker */}
+      <div className="bg-black/60 rounded-md px-3 py-2 border border-white/10 text-green-400 font-mono text-[13px] shadow-sm flex flex-wrap gap-x-3 gap-y-1">
+        {Object.keys(tickerData).length === 0 ? (
+          <span className="text-white/40">Waiting for market data...</span>
+        ) : (
+          Object.entries(tickerData).map(([symbol, { price }]) => (
+            <div key={symbol} className="whitespace-nowrap">
+              {symbol.toUpperCase()}: ${typeof price === 'number' ? price.toFixed(2) : '0.00'}
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Logs */}
       <div className="h-[140px] overflow-hidden space-y-2">
         {logs.map((log, idx) => (
           <div
@@ -34,7 +69,7 @@ export default function MutationLogPanel() {
       </div>
 
       {/* Footer */}
-      <div className="pt-3 text-[12px] text-right text-white/60 italic">
+      <div className="pt-2 text-[12px] text-right text-white/50 italic">
         Cognitive Mutation Log
       </div>
     </div>

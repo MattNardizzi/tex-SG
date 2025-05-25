@@ -29,14 +29,12 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Central beam: razor sharp
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // razor core
   }
 
-  float helixOrbit(float x, float y, float t) {
-    float angle = y * 40.0 + t * 8.0;
-    float offset = 0.12 * sin(angle); // orbit away from center
-    float ring = exp(-pow((x - 0.5 - offset) * 30.0, 2.0));
-    return ring;
+  float helixWrap(float x, float y, float t) {
+    float offset = 0.12 * sin(y * 40.0 + t * 8.0);
+    return exp(-pow((x - 0.5 - offset) * 30.0, 2.0)); // subtle orbit
   }
 
   float taperFade(float y) {
@@ -46,7 +44,7 @@ const fragmentShader = `
   }
 
   float radialFade(vec2 uv) {
-    return smoothstep(0.5, 0.08, length(uv - vec2(0.5)));
+    return smoothstep(0.48, 0.08, length(uv - vec2(0.5)));
   }
 
   void main() {
@@ -57,13 +55,16 @@ const fragmentShader = `
     float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
     float core = crystalCore(vUv.x);
-    float helixWrap = helixOrbit(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.15;
+    float helix = helixWrap(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.14;
 
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
 
-    float total = (core * 1.4 + helixWrap * 0.4 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
+    float total =
+      (core * 1.7 + helix * 0.4 + aura) *
+      shimmer * flicker * pulse *
+      fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;

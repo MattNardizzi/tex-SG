@@ -16,8 +16,8 @@ export default function MutationLogPanel() {
 
   return (
     <div className="w-[300px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5">
-      {/* Header */}
-      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider">
+      {/* Header with glow */}
+      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider drop-shadow-[0_0_6px_#00ffffaa]">
         TEX: MUTATION LOG
       </div>
 

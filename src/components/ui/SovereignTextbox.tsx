@@ -17,7 +17,7 @@ export default function SovereignTextbox() {
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
-    const updated: Message[] = [...messages, { sender: 'user', text: input }];
+    const updated = [...messages, { sender: 'user', text: input }];
     setMessages(updated);
     setLoading(true);
 
@@ -39,56 +39,52 @@ export default function SovereignTextbox() {
   };
 
   return (
-    <div className="w-[540px] min-h-[80px] px-5 py-2 bg-white/5 border border-white/10 rounded-xl shadow-[0_0_20px_#00ffff15,inset_0_0_2px_#ffffff06] backdrop-blur-md flex flex-col justify-between">
-      {/* Message Log */}
-      <div className="max-h-[45px] overflow-y-auto text-xs text-white px-1 font-light leading-snug">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={msg.sender === 'user' ? 'text-cyan-300' : 'text-neutral-300'}
-          >
-            <strong>{msg.sender === 'user' ? 'You' : 'Tex'}:</strong> {msg.text}
-          </div>
-        ))}
-      </div>
+    <div className="relative w-full max-w-2xl mx-auto mt-8 px-3 z-10">
+      <div className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm shadow-[0_0_30px_#00ffff15,inset_0_0_2px_#ffffff09] p-4 flex flex-col space-y-3 transition-all duration-300 focus-within:shadow-[0_0_60px_#00ffff33]">
 
-      {/* Input Row */}
-      <div className="flex items-center gap-3 mt-1.5">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-          placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
-          className="flex-1 bg-transparent outline-none text-white placeholder-white/40 text-[18px] tracking-wide py-1"
-          disabled={loading}
-        />
-        <button
-          onClick={sendMessage}
-          className={`w-[34px] h-[34px] rounded-full relative ${
-            loading ? 'animate-spin' : 'animate-pulse'
-          } bg-[#1a1a1a] shadow-[0_0_12px_#ccccccbb] p-0`}
-          aria-label="Send"
-        >
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 100 100"
-            className="text-[#cccccc]"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3.5"
-            strokeLinecap="round"
+        {/* Message Log */}
+        <div className="max-h-[60px] overflow-y-auto px-1 text-sm font-light text-white/90 leading-tight tracking-wide space-y-1.5">
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              className={`transition-all ${
+                msg.sender === 'user' ? 'text-cyan-300' : 'text-gray-300'
+              }`}
+            >
+              <span className="font-medium">{msg.sender === 'user' ? 'You' : 'Tex'}:</span>{' '}
+              {msg.text}
+            </div>
+          ))}
+        </div>
+
+        {/* Input + Button */}
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+            placeholder={loading ? 'Thinking...' : 'Speak to Tex...'}
+            disabled={loading}
+            className="flex-1 bg-transparent text-white text-[17px] tracking-wide outline-none placeholder-white/40 px-2 py-1 font-medium"
+            style={{
+              fontFamily: `'Inter', system-ui, sans-serif`,
+              textRendering: 'optimizeLegibility',
+              WebkitFontSmoothing: 'antialiased',
+            }}
+          />
+
+          {/* Send / Mic Button */}
+          <button
+            onClick={sendMessage}
+            className={`w-[38px] h-[38px] rounded-full relative grid place-items-center bg-black/30 backdrop-blur-sm border border-white/10 shadow-[0_0_8px_#00ffff33] transition-all duration-200 hover:shadow-[0_0_20px_#00ffff55] ${
+              loading ? 'animate-spin' : 'hover:scale-105'
+            }`}
+            aria-label="Send"
           >
-            <circle
-              cx="50"
-              cy="50"
-              r="38"
-              strokeDasharray="270"
-              strokeDashoffset="30"
-            />
-          </svg>
-        </button>
+            <div className="w-2 h-2 bg-cyan-300 rounded-full animate-ping" />
+          </button>
+        </div>
       </div>
     </div>
   );

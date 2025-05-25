@@ -29,19 +29,18 @@ export default function SovereignStatusPanel() {
     };
     socket.onerror = (e) => {
       console.error('WebSocket error:', e);
-      alert('⚠️ WebSocket connection failed. Check server status and URL.');
     };
     return () => socket.close();
   }, []);
 
   return (
-    <div className="w-[360px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5 text-base text-white">
+    <div className="w-[300px] bg-black/75 border border-white/10 rounded-xl p-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.08)] space-y-5 text-base text-white">
       {/* Header */}
-      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider text-right">
+      <div className="text-[17px] text-cyan-300 font-bold uppercase tracking-wider">
         TEX: SOVEREIGN COGNITION
       </div>
 
-      <div className="text-[12px] text-white/50 tracking-wide text-right">
+      <div className="text-[12px] text-white/50 tracking-wide">
         Godmind · Forkstream ⑂
       </div>
 
@@ -53,10 +52,12 @@ export default function SovereignStatusPanel() {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="flex justify-between text-[15px] font-normal leading-tight"
+            className="text-[15px] leading-tight"
           >
-            <span>{item.label}</span>
-            <span className="text-cyan-200">{item.value}</span>
+            <div className="flex flex-col">
+              <span className="text-white">{item.label}</span>
+              <span className="text-cyan-200 ml-1">{item.value}</span>
+            </div>
           </motion.div>
         ))}
       </div>

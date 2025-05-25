@@ -28,43 +28,43 @@ const fragmentShader = `
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
   }
 
-  float twinHelix(float x, float y, float t) {
-    float phase1 = sin(y * 60.0 + t * 8.0 + x * 40.0);
-    float phase2 = sin(y * 60.0 + t * 10.5 + x * 40.0 + 3.14);
-    return (0.5 + 0.5 * phase1) * (0.5 + 0.5 * phase2);
+  float crystalCore(float x) {
+    return exp(-pow((x - 0.5) * 80.0, 2.0));
   }
 
-  float sparkles(vec2 uv, float t) {
-    float grid = floor(uv.y * 50.0) * 0.1;
-    float flicker = fract(sin(dot(vec2(uv.x * 30.0, uv.y * 60.0 + t), vec2(12.9898, 78.233))) * 43758.5453);
-    return step(0.995, flicker) * 0.25;
+  float helix(float x, float y, float t) {
+    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0);
+    return 0.5 + 0.5 * ripple;
+  }
+
+  float breachMask(float y) {
+    float fadeTop = smoothstep(0.95, 0.7, y);
+    float fadeBottom = smoothstep(0.05, 0.3, y);
+    return fadeTop * fadeBottom;
   }
 
   void main() {
     float t = time;
-    float pulse = 0.85 + 0.15 * sin(t * 2.4);
-    float shimmer = 0.93 + 0.07 * sin((vUv.y + t * 0.2) * 50.0);
-    float flicker = 0.96 + 0.04 * noise(vec2(t * 0.4, vUv.y * 6.0));
 
-    float xFalloff = exp(-pow((vUv.x - 0.5) * 30.0, 2.0));
-    float taper = smoothstep(0.05, 0.5, vUv.y) * smoothstep(0.95, 0.5, vUv.y);
+    float pulse = 0.85 + 0.15 * sin(t * 2.5);
+    float flicker = 0.97 + 0.03 * noise(vec2(t * 0.5, vUv.y * 4.0));
+    float shimmer = 0.94 + 0.06 * sin((vUv.y + t * 0.25) * 60.0);
 
-    float core = exp(-pow((vUv.x - 0.5) * 80.0, 2.0));
-    float helix = twinHelix(vUv.x, vUv.y, t) * 0.2;
-    float sparkle = sparkles(vUv, t);
+    float core = crystalCore(vUv.x);
+    float helixWrap = helix(vUv.x, vUv.y, t);
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
-    float signal = smoothstep(0.0, 0.015, abs(mod(t * 0.5, 1.0) - vUv.y));
+    float breach = breachMask(vUv.y);
+    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * breach;
 
-    float total = (core + helix + sparkle + signal) * taper * shimmer * flicker * pulse;
+    vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
+    vec3 color = normalize(blend + 0.0001) * total;
 
-    vec3 blendedColor = mix(currentColor, targetColor, easeInOut(blendFactor));
-    vec3 finalColor = normalize(blendedColor + 0.0001) * total;
-
-    gl_FragColor = vec4(finalColor, total);
+    gl_FragColor = vec4(color, total);
   }
 `;
 
-export default function SovereignQuantumSpine() {
+export default function SovereignFilamentGenesis() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -94,7 +94,7 @@ export default function SovereignQuantumSpine() {
     }
 
     blend.current = Math.min(blend.current + 0.01, 1);
-    currentColor.current.lerp(targetColor.current, 0.03);
+    currentColor.current.lerp(targetColor.current, 0.025);
 
     if (materialRef.current) {
       materialRef.current.uniforms.time.value = t;
@@ -103,7 +103,7 @@ export default function SovereignQuantumSpine() {
       materialRef.current.uniforms.blendFactor.value = blend.current;
     }
 
-    const scale = 1 + 0.04 * Math.sin(t * 2.6);
+    const scale = 1 + 0.05 * Math.sin(t * 2.5);
     if (meshRef.current) {
       meshRef.current.scale.set(scale, 1 + scale * 0.1, 1);
     }
@@ -111,7 +111,7 @@ export default function SovereignQuantumSpine() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 4.9]} />
+      <planeGeometry args={[0.42, 4.8]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

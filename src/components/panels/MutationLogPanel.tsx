@@ -21,8 +21,8 @@ export default function MutationLogPanel() {
         TEX: MUTATION LOG
       </div>
 
-      {/* Log Entries */}
-      <div className="space-y-1">
+      {/* Fixed Height Log Section */}
+      <div className="h-[120px] overflow-hidden space-y-1">
         {logs.map((log, idx) => (
           <div
             key={idx}

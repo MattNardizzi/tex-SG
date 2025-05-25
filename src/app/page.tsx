@@ -1,6 +1,6 @@
 'use client';
 
-import { MutationLogPanelR3F as MutationLogPanel } from '@/components/panels/FiberPanels';
+import MutationLogPanel from '@/components/panels/MutationLogPanel';
 import SovereignStatusPanel from '@/components/panels/SovereignStatusPanel';
 import SpineCanvas from '@/components/Spine/SpineCanvas';
 import MarketTicker from '@/components/ui/MarketTicker';

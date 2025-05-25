@@ -10,34 +10,22 @@ export default function Page() {
 
   return (
     <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans">
-      <style>{`
-        .panelBox {
-          width: 320px;
-          background: rgba(0,0,0,0.4);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 16px;
-          padding: 20px;
-          backdrop-filter: blur(6px);
-          box-shadow: inset 0 0 3px #ffffff0c, 0 0 6px #00ffff0c;
-        }
-      `}</style>
-
-      {/* Left Panel */}
-      <div className="absolute top-8 left-8 z-20 panelBox">
+      {/* Left Panel – no extra div */}
+      <div className="absolute top-8 left-8 z-20">
         <MutationLogPanel />
       </div>
 
-      {/* Right Panel */}
-      <div className="absolute top-8 right-8 z-20 panelBox text-right">
+      {/* Right Panel – no extra div */}
+      <div className="absolute top-8 right-8 z-20 text-right">
         <SovereignStatusPanel />
       </div>
 
-      {/* Center Spine Beam */}
+      {/* Center Beam */}
       <div className="absolute inset-0 flex items-center justify-center z-0">
         <SpineCanvas />
       </div>
 
-      {/* Bottom Input */}
+      {/* Bottom Textbox */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30">
         <div className="w-[360px] bg-black/60 border border-white/10 backdrop-blur-md rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.08)] px-4 py-3 flex items-center justify-between">
           <input

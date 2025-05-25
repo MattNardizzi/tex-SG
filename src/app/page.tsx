@@ -9,29 +9,37 @@ export default function Page() {
   const [input, setInput] = useState('');
 
   return (
-    <div className="relative w-screen h-screen bg-black text-white overflow-hidden">
+    <div className="relative w-screen h-screen bg-black text-white overflow-hidden font-sans">
+      <style>{`
+        .panelBox {
+          width: 320px;
+          background: rgba(0,0,0,0.4);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 16px;
+          padding: 20px;
+          backdrop-filter: blur(6px);
+          box-shadow: inset 0 0 3px #ffffff0c, 0 0 6px #00ffff0c;
+        }
+      `}</style>
+
       {/* Left Panel */}
-      <div className="absolute top-8 left-8 w-[260px] h-auto z-20">
-        <div className="bg-black/40 border border-white/10 rounded-lg p-4 backdrop-blur-sm shadow-[inset_0_0_2px_#ffffff10,_0_0_3px_#00ffff06]">
-          <MutationLogPanel />
-        </div>
+      <div className="absolute top-8 left-8 z-20 panelBox">
+        <MutationLogPanel />
       </div>
 
       {/* Right Panel */}
-      <div className="absolute top-8 right-8 w-[260px] h-auto z-20 text-right">
-        <div className="bg-black/40 border border-white/10 rounded-lg p-4 backdrop-blur-sm shadow-[inset_0_0_2px_#ffffff10,_0_0_3px_#00ffff06]">
-          <SovereignStatusPanel />
-        </div>
+      <div className="absolute top-8 right-8 z-20 panelBox text-right">
+        <SovereignStatusPanel />
       </div>
 
-      {/* Center Beam */}
+      {/* Center Spine Beam */}
       <div className="absolute inset-0 flex items-center justify-center z-0">
         <SpineCanvas />
       </div>
 
-      {/* Bottom Textbox */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
-        <div className="w-[320px] bg-black/60 border border-white/10 backdrop-blur-md rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.05)] px-4 py-3 flex items-center justify-between">
+      {/* Bottom Input */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="w-[360px] bg-black/60 border border-white/10 backdrop-blur-md rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.08)] px-4 py-3 flex items-center justify-between">
           <input
             type="text"
             value={input}

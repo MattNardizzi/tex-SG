@@ -22,16 +22,26 @@ export default function SovereignTextbox() {
     setLoading(true);
 
     try {
-      const res = await fetch('https://fc2c-13-58-212-225.ngrok-free.app/think', {
+      // Step 1: Get Tex’s raw cognition from /think
+      const cognitionRes = await fetch('https://ac70-13-58-212-225.ngrok-free.app/think', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: input }),
       });
 
-      const data = await res.json();
-      const reply = data.response || '⚠️ No response received.';
+      const cognitionData = await cognitionRes.json();
+      const cognition = cognitionData.response || '⚠️ No cognition returned.';
+
+      // Step 2: Send cognition to Tex’s voice layer
+      const voiceRes = await fetch('https://ac70-13-58-212-225.ngrok-free.app/api/express_core', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ signal: cognition }),
+      });
+
+      const voiceData = await voiceRes.json();
+      const reply = voiceData.speech || cognition;
+
       setMessages([...updated, { sender: 'tex', text: reply }]);
     } catch (err) {
       console.error('[TEX ERROR]', err);

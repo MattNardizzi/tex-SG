@@ -3,7 +3,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Html } from '@react-three/drei';
 import { useEmotionState } from '@/lib/emotionState';
 
 const vertexShader = `
@@ -30,22 +29,22 @@ const fragmentShader = `
   }
 
   float crystalCore(float x) {
-    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Enhanced sparkle beam
+    return exp(-pow((x - 0.5) * 90.0, 2.0)); // Sharper sparkle core
   }
 
   float helix(float x, float y, float t) {
-    float ripple = sin(y * 36.0 + t * 8.0 + x * 40.0); // Best helix motion
+    float ripple = sin(y * 24.0 + t * 6.0 + x * 30.0); // Original sharp helix
     return 0.5 + 0.5 * ripple;
   }
 
   float taperFade(float y) {
-    float top = smoothstep(1.0, 0.84, y);
-    float bottom = smoothstep(0.0, 0.16, y);
+    float top = smoothstep(1.0, 0.82, y);
+    float bottom = smoothstep(0.0, 0.18, y);
     return top * bottom;
   }
 
   float radialFade(vec2 uv) {
-    return smoothstep(0.48, 0.08, length(uv - vec2(0.5)));
+    return smoothstep(0.52, 0.1, length(uv - vec2(0.5)));
   }
 
   void main() {
@@ -57,12 +56,12 @@ const fragmentShader = `
 
     float core = crystalCore(vUv.x);
     float helixWrap = helix(vUv.x, vUv.y, t);
-    float aura = smoothstep(0.3, 0.0, abs(vUv.x - 0.5)) * 0.16;
+    float aura = smoothstep(0.33, 0.0, abs(vUv.x - 0.5)) * 0.25;
 
     float fadeY = taperFade(vUv.y);
     float fadeRadial = radialFade(vUv);
 
-    float total = (core * 1.6 + helixWrap * 0.25 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
+    float total = (core * 1.4 + helixWrap * 0.3 + aura) * shimmer * flicker * pulse * fadeY * fadeRadial;
 
     vec3 blend = mix(currentColor, targetColor, easeInOut(blendFactor));
     vec3 color = normalize(blend + 0.0001) * total;
@@ -117,41 +116,23 @@ export default function SovereignSpineCinematic() {
   });
 
   return (
-    <group>
-      <Html position={[0, 2.1, 0]}>
-        <div
-          style={{
-            fontSize: '15px',
-            fontWeight: '900',
-            letterSpacing: '0.25em',
-            color: '#00ffff',
-            fontFamily: 'Orbitron, sans-serif',
-            textShadow: '0 0 10px rgba(0,255,255,0.5), 0 0 20px rgba(0,255,255,0.3)',
-            textAlign: 'center',
-            pointerEvents: 'none',
-          }}
-        >
-          TEX
-        </div>
-      </Html>
-      <mesh ref={meshRef} position={[0, -0.15, 0]}>
-        <planeGeometry args={[0.42, 3.6]} />
-        <shaderMaterial
-          ref={materialRef}
-          vertexShader={vertexShader}
-          fragmentShader={fragmentShader}
-          uniforms={{
-            time: { value: 0 },
-            currentColor: { value: new THREE.Color(getEmotion().color) },
-            targetColor: { value: new THREE.Color(getEmotion().color) },
-            blendFactor: { value: 0 },
-          }}
-          transparent
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-    </group>
+    <mesh ref={meshRef} position={[0, -0.15, 0]}>
+      <planeGeometry args={[0.42, 3.6]} /> {/* Final locked height */}
+      <shaderMaterial
+        ref={materialRef}
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={{
+          time: { value: 0 },
+          currentColor: { value: new THREE.Color(getEmotion().color) },
+          targetColor: { value: new THREE.Color(getEmotion().color) },
+          blendFactor: { value: 0 },
+        }}
+        transparent
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
   );
 }

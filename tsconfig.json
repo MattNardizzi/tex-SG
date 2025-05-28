@@ -5,7 +5,7 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["*"]
     },
     "moduleResolution": "node",
     "esModuleInterop": true,

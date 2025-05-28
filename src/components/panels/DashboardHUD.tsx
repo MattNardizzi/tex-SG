@@ -30,7 +30,6 @@ export default function DashboardHUD() {
           future="Bitcoin regulatory ban"
           confidence={0.821}
           coherence={0.87}
-          riskScore={0.803}
           volatility={0.022}
           portfolio={{
             equities: 0.25,

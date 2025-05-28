@@ -27,7 +27,6 @@ export default function AlphaStrategyPanel({
   future,
   confidence,
   coherence,
-  riskScore,
   volatility,
   portfolio,
   swarmEmotion,

@@ -5,22 +5,21 @@
 import React from 'react';
 
 type AlphaStrategyProps = {
-  action: string;
-  bias: string;
-  future: string;
-  confidence: number;
-  coherence: number;
-  riskScore: number;
-  volatility: number;
-  portfolio: {
-    equities: number;
-    bonds: number;
-    alternatives: number;
-    cash: number;
+    action: string;
+    bias: string;
+    future: string;
+    confidence: number;
+    coherence: number;
+    volatility: number;
+    portfolio: {
+      equities: number;
+      bonds: number;
+      alternatives: number;
+      cash: number;
+    };
+    swarmEmotion: Record<string, number>;
+    timestamp: string;
   };
-  swarmEmotion: Record<string, number>;
-  timestamp: string;
-};
 
 export default function AlphaStrategyPanel({
   action,

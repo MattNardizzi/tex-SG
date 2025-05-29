@@ -111,7 +111,7 @@ export default function SovereignFilamentGenesis() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 4.7]} />
+      <planeGeometry args={[0.42, 4.8]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

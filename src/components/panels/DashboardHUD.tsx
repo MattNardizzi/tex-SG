@@ -11,7 +11,7 @@ import SwarmIntelligenceMap from './SwarmIntelligenceMap';
 import ExplainabilityConsole from './ExplainabilityConsole';
 import SimulacrumHallucinationFeed from './SimulacrumHallucinationFeed';
 import MultiverseMemoryPanel from './MultiverseMemoryPanel';
-import AwarenessStream from '../Spine/AwarenessStream';
+import AwarenessStream from './AwarenessStream';
 
 export default function DashboardHUD() {
   return (

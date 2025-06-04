@@ -147,7 +147,7 @@ export default function TacticalContradictionMatrix() {
                 </div>
                 <div className="text-white/50 font-mono text-[10px]">Contradiction Risk: {insight.contradictionRisk}</div>
                 <div className="text-white/60 text-[9px] italic">
-                  {parseFloat(insight.entropyScore) > 0.6
+                  {insight.entropyScore > 0.6
                     ? '⚠ Dissonance levels breaching threshold.'
                     : '↳ Entropy remains within operating margin.'}
                 </div>

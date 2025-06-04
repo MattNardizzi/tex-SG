@@ -60,7 +60,7 @@ const generateNeuralSnapshot = () => {
 };
 
 export default function NeuralExecutionCortex() {
-  const [snapshot, setSnapshot] = useState<any>(null);
+  const [snapshot, setSnapshot] = useState<ReturnType<typeof generateNeuralSnapshot> | null>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {

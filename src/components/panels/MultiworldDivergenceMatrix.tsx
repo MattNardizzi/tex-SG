@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const generateMultiworldInsight = () => {
-  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 
+const generateMultiworldInsight = () => {
   const ghostForks = Array.from({ length: 2 }, () => ({
-    id: crypto.randomUUID().slice(0, 8),
+    id: Math.random().toString(36).slice(2, 10),
     divergence: (Math.random() * 1.8 + 0.2).toFixed(2),
     regret: (Math.random() * 0.9).toFixed(2),
     emotion: pick(['resolve', 'fear', 'curiosity']),

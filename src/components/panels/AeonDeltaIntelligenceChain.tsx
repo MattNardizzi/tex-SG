@@ -46,10 +46,11 @@ const generateAeonInsight = () => {
 };
 
 export default function AeonDeltaIntelligenceChain() {
-  const [insight, setInsight] = useState(generateAeonInsight());
+  const [insight, setInsight] = useState(null);
   const [step, setStep] = useState(0);
 
   useEffect(() => {
+    setInsight(generateAeonInsight());
     const insightTimer = setInterval(() => setInsight(generateAeonInsight()), 12000);
     const rotationTimer = setInterval(() => setStep((s) => (s + 1) % 5), 6000);
     return () => {
@@ -58,13 +59,15 @@ export default function AeonDeltaIntelligenceChain() {
     };
   }, []);
 
+  if (!insight) return null;
+
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
 
       {/* Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
       {/* Title */}

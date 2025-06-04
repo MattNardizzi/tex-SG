@@ -56,11 +56,13 @@ const generateCausalInsight = () => {
 };
 
 export default function ReflexiveCausalityMatrix() {
-  const [insight, setInsight] = useState(generateCausalInsight());
+  const [insight, setInsight] = useState<ReturnType<typeof generateCausalInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
-    const durations = Array(7).fill(6000); // ✅ MATCHING 7 SLIDES
+    setInsight(generateCausalInsight());
+
+    const durations = Array(7).fill(6000);
     let current = 0;
     let timeout: NodeJS.Timeout;
 
@@ -78,6 +80,8 @@ export default function ReflexiveCausalityMatrix() {
       clearInterval(interval);
     };
   }, []);
+
+  if (!insight) return null;
 
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body text-[10px] overflow-hidden">

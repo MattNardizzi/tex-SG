@@ -43,11 +43,13 @@ const generateCodexInsight = () => {
 };
 
 export default function AutonomousCodexRegulator() {
-  const [insight, setInsight] = useState(generateCodexInsight());
+  const [insight, setInsight] = useState<ReturnType<typeof generateCodexInsight> | null>(null);
   const [slide, setSlide] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    setInsight(generateCodexInsight());
+
     const totalSlides = 6;
     const interval = 6000;
 
@@ -63,6 +65,8 @@ export default function AutonomousCodexRegulator() {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
+
+  if (!insight) return null;
 
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">

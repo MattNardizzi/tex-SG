@@ -1,10 +1,25 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useMarketQuotes } from '@/hooks/useMarketQuotes'; // adjust if your path differs
+
+const generateQuotes = () => [
+  'AAPL: $203.10 \u25BC -0.08%',
+  'TSLA: $334.49 \u25BC -2.84%',
+  'GOOG: $169.19 \u25B2 +0.89%',
+  'META: $685.80 \u25B2 +2.84%',
+  'AMD: $118.67 \u25B2 +1.16%',
+  'BTC: $69,120.14 \u25B2 +3.14%'
+];
 
 export default function MarketTicker() {
-  const quotes = useMarketQuotes();
+  const [quotes, setQuotes] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    setQuotes(generateQuotes());
+  }, []);
+
+  if (!quotes) return null;
 
   return (
     <div className="relative h-full w-full overflow-hidden flex items-center text-[11px] font-mono tracking-tight leading-none whitespace-nowrap px-4 rounded-2xl bg-gradient-to-br from-[#041826] via-black to-[#0c1b32] border border-cyan-400/40 shadow-[0_0_60px_#00ffff66]">

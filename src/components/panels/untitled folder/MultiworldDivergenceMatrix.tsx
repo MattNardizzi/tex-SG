@@ -43,10 +43,12 @@ const generateMultiworldInsight = () => {
 };
 
 export default function MultiworldDivergenceMatrix() {
-  const [insight, setInsight] = useState(generateMultiworldInsight());
+  const [insight, setInsight] = useState<ReturnType<typeof generateMultiworldInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
+    setInsight(generateMultiworldInsight());
+
     const durations = Array(6).fill(5000);
     let current = 0;
 
@@ -61,6 +63,8 @@ export default function MultiworldDivergenceMatrix() {
     return () => clearTimeout(initial);
   }, []);
 
+  if (!insight) return null;
+
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
       
@@ -73,7 +77,7 @@ export default function MultiworldDivergenceMatrix() {
       {/* Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
       <div className="relative z-10 flex flex-col justify-between h-full">
@@ -96,7 +100,6 @@ export default function MultiworldDivergenceMatrix() {
                 <div className="text-cyan-300 font-body text-[10.5px]">✳ {insight.universe}</div>
               </>
             )}
-
             {slide === 1 && (
               <>
                 <div>Divergence Score: <span className="text-lime-300 font-mono">{insight.divergenceScore}</span></div>
@@ -109,7 +112,6 @@ export default function MultiworldDivergenceMatrix() {
                 </div>
               </>
             )}
-
             {slide === 2 && (
               <>
                 <div className="text-white/40">Shadow Ghost Forks</div>
@@ -130,7 +132,6 @@ export default function MultiworldDivergenceMatrix() {
                 ))}
               </>
             )}
-
             {slide === 3 && (
               <>
                 <div className="text-white/40">Causal Entanglement</div>
@@ -143,7 +144,6 @@ export default function MultiworldDivergenceMatrix() {
                 </div>
               </>
             )}
-
             {slide === 4 && (
               <>
                 <div className="text-white/40">Simulation Regret Forecast</div>
@@ -158,7 +158,6 @@ export default function MultiworldDivergenceMatrix() {
                 </div>
               </>
             )}
-
             {slide === 5 && (
               <>
                 <div className="text-white/40">Last Evaluation</div>

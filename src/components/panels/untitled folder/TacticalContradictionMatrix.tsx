@@ -49,10 +49,12 @@ const generateContradictionInsight = () => {
 };
 
 export default function TacticalContradictionMatrix() {
-  const [insight, setInsight] = useState(generateContradictionInsight());
+  const [insight, setInsight] = useState<ReturnType<typeof generateContradictionInsight> | null>(null);
   const [step, setStep] = useState(0);
 
   useEffect(() => {
+    setInsight(generateContradictionInsight());
+
     const totalSteps = 6;
     const duration = 5000;
 
@@ -67,6 +69,8 @@ export default function TacticalContradictionMatrix() {
     const intervalId = setInterval(loop, duration);
     return () => clearInterval(intervalId);
   }, []);
+
+  if (!insight) return null;
 
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#230014] via-black to-[#370024] rounded-2xl border border-pink-400/40 shadow-[0_0_60px_#ff66cc33] text-white font-body overflow-hidden text-[10px]">

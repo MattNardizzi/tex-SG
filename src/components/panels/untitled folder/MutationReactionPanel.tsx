@@ -46,10 +46,12 @@ const generateMutationInsight = () => {
 };
 
 export default function MutationReactorPanel() {
-  const [insight, setInsight] = useState(generateMutationInsight());
+  const [insight, setInsight] = useState<ReturnType<typeof generateMutationInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
+    setInsight(generateMutationInsight());
+
     const totalSlides = 6;
     const duration = 5000;
 
@@ -66,6 +68,8 @@ export default function MutationReactorPanel() {
     const intervalId = setInterval(loop, duration);
     return () => clearInterval(intervalId);
   }, []);
+
+  if (!insight) return null;
 
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
@@ -88,7 +92,6 @@ export default function MutationReactorPanel() {
           Mutation Reactor — AGI-9
         </div>
 
-        {/* Slide Content */}
         <AnimatePresence mode="wait">
           <motion.div
             key={`${slide}-${insight.timestamp}`}

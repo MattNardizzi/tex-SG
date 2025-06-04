@@ -60,10 +60,12 @@ const generateNeuralSnapshot = () => {
 };
 
 export default function NeuralExecutionCortex() {
-  const [snapshot, setSnapshot] = useState(generateNeuralSnapshot());
+  const [snapshot, setSnapshot] = useState<any>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
+    setSnapshot(generateNeuralSnapshot());
+
     const durations = Array(10).fill(6000);
     let current = 0;
     let timeout: NodeJS.Timeout;
@@ -82,6 +84,8 @@ export default function NeuralExecutionCortex() {
       clearInterval(interval);
     };
   }, []);
+
+  if (!snapshot) return null;
 
   const normalize = () => {
     const total = Object.values(snapshot.weights).reduce((a, b) => a + b, 0);

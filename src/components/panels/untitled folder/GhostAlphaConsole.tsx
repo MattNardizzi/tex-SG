@@ -42,10 +42,12 @@ const generateGhostAlpha = () => {
 };
 
 export default function GhostAlphaConsole() {
-  const [insight, setInsight] = useState(generateGhostAlpha());
+  const [insight, setInsight] = useState<ReturnType<typeof generateGhostAlpha> | null>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
+    setInsight(generateGhostAlpha());
+
     const rotate = () => {
       setSlide((prev) => {
         const next = (prev + 1) % 5;
@@ -57,6 +59,8 @@ export default function GhostAlphaConsole() {
     const loop = setInterval(rotate, 6000);
     return () => clearInterval(loop);
   }, []);
+
+  if (!insight) return null;
 
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#230014] via-black to-[#370024] rounded-2xl border border-pink-400/40 shadow-[0_0_60px_#ff66cc33] text-white font-body overflow-hidden text-[10px]">

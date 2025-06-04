@@ -34,10 +34,12 @@ const generateReflexState = () => {
 };
 
 export default function SovereignReflexSentinel() {
-  const [state, setState] = useState(generateReflexState());
+  const [state, setState] = useState<ReturnType<typeof generateReflexState> | null>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
+    setState(generateReflexState());
+
     const totalSlides = 5;
     const duration = 5000;
 
@@ -53,9 +55,10 @@ export default function SovereignReflexSentinel() {
     return () => clearInterval(intervalId);
   }, []);
 
+  if (!state) return null;
+
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#230014] via-black to-[#370024] rounded-2xl border border-pink-400/40 shadow-[0_0_60px_#ff66cc33] text-white font-body overflow-hidden text-[10px]">
-
       {/* Reflex Pulse FX */}
       <div
         className="absolute -z-10 top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse"
@@ -93,7 +96,6 @@ export default function SovereignReflexSentinel() {
                 <div className="text-pink-300 font-mono text-[10px]">{state.defense}</div>
               </>
             )}
-
             {slide === 1 && (
               <>
                 <div>Reflex Override Index:
@@ -112,7 +114,6 @@ export default function SovereignReflexSentinel() {
                 </div>
               </>
             )}
-
             {slide === 2 && (
               <>
                 <div className="text-white/40">Counterfactual Scan</div>
@@ -121,7 +122,6 @@ export default function SovereignReflexSentinel() {
                 </div>
               </>
             )}
-
             {slide === 3 && (
               <>
                 <div className="text-white/40">Sovereign Stability Forecast</div>
@@ -133,7 +133,6 @@ export default function SovereignReflexSentinel() {
                 </div>
               </>
             )}
-
             {slide === 4 && (
               <>
                 <div className="text-white/40">Protocol Timestamp</div>

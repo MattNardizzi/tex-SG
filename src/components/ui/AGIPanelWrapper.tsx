@@ -12,7 +12,7 @@ export default function AGIPanelWrapper({
   children: React.ReactNode
 }) {
   const colorMap = useColorTheme()
-  const color = colorMap[gridSlot] || '#ffffff'
+  const color = colorMap[gridSlot as keyof typeof colorMap] || '#ffffff';
 
   return (
     <div

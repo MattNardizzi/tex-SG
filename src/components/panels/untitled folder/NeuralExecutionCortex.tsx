@@ -87,7 +87,8 @@ export default function NeuralExecutionCortex() {
     const total = Object.values(snapshot.weights).reduce((a, b) => a + b, 0);
     const out: Record<string, number> = {};
     for (const key in snapshot.weights) {
-      out[key] = snapshot.weights[key] / total;
+      const typedKey = key as keyof typeof snapshot.weights;
+      out[typedKey] = snapshot.weights[typedKey] / total;
     }
     return out;
   };

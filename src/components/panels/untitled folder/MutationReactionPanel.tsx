@@ -152,7 +152,7 @@ export default function MutationReactorPanel() {
               <>
                 <div className="text-[9px] text-white/40">Codex Override Log</div>
                 <div className="text-white/90 font-body text-[10px]">
-                  "Fork violated primary coherence matrix. Sovereign override injected."
+                  {"Fork violated primary coherence matrix. Sovereign override injected."}
                 </div>
                 <div className="text-white/40 font-mono text-[9px]">
                   Logged: /sovereign_ops_{insight.variants[0].id}.jsonl @ offset Δ{insight.forkDivergence}

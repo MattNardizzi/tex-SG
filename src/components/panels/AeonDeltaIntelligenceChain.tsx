@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const generateAeonInsight = () => {
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 
   const children = Array.from({ length: 2 }, () => {
     const divergence = parseFloat((Math.random() * 1.2 + 0.3).toFixed(2));

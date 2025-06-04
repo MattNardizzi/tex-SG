@@ -74,7 +74,7 @@ export default function TacticalContradictionMatrix() {
       {/* Reflex Pulse FX */}
       <div
         className="absolute -z-10 top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse pointer-events-none"
-        style={{ backgroundColor: 'rgba(255,105,180,0.08)', opacity: parseFloat(insight.entropyScore) }}
+        style={{ backgroundColor: 'rgba(255,105,180,0.08)', opacity: insight.entropyScore }}
       />
 
       {/* FX Grid */}

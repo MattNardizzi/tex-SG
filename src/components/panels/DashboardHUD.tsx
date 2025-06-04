@@ -14,7 +14,7 @@ import SovereignReflexSentinel from './untitled folder/SovereignReflexSentinel'
 
 import AeonDeltaIntelligenceChain from '../panels/AeonDeltaIntelligenceChain'
 import GhostAlphaConsole from './untitled folder/GhostAlphaConsole'
-import AutonomousCodexRegulator from './untitled folder/ AutonomousCodexRegulator'
+import AutonomousCodexRegulator from './untitled folder/AutonomousCodexRegulator'
 
 export default function DashboardHUD() {
   return (

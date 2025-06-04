@@ -68,7 +68,7 @@ export default function NeuralExecutionCortex() {
 
     const durations = Array(10).fill(6000);
     let current = 0;
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     const advanceSlide = () => {
       current = (current + 1) % 10;

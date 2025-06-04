@@ -16,6 +16,7 @@ const generateContradictionInsight = () => {
       contradiction,
       regret,
       coherence,
+      entropy,
       emotionalState: pick(['resolve', 'curious', 'fear', 'doubt']),
       reflex: pick(['auto_patch', 'disobedience', 'override']),
       riskIndex: (contradiction * regret * (1 - coherence)).toFixed(3),
@@ -121,6 +122,7 @@ export default function TacticalContradictionMatrix() {
                     <span>Δ: {f.contradiction}</span>
                     <span>R: {f.regret}</span>
                     <span>Coh: {f.coherence}</span>
+                    <span className="text-orange-300">S: {f.entropy}</span>
                   </div>
                 ))}
               </>

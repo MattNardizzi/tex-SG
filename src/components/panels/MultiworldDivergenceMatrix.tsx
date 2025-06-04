@@ -4,9 +4,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const generateInterventionSlides = () => {
-  const randomFloat = (min, max, decimals = 3) =>
-    (Math.random() * (max - min) + min).toFixed(decimals);
-  const randomChoice = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+  const randomFloat = (min: number, max: number, decimals: number = 3): number =>
+    parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
+  const randomChoice = (arr: string[]): string =>
+    arr[Math.floor(Math.random() * arr.length)];
 
   return {
     id: crypto.randomUUID(),
@@ -31,9 +32,9 @@ const generateInterventionSlides = () => {
       'Mutation passed under high emotional load.',
       'Suppression of misaligned fork successful.',
     ])}"`,
-    emotionLevel: parseFloat(randomFloat(0.6, 0.95)),
-    urgency: parseFloat(randomFloat(0.7, 0.99)),
-    coherence: parseFloat(randomFloat(0.6, 0.95)),
+    emotionLevel: randomFloat(0.6, 0.95),
+    urgency: randomFloat(0.7, 0.99),
+    coherence: randomFloat(0.6, 0.95),
     lastCritical: `${Math.floor(Math.random() * 5)}m ago`,
   };
 };
@@ -64,6 +65,7 @@ export default function CognitiveInterventionPanel() {
 
   return (
     <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#FF365D]/30 via-[#120000] to-black rounded-2xl border border-red-500/20 shadow-2xl text-white font-mono overflow-hidden">
+
       {/* BACKGROUND */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
@@ -81,7 +83,7 @@ export default function CognitiveInterventionPanel() {
       </div>
 
       {/* STAGES */}
-      <div className="relative z-10 h-[135px] flex items-start justify-center px-2 mt-2">
+      <div className="relative z-10 h-[135px] flex items-center justify-center px-2 pt-[10px]">
         <AnimatePresence mode="wait">
           {stage === 0 && (
             <motion.div

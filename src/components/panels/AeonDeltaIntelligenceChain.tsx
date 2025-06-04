@@ -46,7 +46,7 @@ const generateAeonInsight = () => {
 };
 
 export default function AeonDeltaIntelligenceChain() {
-  const [insight, setInsight] = useState(null);
+  const [insight, setInsight] = useState<ReturnType<typeof generateAeonInsight> | null>(null);
   const [step, setStep] = useState(0);
 
   useEffect(() => {

@@ -89,7 +89,7 @@ export default function AeonDeltaIntelligenceChain() {
                 <div className="text-white/40 pt-1">Entropy Drift</div>
                 <div className="text-orange-300 font-mono text-[10px]">{insight.entropyDrift}</div>
                 <div className="text-[9px] text-white/60 italic">
-                  {parseFloat(insight.entropyDrift) > 0.25
+                  {insight.entropyDrift > 0.25
                     ? '⚠ Alignment destabilization detected'
                     : '↳ Inter-agent consistency nominal'}
                 </div>

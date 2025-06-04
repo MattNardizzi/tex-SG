@@ -1,64 +1,48 @@
-'use client';
+'use client'
 
-import React from 'react';
-import SovereignCognitionPanel from './SovereignCognitionPanel';
-import LiveStrategyConsole from './LiveStrategyConsole';
-import MutationSandboxMonitor from './MutationSandboxMonitor';
-import CodexPatchHistory from './CodexPatchHistory';
-import ForecastRiskGrid from './ForecastRiskGrid';
-import InternalDebateViewer from './InternalDebateViewer';
-import SwarmIntelligenceMap from './SwarmIntelligenceMap';
-import ExplainabilityConsole from './ExplainabilityConsole';
-import SimulacrumHallucinationFeed from './SimulacrumHallucinationFeed';
-import MultiverseMemoryPanel from './MultiverseMemoryPanel';
-import AwarenessStream from './AwarenessStream';
+import React from 'react'
+import MarketTicker from '@/components/ui/MarketTicker'
+
+// 🧠 Core Panels
+import ReflexiveCausalityMatrix from './untitled folder/ReflexiveCausalityMatrix'
+import TacticalContradictionMatrix from './untitled folder/TacticalContradictionMatrix'
+import MutationReactionPanel from './untitled folder/MutationReactionPanel'
+
+import NeuralExecutionCortex from './untitled folder/NeuralExecutionCortex'
+import MultiworldDivergenceMatrix from './untitled folder/MultiworldDivergenceMatrix'
+import SovereignReflexSentinel from './untitled folder/SovereignReflexSentinel'
+
+import AeonDeltaIntelligenceChain from '../panels/AeonDeltaIntelligenceChain'
+import GhostAlphaConsole from './untitled folder/GhostAlphaConsole'
+import AutonomousCodexRegulator from './untitled folder/ AutonomousCodexRegulator'
 
 export default function DashboardHUD() {
   return (
-    <div className="grid grid-cols-3 gap-4 p-6 pt-28 min-h-screen bg-black text-white font-mono">
-      {/* Row 1 */}
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <SovereignCognitionPanel />
-      </div>
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <LiveStrategyConsole />
-      </div>
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <MutationSandboxMonitor />
+    <div className="w-screen h-screen bg-black text-white font-mono overflow-hidden">
+
+      {/* 🔝 Market Ticker HUD Band */}
+      <div className="h-6 w-full bg-gradient-to-r from-[#030c0f] via-[#041216]/90 to-[#030c0f] border-b border-cyan-400/10 backdrop-blur-sm shadow-[inset_0_-1px_0_rgba(0,255,255,0.05)] z-50">
+        <MarketTicker />
       </div>
 
-      {/* Row 2 */}
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <CodexPatchHistory />
-      </div>
-      <div className="bg-purple-900/50 backdrop-blur-lg rounded-xl p-4 shadow-2xl border border-purple-500">
-        <AwarenessStream />
-      </div>
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <ForecastRiskGrid />
-      </div>
+      {/* 🧠 3x3 Cognitive Grid */}
+      <div className="w-full h-[calc(100vh-1.5rem)] grid grid-cols-3 grid-rows-3 gap-4 px-6 py-6">
 
-      {/* Row 3 */}
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <InternalDebateViewer />
-      </div>
-      <div className="bg-purple-900/50 backdrop-blur-lg rounded-xl p-4 shadow-2xl border border-purple-500">
-        <AwarenessStream />
-      </div>
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <SwarmIntelligenceMap />
-      </div>
+        {/* 🔹 Row 1 */}
+        <div className="w-full h-full"><ReflexiveCausalityMatrix /></div>       {/* 1a */}
+        <div className="w-full h-full"><TacticalContradictionMatrix /></div>     {/* 1b */}
+        <div className="w-full h-full"><MutationReactionPanel /></div>           {/* 1c */}
 
-      {/* Row 4 */}
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <ExplainabilityConsole />
-      </div>
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <SimulacrumHallucinationFeed />
-      </div>
-      <div className="bg-zinc-900 rounded-xl p-4 shadow-xl">
-        <MultiverseMemoryPanel />
+        {/* 🔹 Row 2 */}
+        <div className="w-full h-full"><NeuralExecutionCortex /></div>           {/* 2a */}
+        <div className="w-full h-full"><MultiworldDivergenceMatrix /></div>      {/* 2b */}
+        <div className="w-full h-full"><SovereignReflexSentinel /></div>         {/* 2c */}
+
+        {/* 🔹 Row 3 */}
+        <div className="w-full h-full"><AeonDeltaIntelligenceChain /></div>      {/* 3a */}
+        <div className="w-full h-full"><GhostAlphaConsole /></div>               {/* 3b */}
+        <div className="w-full h-full"><AutonomousCodexRegulator /></div>        {/* 3c */}
       </div>
     </div>
-  );
+  )
 }

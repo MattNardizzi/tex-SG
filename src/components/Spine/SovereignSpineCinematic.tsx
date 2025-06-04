@@ -117,7 +117,7 @@ export default function SovereignSpineCinematic() {
 
   return (
     <mesh ref={meshRef} position={[0, -0.15, 0]}>
-      <planeGeometry args={[0.42, 3.6]} /> {/* Final locked height */}
+      <planeGeometry args={[0.42, 2.022]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}

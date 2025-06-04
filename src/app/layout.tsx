@@ -1,38 +1,19 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-// Font setup
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Tex: Sovereign Cognition",
-  description: "Agentic Intelligence Interface",
+import './globals.css';
+import WebSocketProvider from '@/components/WebSocketProvider';
+import '@fontsource/inter/index.css';
+import '@fontsource/space-grotesk/index.css';
+export const metadata = {
+  title: 'Tex SG',
+  description: 'Live cognitive dashboard',
 };
 
-// Layout root component
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full w-full bg-black overflow-hidden`}
-      >
-        {children}
+    <html lang="en">
+      <body>
+        <WebSocketProvider>
+          {children}
+        </WebSocketProvider>
       </body>
     </html>
   );

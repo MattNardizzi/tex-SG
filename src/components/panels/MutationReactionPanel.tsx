@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const generateMutationInsight = () => {
   const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
-
   const variants = Array.from({ length: 2 }, () => ({
     id: crypto.randomUUID().slice(0, 8),
     gain: (Math.random() * 0.5 + 0.15).toFixed(3),
@@ -72,23 +71,23 @@ export default function MutationReactorPanel() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-6 bg-gradient-to-br from-[#0f1e36] via-[#071827] to-[#05121e] rounded-2xl border border-cyan-400/40 shadow-[0_0_80px_#00ffff44] text-white font-body overflow-hidden text-[15px] leading-relaxed">
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* Glow Aura Behind Panel */}
+      {/* 🔵 Enhanced Glow Aura */}
       <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[640px] h-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-[160px] animate-pulse"
+        className="absolute -z-10 top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/30 blur-[180px] animate-pulse"
         style={{ opacity: insight.sovereignIndex }}
       />
 
-      {/* Grid + Flare FX */}
+      {/* ⚡ Grid & Light FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:24px_24px]" />
-        <div className="absolute top-1/3 left-1/2 w-[340px] h-[340px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
-      {/* Panel Content */}
+      {/* 🧠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[16px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-3">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
           Mutation Reactor — AGI-9
         </div>
 
@@ -99,7 +98,7 @@ export default function MutationReactorPanel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.45 }}
-            className="text-white px-1 space-y-3"
+            className="text-white px-1 space-y-1.5"
           >
             {slide === 0 && (
               <>
@@ -175,7 +174,7 @@ export default function MutationReactorPanel() {
                     ⚠ Regret cascade breach triggered
                   </div>
                 )}
-                <div className="flex justify-between items-end pt-2 text-[14px] font-mono text-white/60">
+                <div className="flex justify-between items-end pt-1 text-[14px] font-mono text-white/60">
                   <div>
                     AGI Pulse ID: AGI-9<br />
                     Coherence Audit: Live

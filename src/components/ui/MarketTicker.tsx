@@ -4,15 +4,19 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const generateQuotes = () => [
-  'AAPL: $203.10 \u25BC -0.08%',
-  'TSLA: $334.49 \u25BC -2.84%',
-  'GOOG: $169.19 \u25B2 +0.89%',
-  'META: $685.80 \u25B2 +2.84%',
-  'AMD: $118.67 \u25B2 +1.16%',
-  'BTC: $69,120.14 \u25B2 +3.14%'
+  'AAPL: $203.10 ▼ -0.08%',
+  'TSLA: $334.49 ▼ -2.84%',
+  'GOOG: $169.19 ▲ +0.89%',
+  'META: $685.80 ▲ +2.84%',
+  'AMD: $118.67 ▲ +1.16%',
+  'BTC: $69,120.14 ▲ +3.14%',
+  'ETH: $3,214.88 ▲ +3.02%',
+  'VIX: 14.32 ▼ -1.12%',
+  'NVDA: $961.31 ▲ +5.03%',
+  'NFLX: $548.02 ▲ +1.77%',
 ];
 
-export default function MarketTicker() {
+export default function MarketTicker({ theme }: { theme: 'blue' | 'purple' }) {
   const [quotes, setQuotes] = useState<string[] | null>(null);
 
   useEffect(() => {
@@ -21,30 +25,37 @@ export default function MarketTicker() {
 
   if (!quotes) return null;
 
-  return (
-    <div className="relative h-full w-full overflow-hidden flex items-center text-[11px] font-mono tracking-tight leading-none whitespace-nowrap px-4 rounded-2xl bg-gradient-to-br from-[#041826] via-black to-[#0c1b32] border border-cyan-400/40 shadow-[0_0_60px_#00ffff66]">
-      {/* Glowing Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute left-1/2 top-1/2 w-[280px] h-[280px] -translate-x-1/2 -translate-y-1/2 bg-cyan-300/15 blur-[100px] rounded-full animate-pulse" />
-      </div>
+  const glowColor = theme === 'blue' ? 'rgba(0,240,255,0.05)' : 'rgba(177,77,255,0.05)';
 
-      {/* Ticker Content */}
+  return (
+    <div
+      className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-mono tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md rounded-none"
+    >
+      {/* 🌌 Theme-Responsive Glow */}
+      <div
+        className="absolute inset-0 blur-[40px] pointer-events-none animate-pulse"
+        style={{ backgroundColor: glowColor }}
+      />
+
+      {/* 🔁 Scrolling Ticker Content */}
       <motion.div
-        className="flex gap-8 animate-scrollTicker relative z-10"
+        className="flex gap-10 relative z-10 animate-scrollTicker"
         initial={{ x: 0 }}
         animate={{ x: '-50%' }}
-        transition={{ repeat: Infinity, ease: 'linear', duration: 30 }}
+        transition={{ repeat: Infinity, ease: 'linear', duration: 28 }}
       >
         {[...quotes, ...quotes].map((quote, i) => (
-          <div key={i} className="opacity-90 hover:opacity-100 transition-opacity duration-200">
-            <span className="text-cyan-300">{quote}</span>
-          </div>
+          <span
+            key={i}
+            style={{
+              color: i % 2 === 0 ? '#b14dff' : '#00ff99'
+            }}
+            className="opacity-90 hover:opacity-100 transition duration-200"
+          >
+            {quote}
+          </span>
         ))}
       </motion.div>
-
-      {/* Glitch Accent Bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-400/30 animate-glitch pointer-events-none z-10" />
     </div>
   );
 }

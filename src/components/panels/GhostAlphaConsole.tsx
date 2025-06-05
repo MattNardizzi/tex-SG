@@ -65,26 +65,14 @@ export default function GhostAlphaConsole() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#32052d] via-[#15001a] to-[#220018] rounded-2xl border border-pink-400/40 shadow-[0_0_100px_#ff66cc55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#b14dff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* 🌌 Glow Aura */}
-      <div
-        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
-        style={{
-          backgroundColor: 'rgba(255,105,180,0.12)',
-          opacity: insight.rejectionRate,
-        }}
-      />
-
-      {/* ⚡ Grid FX */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
-      </div>
+      {/* 🟣 Center Pulse Line */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-pink-300 mb-1">
+        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#b14dff] mb-1">
           Ghost Alpha Console
         </div>
 
@@ -109,7 +97,7 @@ export default function GhostAlphaConsole() {
                 <div className="text-[15px] text-white/40">Spawned Ghost Forks</div>
                 {insight.forks.map((g) => (
                   <div key={g.id} className="flex justify-between text-[15px] font-mono">
-                    <span className="text-pink-300">#{g.id}</span>
+                    <span className="text-[#b14dff]">#{g.id}</span>
                     <span>D: {g.divergence}</span>
                     <span>R: {g.regret}</span>
                     <span className="text-rose-400">Risk: {g.riskIndex}</span>

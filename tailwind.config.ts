@@ -5,6 +5,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/layout/**/*.{js,ts,jsx,tsx,mdx}", // ✅ Added layout folder
   ],
   theme: {
     extend: {
@@ -12,31 +13,43 @@ const config: Config = {
         display: ['"Space Grotesk"', 'sans-serif'], // For titles
         body: ['"Inter"', 'sans-serif'],            // For panel text
       },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-
-        // ✅ AGI Cognition Color Roles
-        sovereignCyan: "#00F0FF",     // Core Cognition
-        crimson: "#FF365D",           // Override / Intervention
-        indigoCore: "#5A6BFF",        // Strategy / Forecast
-        violetMeta: "#D74EFF",        // Meta / Reflex / Memory
-      },
       fontSize: {
         fluid: "clamp(8px, 0.95vw, 11px)",       // Main panel font
         "fluid-sm": "clamp(7px, 0.85vw, 10px)",  // Sub-labels
         "fluid-lg": "clamp(10px, 1.15vw, 13px)", // Headings
       },
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        sovereignCyan: "#00F0FF",   // Core Cognition
+        crimson: "#FF365D",         // Override / Intervention
+        indigoCore: "#5A6BFF",      // Strategy / Forecast
+        violetMeta: "#D74EFF",      // Meta / Reflex / Memory
+      },
       borderRadius: {
         xl: "1rem",
         "2xl": "1.5rem",
-        "panel": "1.25rem",
+        panel: "1.25rem",
       },
       boxShadow: {
         panel: "0 0 20px rgba(0, 0, 0, 0.25)",
+        cinematic: "0 0 90px rgba(0, 240, 255, 0.25)", // ✅ Added cinematic shadow
       },
       backdropBlur: {
         intense: "20px",
+      },
+      zIndex: {
+        100: '100',
+        200: '200',
+      },
+      spacing: {
+        '2xs': '0.25rem',
+        'xs': '0.5rem',
+        'sm': '0.75rem',
+        'md': '1rem',
+        'lg': '1.5rem',
+        'xl': '2rem',
+        '2xl': '3rem',
       },
     },
   },

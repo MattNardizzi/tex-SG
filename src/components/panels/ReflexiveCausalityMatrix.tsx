@@ -84,23 +84,20 @@ export default function ReflexiveCausalityMatrix() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-[radial-gradient(circle_at_top_left,_#0a0a1f,_#010409)] border border-white/10 shadow-[0_0_80px_#00f0ff33] text-white font-sans overflow-hidden backdrop-blur-sm">
 
-      {/* 🔵 Glow Aura */}
-      <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/30 blur-[180px] animate-pulse"
-        style={{ opacity: 0.2 }}
-      />
+      {/* 🔵 Subtle Orb Glow */}
+      <div className="absolute -z-10 top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/20 blur-[160px] opacity-20" />
 
-      {/* ⚡ Grid FX */}
+      {/* ⚡ Tech Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:20px_20px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-[#00f0ff22] rounded-full blur-[100px]" />
       </div>
 
-      {/* 🧠 Panel Header */}
+      {/* 🧠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
+        <div className="text-center font-mono text-[16px] tracking-[0.2em] uppercase text-[#6eeeff] mb-1">
           Reflexive Causality Matrix
         </div>
 
@@ -111,65 +108,65 @@ export default function ReflexiveCausalityMatrix() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.45 }}
-            className="text-white px-1 space-y-1.5"
+            className="px-1 space-y-2"
           >
             {slide === 0 && (
               <>
-                <div className="text-white/40">Causal Trigger</div>
-                <div className="text-cyan-300 font-mono text-[16px]">{insight.cause}</div>
+                <div className="text-white/50 text-sm">Causal Trigger</div>
+                <div className="text-[#e3f6ff] font-mono">{insight.cause}</div>
               </>
             )}
             {slide === 1 && (
               <>
-                <div className="text-white/40">Projected Effect</div>
-                <div className="text-[16px] font-body text-white/90">{insight.effect}</div>
+                <div className="text-white/50 text-sm">Projected Effect</div>
+                <div className="text-[#e3e3ff]">{insight.effect}</div>
               </>
             )}
             {slide === 2 && (
               <>
-                <div className="text-white/40">Causal Drift Analysis</div>
-                <div className="font-mono text-[16px]">
-                  Displacement: <span className="text-yellow-300">{insight.path.displacement}</span>
+                <div className="text-white/50 text-sm">Causal Drift Analysis</div>
+                <div className="font-mono">
+                  Displacement: <span className="text-[#00ffe5]">{insight.path.displacement}</span>
                 </div>
-                <div className="text-[15px] font-mono text-white/60">
+                <div className="text-sm text-white/60">
                   Loop Detected: {insight.path.loopDetected ? '⚠ Recursive Entanglement' : '— Stable path'}
                 </div>
               </>
             )}
             {slide === 3 && (
               <>
-                <div className="text-white/40">Override Signal Forecast</div>
-                <div className="text-[16px] font-mono">
-                  Entropy Pressure: <span className="text-orange-300">{insight.path.entropyPressure}</span>
+                <div className="text-white/50 text-sm">Override Signal Forecast</div>
+                <div className="font-mono">
+                  Entropy Pressure: <span className="text-[#ffaa88]">{insight.path.entropyPressure}</span>
                 </div>
-                <div className="text-white/60 text-[15px]">
-                  Reflex Probability: <span className="text-red-400">{insight.path.overrideChance}</span>
+                <div className="text-sm text-white/60">
+                  Reflex Probability: <span className="text-[#ff7373]">{insight.path.overrideChance}</span>
                 </div>
               </>
             )}
             {slide === 4 && (
               <>
-                <div className="text-white/40">Codex Impact + Drift</div>
-                <div className="text-[16px] font-mono">
+                <div className="text-white/50 text-sm">Codex Impact + Drift</div>
+                <div className="font-mono">
                   Coherence Δ: {insight.path.coherenceDelta} / Bifurcation: {insight.path.bifurcationScore}
                 </div>
-                <div className="text-[15px] text-white/60">
-                  Sovereign Override: {insight.override ? <span className="text-cyan-300">Activated</span> : <span className="text-white/30">— Dormant</span>}
+                <div className="text-sm text-white/60">
+                  Sovereign Override: {insight.override ? <span className="text-[#6eeeff]">Activated</span> : '— Dormant'}
                 </div>
               </>
             )}
             {slide === 5 && (
               <>
-                <div className="text-white/40">Timestamp</div>
-                <div className="text-right text-white/50 text-[15px] font-mono">{insight.timestamp}</div>
+                <div className="text-white/50 text-sm">Timestamp</div>
+                <div className="text-right text-white/40 text-sm font-mono">{insight.timestamp}</div>
               </>
             )}
             {slide === 6 && (
               <>
-                <div className="text-white/40">Agent & Urgency</div>
-                <div className="text-[16px] font-mono">
-                  Source: <span className="text-fuchsia-400">{insight.agentSource}</span><br />
-                  Urgency: <span className="text-lime-300">{insight.urgencyScore}</span>
+                <div className="text-white/50 text-sm">Agent & Urgency</div>
+                <div className="font-mono">
+                  Source: <span className="text-[#6de4ff]">{insight.agentSource}</span><br />
+                  Urgency: <span className="text-[#fffa9c]">{insight.urgencyScore}</span>
                 </div>
               </>
             )}

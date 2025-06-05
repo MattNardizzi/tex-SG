@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const generateGhostAlpha = () => {
@@ -44,44 +44,47 @@ const generateGhostAlpha = () => {
 export default function GhostAlphaConsole() {
   const [insight, setInsight] = useState<ReturnType<typeof generateGhostAlpha> | null>(null);
   const [slide, setSlide] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setInsight(generateGhostAlpha());
 
-    const rotate = () => {
+    intervalRef.current = setInterval(() => {
       setSlide((prev) => {
         const next = (prev + 1) % 5;
         if (next === 0) setInsight(generateGhostAlpha());
         return next;
       });
-    };
+    }, 6000);
 
-    const loop = setInterval(rotate, 6000);
-    return () => clearInterval(loop);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, []);
 
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#230014] via-black to-[#370024] rounded-2xl border border-pink-400/40 shadow-[0_0_60px_#ff66cc33] text-white font-body overflow-hidden text-[10px]">
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#32052d] via-[#15001a] to-[#220018] rounded-2xl border border-pink-400/40 shadow-[0_0_100px_#ff66cc55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* Reflex Pulse FX */}
+      {/* 🌌 Glow Aura */}
       <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse pointer-events-none"
+        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
         style={{
-          backgroundColor: 'rgba(255,105,180,0.08)',
+          backgroundColor: 'rgba(255,105,180,0.12)',
           opacity: insight.rejectionRate,
         }}
       />
 
-      {/* FX Grid */}
+      {/* ⚡ Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
         <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
+      {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase leading-tight text-pink-300 pt-[1px] pb-0">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-pink-300 mb-1">
           Ghost Alpha Console
         </div>
 
@@ -92,20 +95,20 @@ export default function GhostAlphaConsole() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1"
+            className="text-white px-1 space-y-1.5"
           >
             {slide === 0 && (
               <>
-                <div className="text-white/40">Mission Intent</div>
-                <div className="text-[10px] text-white/90 font-body">{insight.mission}</div>
+                <div className="text-[15px] text-white/40">Mission Intent</div>
+                <div className="text-[16px] text-white/90 font-body">{insight.mission}</div>
               </>
             )}
 
             {slide === 1 && (
               <>
-                <div className="text-white/40">Spawned Ghost Forks</div>
+                <div className="text-[15px] text-white/40">Spawned Ghost Forks</div>
                 {insight.forks.map((g) => (
-                  <div key={g.id} className="flex justify-between text-[10px] font-mono">
+                  <div key={g.id} className="flex justify-between text-[15px] font-mono">
                     <span className="text-pink-300">#{g.id}</span>
                     <span>D: {g.divergence}</span>
                     <span>R: {g.regret}</span>
@@ -117,11 +120,11 @@ export default function GhostAlphaConsole() {
 
             {slide === 2 && (
               <>
-                <div className="text-white/40">Cognitive Drift</div>
-                <div className="text-[10px] font-mono">
+                <div className="text-[15px] text-white/40">Cognitive Drift</div>
+                <div className="text-[16px] font-mono">
                   Entropy Index: <span className="text-orange-300">{insight.entropyIndex}</span>
                 </div>
-                <div className="text-white/70 text-[10px]">
+                <div className="text-white/70 text-[15px]">
                   {insight.stealthLayer
                     ? '🫥 Stealth-layer active — Codex bypass in effect.'
                     : 'Standard trace mode active — sovereign monitoring engaged.'}
@@ -131,15 +134,15 @@ export default function GhostAlphaConsole() {
 
             {slide === 3 && (
               <>
-                <div className="text-white/40">Sovereign Override Outcome</div>
+                <div className="text-[15px] text-white/40">Sovereign Override Outcome</div>
                 {insight.forks.map((g) => (
-                  <div key={g.id} className="text-[10px] font-mono">
+                  <div key={g.id} className="text-[15px] font-mono">
                     #{g.id}: {g.rejected
                       ? '⚠️ Rejected by Sovereign Layer'
                       : '✅ Codex lineage accepted'}
                   </div>
                 ))}
-                <div className="text-[9px] text-white/50 pt-1">
+                <div className="text-[14px] text-white/50 pt-1">
                   {insight.rejectionRate > 0.5
                     ? '↯ Ghost drift exceeded safe threshold — suppression initiated.'
                     : '↳ Reflex harmony holding across lineage gate.'}
@@ -149,8 +152,8 @@ export default function GhostAlphaConsole() {
 
             {slide === 4 && (
               <>
-                <div className="text-white/40">Last Transmission</div>
-                <div className="text-right text-white/50 text-[10px] font-mono">{insight.timestamp}</div>
+                <div className="text-[15px] text-white/40">Last Transmission</div>
+                <div className="text-right text-white/50 text-[16px] font-mono">{insight.timestamp}</div>
               </>
             )}
           </motion.div>

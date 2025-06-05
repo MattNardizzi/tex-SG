@@ -95,26 +95,14 @@ export default function NeuralExecutionCortex() {
   const weights = Object.entries(normalize());
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#32052d] via-[#15001a] to-[#220018] rounded-2xl border border-pink-400/40 shadow-[0_0_100px_#ff66cc55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#b14dff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
       
-      {/* 🌌 Glow Aura */}
-      <div
-        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
-        style={{
-          backgroundColor: 'rgba(255,105,180,0.12)',
-          opacity: 0.2,
-        }}
-      />
-
-      {/* ⚡ Grid FX */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
-      </div>
+      {/* 🟣 Center Pulse Line */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-pink-300 mb-1">
+        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#b14dff] mb-1">
           Neural Execution Cortex
         </div>
 
@@ -136,10 +124,10 @@ export default function NeuralExecutionCortex() {
                   .slice(slide === 2 ? 0 : 2, slide === 2 ? 2 : weights.length)
                   .map(([key, val]) => (
                     <div key={key} className="flex items-center justify-between gap-3 text-[14px] font-mono w-full">
-                      <span className="w-20 text-pink-300 truncate">{key}</span>
+                      <span className="w-20 text-[#b14dff] truncate">{key}</span>
                       <div className="flex-1 max-w-[140px] h-[8px] bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-pink-400 to-red-400 transition-all duration-300 rounded-full"
+                          className="h-full bg-gradient-to-r from-purple-400 to-pink-500 transition-all duration-300 rounded-full"
                           style={{ width: `${(val * 100).toFixed(0)}%` }}
                         />
                       </div>
@@ -152,7 +140,7 @@ export default function NeuralExecutionCortex() {
             {slide === 0 && (
               <>
                 <div className="text-[15px] text-white/40">Cortex Input</div>
-                <div className="text-[16px] font-mono">Emotion: <span className="text-pink-300">{snapshot.emotion}</span></div>
+                <div className="text-[16px] font-mono">Emotion: <span className="text-[#b14dff]">{snapshot.emotion}</span></div>
                 <div className="text-[16px] font-mono">Confidence: {snapshot.confidence}</div>
                 <div className="text-[14px] text-white/50 font-mono">Fork ID: {snapshot.forkId}</div>
               </>
@@ -161,7 +149,7 @@ export default function NeuralExecutionCortex() {
             {slide === 1 && (
               <>
                 <div className="text-[15px] text-white/40">Forecast Target</div>
-                <div className="text-[16px] font-mono">Future: <span className="text-pink-300">{snapshot.future}</span></div>
+                <div className="text-[16px] font-mono">Future: <span className="text-[#b14dff]">{snapshot.future}</span></div>
                 <div className="text-[16px]">Risk: <span className="text-rose-400 font-mono">{snapshot.riskLevel}</span></div>
                 <div className="text-[16px]">Urgency: <span className="text-yellow-300 font-mono">{snapshot.urgency}</span></div>
               </>
@@ -221,7 +209,7 @@ export default function NeuralExecutionCortex() {
               <>
                 <div className="text-[15px] text-white/40">Diagnostics</div>
                 <div className="text-white text-[15px] font-mono space-y-1">
-                  <div>Agent: <span className="text-pink-300">{snapshot.agentSource}</span></div>
+                  <div>Agent: <span className="text-[#b14dff]">{snapshot.agentSource}</span></div>
                   <div>Drift: <span className="text-blue-300">{snapshot.confidenceDrift}</span></div>
                   <div>Contradiction: <span className="text-orange-300">{snapshot.contradictionLevel}</span></div>
                 </div>

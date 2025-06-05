@@ -1,3 +1,5 @@
+'use client';
+
 import './globals.css';
 import '@fontsource/inter/index.css';
 import '@fontsource/space-grotesk/index.css';
@@ -8,7 +10,7 @@ export const metadata = {
   description: 'Live cognitive dashboard',
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>

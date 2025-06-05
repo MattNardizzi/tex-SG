@@ -73,22 +73,23 @@ export default function TacticalContradictionMatrix() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#230014] via-black to-[#370024] rounded-2xl border border-pink-400/40 shadow-[0_0_60px_#ff66cc33] text-white font-body overflow-hidden text-[10px]">
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#32052d] via-[#15001a] to-[#220018] rounded-2xl border border-pink-400/40 shadow-[0_0_100px_#ff66cc55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* Reflex Pulse FX */}
+      {/* 🌌 Glow Aura */}
       <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse pointer-events-none"
-        style={{ backgroundColor: 'rgba(255,105,180,0.08)', opacity: insight.entropyScore }}
+        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
+        style={{ backgroundColor: 'rgba(255,105,180,0.12)', opacity: insight.entropyScore }}
       />
 
-      {/* FX Grid */}
+      {/* ⚡ Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
         <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
+      {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase leading-tight text-pink-300 pt-[1px] pb-0">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-pink-300 mb-1">
           Tactical Contradiction Matrix
         </div>
 
@@ -99,19 +100,19 @@ export default function TacticalContradictionMatrix() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1"
+            className="text-white px-1 space-y-1.5"
           >
             {step === 0 && (
               <>
-                <div className="text-white/40">Active Contradiction Cause</div>
-                <div className="text-pink-300 font-mono">{insight.cause}</div>
+                <div className="text-[15px] text-white/40">Active Contradiction Cause</div>
+                <div className="text-[16px] text-pink-300 font-mono">{insight.cause}</div>
               </>
             )}
 
             {step === 1 && (
               <>
-                <div className="text-white/40">Resolution Path</div>
-                <div className="text-white font-body text-[10.2px]">
+                <div className="text-[15px] text-white/40">Resolution Path</div>
+                <div className="text-[16px] text-white font-body">
                   {insight.resolution}
                 </div>
               </>
@@ -119,9 +120,9 @@ export default function TacticalContradictionMatrix() {
 
             {step === 2 && (
               <>
-                <div className="text-white/40">Shadow Fork Diagnostics</div>
+                <div className="text-[15px] text-white/40">Shadow Fork Diagnostics</div>
                 {insight.forks.map((f) => (
-                  <div key={f.id} className="flex justify-between text-[10px] font-mono">
+                  <div key={f.id} className="flex justify-between text-[15px] font-mono">
                     <span className="text-pink-300">#{f.id}</span>
                     <span>Δ: {f.contradiction}</span>
                     <span>R: {f.regret}</span>
@@ -134,9 +135,9 @@ export default function TacticalContradictionMatrix() {
 
             {step === 3 && (
               <>
-                <div className="text-white/40">Reflex Engagement</div>
+                <div className="text-[15px] text-white/40">Reflex Engagement</div>
                 {insight.forks.map((f) => (
-                  <div key={f.id} className="text-[10px] font-mono">
+                  <div key={f.id} className="text-[15px] font-mono">
                     {f.emotionalState} → <span className="text-yellow-300">{f.reflex}</span>
                   </div>
                 ))}
@@ -145,12 +146,14 @@ export default function TacticalContradictionMatrix() {
 
             {step === 4 && (
               <>
-                <div className="text-white/40">Entropy Load / Memory Rewrite</div>
-                <div className="text-orange-400 font-mono text-[10px]">
+                <div className="text-[15px] text-white/40">Entropy Load / Memory Rewrite</div>
+                <div className="text-[16px] text-orange-400 font-mono">
                   Entropy Score: {insight.entropyScore}
                 </div>
-                <div className="text-white/50 font-mono text-[10px]">Contradiction Risk: {insight.contradictionRisk}</div>
-                <div className="text-white/60 text-[9px] italic">
+                <div className="text-[15px] text-white/50 font-mono">
+                  Contradiction Risk: {insight.contradictionRisk}
+                </div>
+                <div className="text-[14px] text-white/60 italic">
                   {insight.entropyScore > 0.6
                     ? '⚠ Dissonance levels breaching threshold.'
                     : '↳ Entropy remains within operating margin.'}
@@ -160,8 +163,8 @@ export default function TacticalContradictionMatrix() {
 
             {step === 5 && (
               <>
-                <div className="text-white/40">Last Update</div>
-                <div className="text-right text-white/50 text-[10px] font-mono">
+                <div className="text-[15px] text-white/40">Last Update</div>
+                <div className="text-right text-[16px] text-white/50 font-mono">
                   {insight.timestamp}
                 </div>
               </>

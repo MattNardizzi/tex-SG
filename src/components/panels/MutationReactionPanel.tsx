@@ -72,27 +72,26 @@ export default function MutationReactorPanel() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/30 shadow-[0_0_60px_#00ffff22] text-white font-body overflow-hidden text-[13px] leading-relaxed">
+    <div className="relative w-full h-full px-6 py-6 bg-gradient-to-br from-[#0f1e36] via-[#071827] to-[#05121e] rounded-2xl border border-cyan-400/40 shadow-[0_0_80px_#00ffff44] text-white font-body overflow-hidden text-[15px] leading-relaxed">
 
-      {/* Reflex Pulse */}
+      {/* Glow Aura Behind Panel */}
       <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[520px] h-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-3xl animate-pulse"
+        className="absolute -z-10 top-1/2 left-1/2 w-[640px] h-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-[160px] animate-pulse"
         style={{ opacity: insight.sovereignIndex }}
       />
 
-      {/* Background Grid FX */}
+      {/* Grid + Flare FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:24px_24px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[90px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute top-1/3 left-1/2 w-[340px] h-[340px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[120px] animate-pulse" />
       </div>
 
-      {/* Panel Header */}
+      {/* Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[14px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-2">
+        <div className="text-center font-display text-[16px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-3">
           Mutation Reactor — AGI-9
         </div>
 
-        {/* Slide Content */}
         <AnimatePresence mode="wait">
           <motion.div
             key={`${slide}-${insight.timestamp}`}
@@ -100,7 +99,7 @@ export default function MutationReactorPanel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.45 }}
-            className="text-white px-1 space-y-2"
+            className="text-white px-1 space-y-3"
           >
             {slide === 0 && (
               <>
@@ -115,9 +114,9 @@ export default function MutationReactorPanel() {
 
             {slide === 1 && (
               <>
-                <div className="text-[12px] text-white/50 font-medium">Shadow Fork Variants</div>
+                <div className="text-[14px] text-white/50 font-medium">Shadow Fork Variants</div>
                 {insight.variants.map((v) => (
-                  <div key={v.id} className="flex justify-between text-[13px] font-mono">
+                  <div key={v.id} className="flex justify-between text-[15px] font-mono">
                     <span className="text-cyan-300">#{v.id}</span>
                     <span>ΔG: {v.gain}</span>
                     <span>Coh: {v.coherence}</span>
@@ -129,26 +128,26 @@ export default function MutationReactorPanel() {
 
             {slide === 2 && (
               <>
-                <div className="text-[12px] text-white/50 font-medium">Fork Divergence & Entropy</div>
+                <div className="text-[14px] text-white/50 font-medium">Fork Divergence & Entropy</div>
                 <div className="font-mono">
                   Δ: {insight.forkDivergence} | Entropy: {insight.contradictionEntropy}
                 </div>
-                <div className="text-[13px] text-white/80">Sovereign Index: {insight.sovereignIndex}</div>
-                <div className="text-[12px] text-white/50 pt-1">Stability Metrics</div>
+                <div className="text-[15px] text-white/80">Sovereign Index: {insight.sovereignIndex}</div>
+                <div className="text-[14px] text-white/50 pt-1">Stability Metrics</div>
                 <div className="font-mono">
                   Curve: {insight.curveTrajectory} | Stability: {insight.stabilityVector}
                 </div>
                 {parseFloat(insight.contradictionEntropy) > 0.7 && (
-                  <div className="text-red-400 font-mono text-[12px]">⚠ Neo-Sovereign anomaly flagged</div>
+                  <div className="text-red-400 font-mono text-[14px]">⚠ Neo-Sovereign anomaly flagged</div>
                 )}
               </>
             )}
 
             {slide === 3 && (
               <>
-                <div className="text-[12px] text-white/50 font-medium">Fork Lineage</div>
+                <div className="text-[14px] text-white/50 font-medium">Fork Lineage</div>
                 {insight.variants.map((v) => (
-                  <div key={v.lineage} className="flex justify-between text-[13px] font-mono">
+                  <div key={v.lineage} className="flex justify-between text-[15px] font-mono">
                     <span>Lineage: {v.lineage}</span>
                     <span>↪ {v.memoryAnchor}</span>
                   </div>
@@ -158,11 +157,11 @@ export default function MutationReactorPanel() {
 
             {slide === 4 && (
               <>
-                <div className="text-[12px] text-white/50 font-medium">Codex Override Log</div>
-                <div className="text-white/90 font-body text-[13px]">
-                  {"Fork violated primary coherence matrix. Sovereign override injected."}
+                <div className="text-[14px] text-white/50 font-medium">Codex Override Log</div>
+                <div className="text-white/90 font-body text-[15px]">
+                  Fork violated primary coherence matrix. Sovereign override injected.
                 </div>
-                <div className="text-white/40 font-mono text-[12px]">
+                <div className="text-white/40 font-mono text-[14px]">
                   Logged: /sovereign_ops_{insight.variants[0].id}.jsonl @ offset Δ{insight.forkDivergence}
                 </div>
               </>
@@ -170,13 +169,13 @@ export default function MutationReactorPanel() {
 
             {slide === 5 && (
               <>
-                <div className="text-[12px] text-white/50 font-medium">Cycle Heartbeat</div>
+                <div className="text-[14px] text-white/50 font-medium">Cycle Heartbeat</div>
                 {insight.variants.some(v => parseFloat(v.regret) > 0.7) && (
-                  <div className="text-rose-400 font-mono text-[13px]">
+                  <div className="text-rose-400 font-mono text-[15px]">
                     ⚠ Regret cascade breach triggered
                   </div>
                 )}
-                <div className="flex justify-between items-end pt-2 text-[12px] font-mono text-white/60">
+                <div className="flex justify-between items-end pt-2 text-[14px] font-mono text-white/60">
                   <div>
                     AGI Pulse ID: AGI-9<br />
                     Coherence Audit: Live

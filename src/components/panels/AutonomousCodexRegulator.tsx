@@ -32,6 +32,8 @@ const generateCodexInsight = () => {
 
 export default function AutonomousCodexRegulator() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [insight, setInsight] = useState<ReturnType<typeof generateCodexInsight> | null>(null);
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     setInsight(generateCodexInsight());

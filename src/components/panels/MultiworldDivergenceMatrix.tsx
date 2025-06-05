@@ -41,9 +41,9 @@ const generateMultiworldInsight = () => {
     timestamp: new Date().toLocaleTimeString(),
   };
 };
-
 export default function MultiworldDivergenceMatrix() {
   const [slide, setSlide] = useState(0);
+  const [insight, setInsight] = useState<ReturnType<typeof generateMultiworldInsight> | null>(null);
 
   useEffect(() => {
     setInsight(generateMultiworldInsight());

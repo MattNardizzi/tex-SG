@@ -27,12 +27,12 @@ export default function DashboardHUD() {
       <div className="absolute inset-0 z-0 pointer-events-none opacity-10 mix-blend-screen bg-[radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:22px_22px]" />
 
       {/* 🔝 Market Ticker */}
-      <div className="h-12 w-full bg-gradient-to-r from-[#071318] via-[#0a1a1d]/90 to-[#071318] border-b border-cyan-400/10 backdrop-blur-md shadow-[inset_0_-1px_0_rgba(0,255,255,0.05)] z-50 relative flex items-center px-4 text-sm text-cyan-300 font-semibold tracking-wide uppercase">
+      <div className="h-16 w-full bg-gradient-to-r from-[#0a1b22] via-[#0d2025]/90 to-[#0a1b22] border-b border-cyan-400/10 backdrop-blur-md shadow-[inset_0_-1px_0_rgba(0,255,255,0.05)] z-50 relative flex items-center px-6 text-[15px] text-cyan-300 font-semibold tracking-widest uppercase">
         <MarketTicker />
       </div>
 
-      {/* 🧠 Panel Grid with extra top padding */}
-      <div className="relative z-10 w-full h-[calc(100vh-3rem)] grid grid-cols-3 grid-rows-3 gap-7 px-10 pt-8 pb-6">
+      {/* 🧠 Panel Grid with increased top padding */}
+      <div className="relative z-10 w-full h-[calc(100vh-4rem)] grid grid-cols-3 grid-rows-3 gap-7 px-10 pt-10 pb-6">
 
         {/* 🔹 Row 1 */}
         <div className="w-full h-full"><ReflexiveCausalityMatrix /></div>

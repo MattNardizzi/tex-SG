@@ -100,26 +100,23 @@ export default function NeuralExecutionCortex() {
   const weights = Object.entries(normalize());
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#32052d] via-[#15001a] to-[#220018] rounded-2xl border border-pink-400/40 shadow-[0_0_100px_#ff66cc55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#001c23] via-[#0a1b2c] to-[#001a1a] rounded-2xl border border-cyan-400/40 shadow-[0_0_100px_#00ffff33] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* 🌌 Glow Aura */}
       <div
         className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
         style={{
-          backgroundColor: 'rgba(255,105,180,0.12)',
-          opacity: 0.3,
+          backgroundColor: 'rgba(0,255,200,0.08)',
+          opacity: 0.2,
         }}
       />
 
-      {/* ⚡ Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
-      {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-pink-300 mb-1">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
           Neural Execution Cortex
         </div>
 
@@ -132,10 +129,33 @@ export default function NeuralExecutionCortex() {
             transition={{ duration: 0.5 }}
             className="text-white px-1 space-y-1.5"
           >
+            {(slide === 2 || slide === 3) && (
+              <>
+                <div className="text-[15px] text-white/40">
+                  {slide === 2 ? 'Allocation Map (I)' : 'Allocation Map (II)'}
+                </div>
+                {weights
+                  .slice(slide === 2 ? 0 : 2, slide === 2 ? 2 : weights.length)
+                  .map(([key, val]) => (
+                    <div key={key} className="flex items-center justify-between gap-3 text-[14px] font-mono w-full">
+                      <span className="w-20 text-cyan-300 truncate">{key}</span>
+                      <div className="flex-1 max-w-[130px] h-[6px] bg-white/10 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-sky-400 to-emerald-400 transition-all duration-300 rounded-full"
+                          style={{ width: `${(val * 100).toFixed(0)}%` }}
+                        />
+                      </div>
+                      <span className="w-10 text-right text-white/80 text-[13px]">{(val * 100).toFixed(0)}%</span>
+                    </div>
+                  ))}
+              </>
+            )}
+
+            {/* Preserve all other slides 100% unchanged */}
             {slide === 0 && (
               <>
                 <div className="text-[15px] text-white/40">Cortex Input</div>
-                <div className="text-[16px] font-mono">Emotion: <span className="text-pink-300">{snapshot.emotion}</span></div>
+                <div className="text-[16px] font-mono">Emotion: <span className="text-cyan-300">{snapshot.emotion}</span></div>
                 <div className="text-[16px] font-mono">Confidence: {snapshot.confidence}</div>
                 <div className="text-[14px] text-white/50 font-mono">Fork ID: {snapshot.forkId}</div>
               </>
@@ -143,37 +163,9 @@ export default function NeuralExecutionCortex() {
             {slide === 1 && (
               <>
                 <div className="text-[15px] text-white/40">Forecast Target</div>
-                <div className="text-[16px] font-mono">Future: <span className="text-pink-300">{snapshot.future}</span></div>
+                <div className="text-[16px] font-mono">Future: <span className="text-cyan-300">{snapshot.future}</span></div>
                 <div className="text-[16px]">Risk: <span className="text-rose-400 font-mono">{snapshot.riskLevel}</span></div>
                 <div className="text-[16px]">Urgency: <span className="text-yellow-300 font-mono">{snapshot.urgency}</span></div>
-              </>
-            )}
-            {slide === 2 && (
-              <>
-                <div className="text-[15px] text-white/40">Allocation Map (I)</div>
-                {weights.slice(0, 2).map(([key, val]) => (
-                  <div key={key} className="flex items-center justify-between gap-3 text-[15px] font-mono w-full">
-                    <span className="w-24 text-pink-300 truncate">{key}</span>
-                    <div className="flex-1 max-w-[140px] h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-pink-300 transition-all duration-300 rounded-full" style={{ width: `${(val * 100).toFixed(0)}%` }} />
-                    </div>
-                    <span className="w-10 text-right text-white/80">{(val * 100).toFixed(0)}%</span>
-                  </div>
-                ))}
-              </>
-            )}
-            {slide === 3 && (
-              <>
-                <div className="text-[15px] text-white/40">Allocation Map (II)</div>
-                {weights.slice(2).map(([key, val]) => (
-                  <div key={key} className="flex items-center justify-between gap-3 text-[15px] font-mono w-full">
-                    <span className="w-24 text-pink-300 truncate">{key}</span>
-                    <div className="flex-1 max-w-[140px] h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-pink-300 transition-all duration-300 rounded-full" style={{ width: `${(val * 100).toFixed(0)}%` }} />
-                    </div>
-                    <span className="w-10 text-right text-white/80">{(val * 100).toFixed(0)}%</span>
-                  </div>
-                ))}
               </>
             )}
             {slide === 4 && (
@@ -225,7 +217,7 @@ export default function NeuralExecutionCortex() {
               <>
                 <div className="text-[15px] text-white/40">Diagnostics</div>
                 <div className="text-white text-[15px] font-mono space-y-1">
-                  <div>Agent: <span className="text-fuchsia-400">{snapshot.agentSource}</span></div>
+                  <div>Agent: <span className="text-sky-400">{snapshot.agentSource}</span></div>
                   <div>Drift: <span className="text-blue-300">{snapshot.confidenceDrift}</span></div>
                   <div>Contradiction: <span className="text-orange-300">{snapshot.contradictionLevel}</span></div>
                 </div>

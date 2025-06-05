@@ -150,3 +150,10 @@ html, body {
 .animate-drift-weave {
   animation: drift-weave 6s ease-in-out infinite;
 }
+
+/* ━━━ EXTRA VISUALS ━━━ */
+
+/* 💎 Glow Text Utility */
+.glow-text {
+  text-shadow: 0 0 4px rgba(0, 255, 255, 0.3), 0 0 8px rgba(0, 255, 255, 0.2);
+}

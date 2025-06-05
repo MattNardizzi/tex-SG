@@ -1,4 +1,5 @@
-'use client';
+// ❌ REMOVE "use client" from this file
+// ✅ metadata will now work
 
 import './globals.css';
 import '@fontsource/inter/index.css';

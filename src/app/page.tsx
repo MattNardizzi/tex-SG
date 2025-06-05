@@ -1,5 +1,7 @@
-import DashboardHUD from '../components/panels/DashboardHUD'
+'use client';
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })Home() {
+import DashboardHUD from '../components/panels/DashboardHUD';
+
+export default function Home() {
   return <DashboardHUD />;
 }

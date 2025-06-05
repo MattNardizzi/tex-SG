@@ -84,15 +84,23 @@ export default function ReflexiveCausalityMatrix() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body text-[10px] overflow-hidden">
-      {/* FX Layer */}
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+
+      {/* 🔵 Glow Aura */}
+      <div
+        className="absolute -z-10 top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/30 blur-[180px] animate-pulse"
+        style={{ opacity: 0.2 }}
+      />
+
+      {/* ⚡ Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
+      {/* 🧠 Panel Header */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase text-cyan-300 pb-1">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
           Reflexive Causality Matrix
         </div>
 
@@ -102,28 +110,28 @@ export default function ReflexiveCausalityMatrix() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1"
+            transition={{ duration: 0.45 }}
+            className="text-white px-1 space-y-1.5"
           >
             {slide === 0 && (
               <>
                 <div className="text-white/40">Causal Trigger</div>
-                <div className="text-cyan-300 font-mono text-[10px]">{insight.cause}</div>
+                <div className="text-cyan-300 font-mono text-[16px]">{insight.cause}</div>
               </>
             )}
             {slide === 1 && (
               <>
                 <div className="text-white/40">Projected Effect</div>
-                <div className="text-[10px] font-body text-white/90">{insight.effect}</div>
+                <div className="text-[16px] font-body text-white/90">{insight.effect}</div>
               </>
             )}
             {slide === 2 && (
               <>
                 <div className="text-white/40">Causal Drift Analysis</div>
-                <div className="font-mono text-[10px]">
+                <div className="font-mono text-[16px]">
                   Displacement: <span className="text-yellow-300">{insight.path.displacement}</span>
                 </div>
-                <div className="text-[9.5px] font-mono text-white/60">
+                <div className="text-[15px] font-mono text-white/60">
                   Loop Detected: {insight.path.loopDetected ? '⚠ Recursive Entanglement' : '— Stable path'}
                 </div>
               </>
@@ -131,10 +139,10 @@ export default function ReflexiveCausalityMatrix() {
             {slide === 3 && (
               <>
                 <div className="text-white/40">Override Signal Forecast</div>
-                <div className="text-[10px] font-mono">
+                <div className="text-[16px] font-mono">
                   Entropy Pressure: <span className="text-orange-300">{insight.path.entropyPressure}</span>
                 </div>
-                <div className="text-white/60 text-[9.5px]">
+                <div className="text-white/60 text-[15px]">
                   Reflex Probability: <span className="text-red-400">{insight.path.overrideChance}</span>
                 </div>
               </>
@@ -142,10 +150,10 @@ export default function ReflexiveCausalityMatrix() {
             {slide === 4 && (
               <>
                 <div className="text-white/40">Codex Impact + Drift</div>
-                <div className="text-[10px] font-mono">
+                <div className="text-[16px] font-mono">
                   Coherence Δ: {insight.path.coherenceDelta} / Bifurcation: {insight.path.bifurcationScore}
                 </div>
-                <div className="text-[9.5px] text-white/60">
+                <div className="text-[15px] text-white/60">
                   Sovereign Override: {insight.override ? <span className="text-cyan-300">Activated</span> : <span className="text-white/30">— Dormant</span>}
                 </div>
               </>
@@ -153,13 +161,13 @@ export default function ReflexiveCausalityMatrix() {
             {slide === 5 && (
               <>
                 <div className="text-white/40">Timestamp</div>
-                <div className="text-right text-white/50 text-[10px] font-mono">{insight.timestamp}</div>
+                <div className="text-right text-white/50 text-[15px] font-mono">{insight.timestamp}</div>
               </>
             )}
             {slide === 6 && (
               <>
                 <div className="text-white/40">Agent & Urgency</div>
-                <div className="text-[10px] font-mono">
+                <div className="text-[16px] font-mono">
                   Source: <span className="text-fuchsia-400">{insight.agentSource}</span><br />
                   Urgency: <span className="text-lime-300">{insight.urgencyScore}</span>
                 </div>

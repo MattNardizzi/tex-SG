@@ -54,7 +54,7 @@ const generateNeuralSnapshot = () => {
   };
 };
 
-export default function NeuralExecutionCortex() {
+export default function $1({ theme }: { theme: 'blue' | 'purple' })NeuralExecutionCortex() {
   const [snapshot, setSnapshot] = useState<ReturnType<typeof generateNeuralSnapshot> | null>(null);
   const [slide, setSlide] = useState(0);
 

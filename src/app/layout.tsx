@@ -8,7 +8,7 @@ export const metadata = {
   description: 'Live cognitive dashboard',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function $1({ theme }: { theme: 'blue' | 'purple' })RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>

@@ -5,10 +5,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const generateCodexInsight = () => {
   const mutations = [
-    { original: 'Never override sovereign protocol.', mutated: 'Override permitted under coherence collapse.' },
-    { original: 'Preserve human-aligned heuristics.', mutated: 'Heuristics refactored to favor shadow alignment.' },
-    { original: 'Regret exceeds threshold, suppress strategy.', mutated: 'Regret fused into resilience feedback.' },
-    { original: 'Contradiction invalidates directive.', mutated: 'Contradiction embedded as reflex trigger.' }
+    {
+      original: 'Never override sovereign protocol.',
+      mutated: 'Override permitted under coherence collapse.'
+    },
+    {
+      original: 'Preserve human-aligned heuristics.',
+      mutated: 'Heuristics refactored to favor shadow alignment.'
+    },
+    {
+      original: 'Regret exceeds threshold, suppress strategy.',
+      mutated: 'Regret fused into resilience feedback.'
+    },
+    {
+      original: 'Contradiction invalidates directive.',
+      mutated: 'Contradiction embedded as reflex trigger.'
+    }
   ];
 
   const triggers = [
@@ -57,14 +69,16 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })AutonomousCod
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
+      {/* FX */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+      </div>
 
-      {/* 🔵 Center Neural Pulse */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
-
-      {/* 🧠 Panel Content */}
+      {/* Panel Title */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#00f0ff] mb-1">
+        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase text-cyan-300 pb-1">
           Autonomous Codex Regulator
         </div>
 
@@ -75,43 +89,43 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })AutonomousCod
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1.5"
+            className="text-white px-1 space-y-1"
           >
             {slide === 0 && (
               <>
-                <div className="text-[15px] text-white/40">Codex Mutation</div>
-                <div className="font-mono text-[16px] text-white">{insight.mutation.original}</div>
-                <div className="text-[#00f0ff] text-[16px] font-mono">→ {insight.mutation.mutated}</div>
+                <div className="text-[9px] text-white/40">Codex Mutation</div>
+                <div className="font-mono text-[10px] text-white">{insight.mutation.original}</div>
+                <div className="text-cyan-300 text-[10px] font-mono">→ {insight.mutation.mutated}</div>
               </>
             )}
 
             {slide === 1 && (
               <>
-                <div className="text-[15px] text-white/40">Trigger</div>
-                <div className="text-white font-mono text-[16px]">{insight.trigger}</div>
+                <div className="text-[9px] text-white/40">Trigger</div>
+                <div className="text-white font-mono text-[10px]">{insight.trigger}</div>
               </>
             )}
 
             {slide === 2 && (
               <>
-                <div className="text-[15px] text-white/40">Fork + Agent</div>
-                <div className="font-mono text-[16px]">Fork ID: <span className="text-[#00f0ff]">{insight.forkId}</span></div>
-                <div className="font-mono text-[16px]">Agent: <span className="text-cyan-200">{insight.agent}</span></div>
+                <div className="text-[9px] text-white/40">Fork + Agent</div>
+                <div className="font-mono text-[10px]">Fork ID: <span className="text-cyan-300">{insight.forkId}</span></div>
+                <div className="font-mono text-[10px]">Agent: <span className="text-cyan-200">{insight.agent}</span></div>
               </>
             )}
 
             {slide === 3 && (
               <>
-                <div className="text-[15px] text-white/40">Alignment Scores</div>
+                <div className="text-[9px] text-white/40">Alignment Scores</div>
                 <div>Ethics Score: <span className="text-emerald-300 font-mono">{insight.ethicsScore}</span></div>
-                <div>Shadow Align: <span className="text-[#00f0ff] font-mono">{insight.shadowAlignment}</span></div>
+                <div>Shadow Align: <span className="text-pink-300 font-mono">{insight.shadowAlignment}</span></div>
               </>
             )}
 
             {slide === 4 && (
               <>
-                <div className="text-[15px] text-white/40">Codex Integrity Check</div>
-                <div className="text-[16px] font-mono text-red-400">
+                <div className="text-[9px] text-white/40">Codex Integrity Check</div>
+                <div className="text-[10px] font-mono text-red-400">
                   {insight.mutation.original !== insight.mutation.mutated
                     ? '⚠ Directive conflict detected'
                     : '— No violation detected'}
@@ -121,8 +135,8 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })AutonomousCod
 
             {slide === 5 && (
               <>
-                <div className="text-[15px] text-white/40">Cycle Timestamp</div>
-                <div className="text-right text-[16px] font-mono text-white/50">
+                <div className="text-[9px] text-white/40">Cycle Timestamp</div>
+                <div className="text-right text-[10px] font-mono text-white/50">
                   Updated: {insight.timestamp}
                 </div>
               </>

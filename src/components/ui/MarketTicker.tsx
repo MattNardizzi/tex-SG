@@ -16,7 +16,7 @@ const generateQuotes = () => [
   'NFLX: $548.02 ▲ +1.77%',
 ];
 
-export default function MarketTicker({ theme }: { theme: 'blue' | 'purple' }) {
+export default function $1({ theme }: { theme: 'blue' | 'purple' })MarketTicker({ theme }: { theme: 'blue' | 'purple' }) {
   const [quotes, setQuotes] = useState<string[] | null>(null);
 
   useEffect(() => {

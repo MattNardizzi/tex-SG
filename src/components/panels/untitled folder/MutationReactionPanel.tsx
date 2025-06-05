@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const generateMutationInsight = () => {
   const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+
   const variants = Array.from({ length: 2 }, () => ({
     id: crypto.randomUUID().slice(0, 8),
     gain: (Math.random() * 0.5 + 0.15).toFixed(3),
@@ -71,41 +72,48 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })MutationReact
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
+    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
 
-      {/* 🧠 Panel Content */}
+      {/* Reflex Pulse */}
+      <div
+        className="absolute -z-10 top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-3xl animate-pulse"
+        style={{ opacity: insight.sovereignIndex }}
+      />
+
+      {/* Grid FX */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/15 rounded-full blur-[100px] animate-pulse" />
+      </div>
+
+      {/* Header */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#00f0ff] mb-1">
+        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase leading-tight text-cyan-300 pt-[1px] pb-0">
           Mutation Reactor — AGI-9
         </div>
 
         <AnimatePresence mode="wait">
           <motion.div
             key={`${slide}-${insight.timestamp}`}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.45 }}
-            className="text-white px-1 space-y-1.5"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.5 }}
+            className="text-white px-1 space-y-1"
           >
             {slide === 0 && (
               <>
-                <div>
-                  Trigger: <span className="text-[#00f0ff] font-mono">{insight.trigger}</span>
-                </div>
-                <div>
-                  Intent: <span className="text-white/90 font-mono">{insight.intent}</span>
-                </div>
+                <div>Trigger: <span className="text-cyan-300 font-mono">{insight.trigger}</span></div>
+                <div>Intent: <span className="text-white/90 font-mono">{insight.intent}</span></div>
               </>
             )}
 
             {slide === 1 && (
               <>
-                <div className="text-[14px] text-white/50 font-medium">Shadow Fork Variants</div>
+                <div className="text-[9px] text-white/40">Shadow Fork Variants</div>
                 {insight.variants.map((v) => (
-                  <div key={v.id} className="flex justify-between text-[15px] font-mono">
-                    <span className="text-[#00f0ff]">#{v.id}</span>
+                  <div key={v.id} className="flex justify-between text-[10px] font-mono">
+                    <span className="text-cyan-300">#{v.id}</span>
                     <span>ΔG: {v.gain}</span>
                     <span>Coh: {v.coherence}</span>
                     <span>Surv: {v.survival}</span>
@@ -116,26 +124,26 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })MutationReact
 
             {slide === 2 && (
               <>
-                <div className="text-[14px] text-white/50 font-medium">Fork Divergence & Entropy</div>
-                <div className="font-mono">
-                  Δ: {insight.forkDivergence} | Entropy: {insight.contradictionEntropy}
+                <div className="text-[9px] text-white/40">Fork Divergence & Entropy</div>
+                <div className="font-mono text-white/80">
+                  Divergence Δ: {insight.forkDivergence} | Entropy: {insight.contradictionEntropy}
                 </div>
-                <div className="text-[15px] text-white/80">Sovereign Index: {insight.sovereignIndex}</div>
-                <div className="text-[14px] text-white/50 pt-1">Stability Metrics</div>
-                <div className="font-mono">
+                <div className="text-[10px] text-white/70">Sovereign Index: {insight.sovereignIndex}</div>
+                <div className="text-[9px] text-white/40 pt-1">Foresight Stability</div>
+                <div className="font-mono text-white/80">
                   Curve: {insight.curveTrajectory} | Stability: {insight.stabilityVector}
                 </div>
                 {parseFloat(insight.contradictionEntropy) > 0.7 && (
-                  <div className="text-red-400 font-mono text-[14px]">⚠ Neo-Sovereign anomaly flagged</div>
+                  <div className="text-red-400 font-mono text-[10px]">⚠ Neo-Sovereign anomaly flagged</div>
                 )}
               </>
             )}
 
             {slide === 3 && (
               <>
-                <div className="text-[14px] text-white/50 font-medium">Fork Lineage</div>
+                <div className="text-[9px] text-white/40">Fork Lineage / Memory Trace</div>
                 {insight.variants.map((v) => (
-                  <div key={v.lineage} className="flex justify-between text-[15px] font-mono">
+                  <div key={v.lineage} className="flex justify-between text-[10px] font-mono">
                     <span>Lineage: {v.lineage}</span>
                     <span>↪ {v.memoryAnchor}</span>
                   </div>
@@ -145,11 +153,11 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })MutationReact
 
             {slide === 4 && (
               <>
-                <div className="text-[14px] text-white/50 font-medium">Codex Override Log</div>
-                <div className="text-white/90 font-body text-[15px]">
-                  Fork violated primary coherence matrix. Sovereign override injected.
+                <div className="text-[9px] text-white/40">Codex Override Log</div>
+                <div className="text-white/90 font-body text-[10px]">
+                  {"Fork violated primary coherence matrix. Sovereign override injected."}
                 </div>
-                <div className="text-white/40 font-mono text-[14px]">
+                <div className="text-white/40 font-mono text-[9px]">
                   Logged: /sovereign_ops_{insight.variants[0].id}.jsonl @ offset Δ{insight.forkDivergence}
                 </div>
               </>
@@ -157,18 +165,20 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })MutationReact
 
             {slide === 5 && (
               <>
-                <div className="text-[14px] text-white/50 font-medium">Cycle Heartbeat</div>
+                <div className="text-[9px] text-white/40">Cycle Heartbeat</div>
+
                 {insight.variants.some(v => parseFloat(v.regret) > 0.7) && (
-                  <div className="text-rose-400 font-mono text-[15px]">
+                  <div className="text-rose-400 font-mono text-[10px]">
                     ⚠ Regret cascade breach triggered
                   </div>
                 )}
-                <div className="flex justify-between items-end pt-1 text-[14px] font-mono text-white/60">
-                  <div>
+
+                <div className="flex justify-between items-end pt-1">
+                  <div className="text-[9px] font-mono text-white/30">
                     AGI Pulse ID: AGI-9<br />
                     Coherence Audit: Live
                   </div>
-                  <div className="text-right">
+                  <div className="text-[10px] font-mono text-white/50 text-right">
                     Updated: {insight.timestamp}
                   </div>
                 </div>

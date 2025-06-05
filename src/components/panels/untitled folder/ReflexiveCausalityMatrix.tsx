@@ -55,7 +55,7 @@ const generateCausalInsight = () => {
   };
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })ReflexiveCausalityMatrix({ theme }: { theme: 'blue' | 'purple' }) {
+export default function $1({ theme }: { theme: 'blue' | 'purple' })ReflexiveCausalityMatrix() {
   const [insight, setInsight] = useState<ReturnType<typeof generateCausalInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 
@@ -84,14 +84,15 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })ReflexiveCaus
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border-[2px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden">
+    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body text-[10px] overflow-hidden">
+      {/* FX Layer */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+      </div>
 
-      {/* 🔵 Neural Core Line */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
-
-      {/* 🧠 Panel Header */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-mono text-[17px] tracking-[0.2em] uppercase text-[#00f0ff] mb-2">
+        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase text-cyan-300 pb-1">
           Reflexive Causality Matrix
         </div>
 
@@ -101,66 +102,66 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })ReflexiveCaus
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.45 }}
-            className="px-1 space-y-2 text-[17px]"
+            transition={{ duration: 0.5 }}
+            className="text-white px-1 space-y-1"
           >
             {slide === 0 && (
               <>
-                <div className="text-white/60 text-[16px]">Causal Trigger</div>
-                <div className="text-[#00f0ff] font-mono">{insight.cause}</div>
+                <div className="text-white/40">Causal Trigger</div>
+                <div className="text-cyan-300 font-mono text-[10px]">{insight.cause}</div>
               </>
             )}
             {slide === 1 && (
               <>
-                <div className="text-white/60 text-[16px]">Projected Effect</div>
-                <div className="text-[#b14dff]">{insight.effect}</div>
+                <div className="text-white/40">Projected Effect</div>
+                <div className="text-[10px] font-body text-white/90">{insight.effect}</div>
               </>
             )}
             {slide === 2 && (
               <>
-                <div className="text-white/60 text-[16px]">Causal Drift Analysis</div>
-                <div className="font-mono">
-                  Displacement: <span className="text-[#00f0ff]">{insight.path.displacement}</span>
+                <div className="text-white/40">Causal Drift Analysis</div>
+                <div className="font-mono text-[10px]">
+                  Displacement: <span className="text-yellow-300">{insight.path.displacement}</span>
                 </div>
-                <div className="text-white/60 text-[16px]">
+                <div className="text-[9.5px] font-mono text-white/60">
                   Loop Detected: {insight.path.loopDetected ? '⚠ Recursive Entanglement' : '— Stable path'}
                 </div>
               </>
             )}
             {slide === 3 && (
               <>
-                <div className="text-white/60 text-[16px]">Override Signal Forecast</div>
-                <div className="font-mono">
-                  Entropy Pressure: <span className="text-[#b14dff]">{insight.path.entropyPressure}</span>
+                <div className="text-white/40">Override Signal Forecast</div>
+                <div className="text-[10px] font-mono">
+                  Entropy Pressure: <span className="text-orange-300">{insight.path.entropyPressure}</span>
                 </div>
-                <div className="text-white/60 text-[16px]">
-                  Reflex Probability: <span className="text-[#ff5c5c]">{insight.path.overrideChance}</span>
+                <div className="text-white/60 text-[9.5px]">
+                  Reflex Probability: <span className="text-red-400">{insight.path.overrideChance}</span>
                 </div>
               </>
             )}
             {slide === 4 && (
               <>
-                <div className="text-white/60 text-[16px]">Codex Impact + Drift</div>
-                <div className="font-mono">
+                <div className="text-white/40">Codex Impact + Drift</div>
+                <div className="text-[10px] font-mono">
                   Coherence Δ: {insight.path.coherenceDelta} / Bifurcation: {insight.path.bifurcationScore}
                 </div>
-                <div className="text-white/60 text-[16px]">
-                  Sovereign Override: {insight.override ? <span className="text-[#00f0ff]">Activated</span> : '— Dormant'}
+                <div className="text-[9.5px] text-white/60">
+                  Sovereign Override: {insight.override ? <span className="text-cyan-300">Activated</span> : <span className="text-white/30">— Dormant</span>}
                 </div>
               </>
             )}
             {slide === 5 && (
               <>
-                <div className="text-white/60 text-[16px]">Timestamp</div>
-                <div className="text-right text-white/40 text-[15px] font-mono">{insight.timestamp}</div>
+                <div className="text-white/40">Timestamp</div>
+                <div className="text-right text-white/50 text-[10px] font-mono">{insight.timestamp}</div>
               </>
             )}
             {slide === 6 && (
               <>
-                <div className="text-white/60 text-[16px]">Agent & Urgency</div>
-                <div className="font-mono">
-                  Source: <span className="text-[#b14dff]">{insight.agentSource}</span><br />
-                  Urgency: <span className="text-[#00f0ff]">{insight.urgencyScore}</span>
+                <div className="text-white/40">Agent & Urgency</div>
+                <div className="text-[10px] font-mono">
+                  Source: <span className="text-fuchsia-400">{insight.agentSource}</span><br />
+                  Urgency: <span className="text-lime-300">{insight.urgencyScore}</span>
                 </div>
               </>
             )}

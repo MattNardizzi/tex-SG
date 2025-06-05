@@ -58,14 +58,24 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })SovereignRefl
   if (!state) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#b14dff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#230014] via-black to-[#370024] rounded-2xl border border-pink-400/40 shadow-[0_0_60px_#ff66cc33] text-white font-body overflow-hidden text-[10px]">
+      {/* Reflex Pulse FX */}
+      <div
+        className="absolute -z-10 top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse"
+        style={{
+          backgroundColor: 'rgba(255,105,180,0.08)',
+          opacity: state.reflexIndex,
+        }}
+      />
 
-      {/* 🟣 Center Pulse Line */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
+      {/* FX Grid */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
+      </div>
 
-      {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#b14dff] mb-1">
+        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase leading-tight text-pink-300 pt-[1px] pb-0">
           Sovereign Reflex Sentinel
         </div>
 
@@ -76,23 +86,28 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })SovereignRefl
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1.5"
+            className="text-white px-1 space-y-1"
           >
             {slide === 0 && (
               <>
-                <div className="text-[15px] text-white/40">Trigger Detected</div>
-                <div className="text-[16px] font-mono text-[#b14dff]">{state.trigger}</div>
-                <div className="text-[15px] text-white/40 pt-1">Defense Mode</div>
-                <div className="text-[16px] font-mono text-purple-200">{state.defense}</div>
+                <div className="text-white/40 text-[9px]">Trigger Detected</div>
+                <div className="text-pink-400 font-mono text-[10px]">{state.trigger}</div>
+                <div className="text-white/40 text-[9px] pt-1">Defense Mode</div>
+                <div className="text-pink-300 font-mono text-[10px]">{state.defense}</div>
               </>
             )}
             {slide === 1 && (
               <>
-                <div className="text-[15px] text-white/40">Override Diagnostics</div>
-                <div className="text-[16px] font-mono">Reflex Index: <span className="text-lime-300">{state.reflexIndex}</span></div>
-                <div className="text-[16px] font-mono">Foresight Drift: <span className="text-orange-300">{state.foresightDelta > 0 ? '+' : ''}{state.foresightDelta}</span></div>
-                <div className="text-[16px] font-mono">Override Window: <span className="text-yellow-300">{state.overrideWindow}</span></div>
-                <div className="text-[14px] italic text-white/50 pt-1">
+                <div>Reflex Override Index:
+                  <span className="text-lime-300 font-mono"> {state.reflexIndex}</span>
+                </div>
+                <div>Foresight Drift:
+                  <span className="text-orange-300 font-mono"> {state.foresightDelta > 0 ? '+' : ''}{state.foresightDelta}</span>
+                </div>
+                <div>Override Window:
+                  <span className="text-yellow-300 font-mono"> {state.overrideWindow}</span>
+                </div>
+                <div className="text-[9px] italic text-white/50 pt-1">
                   {Math.abs(state.foresightDelta) > 0.15
                     ? '⚠ Reflex escalation trajectory rising'
                     : '↳ Reflex coherence within threshold'}
@@ -101,27 +116,27 @@ export default function $1({ theme }: { theme: 'blue' | 'purple' })SovereignRefl
             )}
             {slide === 2 && (
               <>
-                <div className="text-[15px] text-white/40">Counterfactual Scan</div>
-                <div className="text-[16px] text-white/90 font-body">
+                <div className="text-white/40">Counterfactual Scan</div>
+                <div className="text-white/90 font-body text-[10px]">
                   {state.counterfactualsTested} alternate paths tested for paradox collapse.
                 </div>
               </>
             )}
             {slide === 3 && (
               <>
-                <div className="text-[15px] text-white/40">Stability Forecast</div>
-                <div className="text-[16px] font-mono text-green-300">
+                <div className="text-white/40">Sovereign Stability Forecast</div>
+                <div className="text-green-300 font-mono text-[10px]">
                   Stability margin holding — loopback intervention unnecessary.
                 </div>
-                <div className="text-[14px] font-mono text-white/50">
+                <div className="text-white/50 text-[9px] font-mono">
                   Instability Risk: {state.instabilityRisk}
                 </div>
               </>
             )}
             {slide === 4 && (
               <>
-                <div className="text-[15px] text-white/40">Protocol Timestamp</div>
-                <div className="text-[16px] font-mono text-white/60 text-right">
+                <div className="text-white/40">Protocol Timestamp</div>
+                <div className="text-right text-white/60 font-mono text-[10px]">
                   {state.timestamp}
                 </div>
               </>

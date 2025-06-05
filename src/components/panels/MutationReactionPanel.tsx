@@ -72,6 +72,7 @@ export default function MutationReactorPanel() {
 
   return (
     <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 🧠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">

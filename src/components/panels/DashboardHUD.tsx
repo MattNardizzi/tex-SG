@@ -14,7 +14,7 @@ import AeonDeltaIntelligenceChain from './AeonDeltaIntelligenceChain';
 import GhostAlphaConsole from './GhostAlphaConsole';
 import AutonomousCodexRegulator from './AutonomousCodexRegulator';
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })DashboardHUD() {
+export default function DashboardHUD() {
   const [theme, setTheme] = useState<'blue' | 'purple'>('blue');
 
   const tickerGlow = theme === 'blue' ? 'rgba(0,240,255,0.05)' : 'rgba(177,77,255,0.05)';

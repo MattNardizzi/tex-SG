@@ -1,162 +1,173 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const generateInterventionSlides = () => {
-  const randomFloat = (min: number, max: number, decimals: number = 3): number =>
-    parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
-  const randomChoice = (arr: string[]): string =>
-    arr[Math.floor(Math.random() * arr.length)];
+const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+
+const generateMultiworldInsight = () => {
+  const ghostForks = Array.from({ length: 2 }, () => ({
+    id: Math.random().toString(36).slice(2, 10),
+    divergence: (Math.random() * 1.8 + 0.2).toFixed(2),
+    regret: (Math.random() * 0.9).toFixed(2),
+    emotion: pick(['resolve', 'fear', 'curiosity']),
+    lineage: `g${Math.floor(Math.random() * 4)}.${Math.floor(Math.random() * 10)}`,
+    coherenceLoss: (Math.random() * 0.3 + 0.1).toFixed(2),
+  }));
+
+  const divergenceScore = (Math.random() * 1.6 + 0.1).toFixed(2);
+  const contradictionEntropy = (Math.random() * 0.3).toFixed(3);
+  const simulatedRegret = (Math.random() * 0.9).toFixed(2);
 
   return {
-    id: crypto.randomUUID(),
-    type: randomChoice(['FORCED MUTATION', 'GOAL SUPPRESSION', 'STRATEGY OVERRIDE']),
-    cause: randomChoice([
-      'cognitive_stall',
-      'loop_redundancy',
-      'low coherence',
-      'bias detected',
-      'emotion spike: anger',
+    universe: pick([
+      'Post-dollar collapse',
+      'Synthetic AI sovereigns rise',
+      'Liquidity inversion spiral',
+      'Global risk parity unraveling',
+      'AGI arbitrage regime',
     ]),
-    patch: randomChoice([
-      'tex_core.main_loop',
-      'goal_engine.interruptor',
-      'meta_learning.regulator',
-      'swarm_coordinator.fallback',
-    ]),
-    result: randomChoice(['Reflex Triggered', 'Autonomous Success', 'Dormant']),
-    quote: `"${randomChoice([
-      'Override initiated to prevent drift.',
-      'Patch required due to conflict escalation.',
-      'Mutation passed under high emotional load.',
-      'Suppression of misaligned fork successful.',
-    ])}"`,
-    emotionLevel: randomFloat(0.6, 0.95),
-    urgency: randomFloat(0.7, 0.99),
-    coherence: randomFloat(0.6, 0.95),
-    lastCritical: `${Math.floor(Math.random() * 5)}m ago`,
+    divergenceScore,
+    contradictionEntropy,
+    survivalIndex: (Math.random() * 0.3 + 0.7).toFixed(2),
+    entangled: Math.random() > 0.5,
+    ghostForks,
+    simulatedRegret,
+    instabilityIndex: (
+      parseFloat(divergenceScore) *
+      parseFloat(contradictionEntropy) *
+      parseFloat(simulatedRegret)
+    ).toFixed(2),
+    timestamp: new Date().toLocaleTimeString(),
   };
 };
 
-export default function CognitiveInterventionPanel() {
-  const [entry, setEntry] = useState(generateInterventionSlides());
-  const [stage, setStage] = useState(0);
-  const interventionCount = useRef(200);
+export default function MultiworldDivergenceMatrix() {
+  const [insight, setInsight] = useState<ReturnType<typeof generateMultiworldInsight> | null>(null);
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const next = (stage + 1) % 3;
-      if (next === 0) {
-        setEntry(generateInterventionSlides());
-        interventionCount.current += 1;
-      }
-      setStage(next);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [stage]);
+    setInsight(generateMultiworldInsight());
 
-  const fade = {
-    initial: { opacity: 0, y: 12 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -12 },
-    transition: { duration: 0.4 },
-  };
+    const durations = Array(6).fill(5000);
+    let current = 0;
+
+    const loop = () => {
+      setSlide(current);
+      if (current === 0) setInsight(generateMultiworldInsight());
+      current = (current + 1) % 6;
+      setTimeout(loop, durations[current]);
+    };
+
+    const initial = setTimeout(loop, durations[0]);
+    return () => clearTimeout(initial);
+  }, []);
+
+  if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#FF365D]/30 via-[#120000] to-black rounded-2xl border border-red-500/20 shadow-2xl text-white font-mono overflow-hidden">
+    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
+      
+      {/* Entanglement Pulse */}
+      <div
+        className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse pointer-events-none"
+        style={{ backgroundColor: insight.entangled ? 'rgba(255,0,122,0.08)' : 'transparent' }}
+      />
 
-      {/* BACKGROUND */}
+      {/* Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-64 h-64 -translate-x-1/2 bg-red-500/10 rounded-full blur-[80px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
-      {/* HEADER */}
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div className="text-[10px] uppercase tracking-[0.3em] text-red-500 font-bold pb-1">
-          Cognitive Intervention
+      <div className="relative z-10 flex flex-col justify-between h-full">
+        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase leading-tight text-cyan-300 pt-[1px] pb-0">
+          Multiworld Divergence Matrix
         </div>
-        <div className="text-[6.5px] text-white tracking-tight mb-1 whitespace-nowrap">
-          Total Interventions: {interventionCount.current} · Last Critical: {entry.lastCritical}
-        </div>
-      </div>
 
-      {/* STAGES */}
-      <div className="relative z-10 h-[135px] flex items-center justify-center px-2 pt-[10px]">
         <AnimatePresence mode="wait">
-          {stage === 0 && (
-            <motion.div
-              key="stage-0"
-              {...fade}
-              className="grid grid-cols-2 gap-x-6 w-full text-[8px] leading-snug"
-            >
-              <div>
-                <div className="uppercase text-[6.5px] text-white/70">Intervention Type</div>
-                <div className="text-purple-300">{entry.type}</div>
-                <div className="uppercase text-[6.5px] text-white/70 mt-2">Cause</div>
-                <div className="text-red-400">{entry.cause}</div>
-              </div>
-              <div>
-                <div className="uppercase text-[6.5px] text-white/70">Patched Module</div>
-                <div className="text-cyan-300">{entry.patch}</div>
-                <div className="uppercase text-[6.5px] text-white/70 mt-2">Override Result</div>
-                <div className="text-green-400">{entry.result}</div>
-              </div>
-            </motion.div>
-          )}
-
-          {stage === 1 && (
-            <motion.div
-              key="stage-1"
-              {...fade}
-              className="grid grid-cols-2 gap-x-6 w-full text-[8px] leading-snug"
-            >
-              <div>
-                <div className="uppercase text-[6.5px] text-white/70">Quote</div>
-                <div className="text-white italic text-[7px]">{entry.quote}</div>
-              </div>
-              <div className="space-y-1">
-                <div>
-                  <div className="uppercase text-[6.5px] text-white/70">Emotion</div>
-                  <div className="w-full h-[6px] bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="bg-red-500 h-full rounded-full"
-                      style={{ width: `${Math.floor(entry.emotionLevel * 100)}%` }}
-                    />
-                  </div>
+          <motion.div
+            key={slide}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+            className="text-white px-1 space-y-1"
+          >
+            {slide === 0 && (
+              <>
+                <div className="text-white/90 font-mono">Top Future Universe:</div>
+                <div className="text-cyan-300 font-body text-[10.5px]">✳ {insight.universe}</div>
+              </>
+            )}
+            {slide === 1 && (
+              <>
+                <div>Divergence Score: <span className="text-lime-300 font-mono">{insight.divergenceScore}</span></div>
+                <div>Contradiction Entropy: <span className="text-orange-300 font-mono">{insight.contradictionEntropy}</span></div>
+                <div>Survival Index: <span className="text-emerald-300 font-mono">{insight.survivalIndex}</span></div>
+                <div className="text-white/60 text-[9px] italic">
+                  {parseFloat(insight.contradictionEntropy) > 0.25
+                    ? '⚠ Forecast instability accelerating.'
+                    : '↳ Temporal coherence holding.'}
                 </div>
-                <div>
-                  <div className="uppercase text-[6.5px] text-white/70">Urgency</div>
-                  <div className="w-full h-[6px] bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="bg-yellow-400 h-full rounded-full"
-                      style={{ width: `${Math.floor(entry.urgency * 100)}%` }}
-                    />
+              </>
+            )}
+            {slide === 2 && (
+              <>
+                <div className="text-white/40">Shadow Ghost Forks</div>
+                {insight.ghostForks.map((f) => (
+                  <div key={f.id} className="flex justify-between text-[10px] font-mono">
+                    <span className="text-cyan-400">#{f.id}</span>
+                    <span>Δ⃗{f.divergence}</span>
+                    <span>R: {f.regret}</span>
+                    <span>⤷ {f.lineage}</span>
                   </div>
+                ))}
+                {insight.ghostForks.map(f => (
+                  parseFloat(f.coherenceLoss) > 0.25 && parseFloat(f.regret) > 0.7 && (
+                    <div key={`warn-${f.id}`} className="text-red-400 text-[10px] font-mono">
+                      ⚠ Recursive divergence loop detected
+                    </div>
+                  )
+                ))}
+              </>
+            )}
+            {slide === 3 && (
+              <>
+                <div className="text-white/40">Causal Entanglement</div>
+                <div className="font-mono text-[10px]">
+                  {insight.entangled ? (
+                    <span className="text-rose-400">⚡ Entangled with Sovereign Instability</span>
+                  ) : (
+                    <span className="text-white/30">— No sovereign feedback detected</span>
+                  )}
                 </div>
-                <div>
-                  <div className="uppercase text-[6.5px] text-white/70">Coherence</div>
-                  <div className="w-full h-[6px] bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="bg-blue-400 h-full rounded-full"
-                      style={{ width: `${Math.floor(entry.coherence * 100)}%` }}
-                    />
-                  </div>
+              </>
+            )}
+            {slide === 4 && (
+              <>
+                <div className="text-white/40">Simulation Regret Forecast</div>
+                <div className="text-[10px] text-white/80 font-mono">
+                  Simulated regret drift: <span className="text-yellow-300">{insight.simulatedRegret}</span>
                 </div>
-              </div>
-            </motion.div>
-          )}
-
-          {stage === 2 && (
-            <motion.div
-              key="stage-2"
-              {...fade}
-              className="w-full text-center text-[7.5px] text-white italic pt-4"
-            >
-              Running meta-diagnostic...
-            </motion.div>
-          )}
+                <div className="text-[10px] text-white/50 font-mono">
+                  Instability Index: <span className="text-cyan-300">{insight.instabilityIndex}</span>
+                </div>
+                <div className="text-white/50 text-[9px] font-mono">
+                  Ghost fork coherence drop: {insight.ghostForks[0].coherenceLoss}
+                </div>
+              </>
+            )}
+            {slide === 5 && (
+              <>
+                <div className="text-white/40">Last Evaluation</div>
+                <div className="text-right text-white/50 text-[10px] font-mono">
+                  {insight.timestamp}
+                </div>
+              </>
+            )}
+          </motion.div>
         </AnimatePresence>
       </div>
     </div>

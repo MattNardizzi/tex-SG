@@ -153,9 +153,9 @@ export default function NeuralExecutionCortex() {
                 <div className="text-[15px] text-white/40">Allocation Map (I)</div>
                 {weights.slice(0, 2).map(([key, val]) => (
                   <div key={key} className="flex items-center justify-between gap-3 text-[15px] font-mono w-full">
-                    <span className="w-24 text-pink-300">{key}</span>
-                    <div className="flex-1 h-3 bg-white/10 rounded-md overflow-hidden">
-                      <div className="h-full bg-pink-300 transition-all duration-300" style={{ width: `${(val * 100).toFixed(0)}%` }} />
+                    <span className="w-24 text-pink-300 truncate">{key}</span>
+                    <div className="flex-1 max-w-[140px] h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full bg-pink-300 transition-all duration-300 rounded-full" style={{ width: `${(val * 100).toFixed(0)}%` }} />
                     </div>
                     <span className="w-10 text-right text-white/80">{(val * 100).toFixed(0)}%</span>
                   </div>
@@ -167,9 +167,9 @@ export default function NeuralExecutionCortex() {
                 <div className="text-[15px] text-white/40">Allocation Map (II)</div>
                 {weights.slice(2).map(([key, val]) => (
                   <div key={key} className="flex items-center justify-between gap-3 text-[15px] font-mono w-full">
-                    <span className="w-24 text-pink-300">{key}</span>
-                    <div className="flex-1 h-3 bg-white/10 rounded-md overflow-hidden">
-                      <div className="h-full bg-pink-300 transition-all duration-300" style={{ width: `${(val * 100).toFixed(0)}%` }} />
+                    <span className="w-24 text-pink-300 truncate">{key}</span>
+                    <div className="flex-1 max-w-[140px] h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full bg-pink-300 transition-all duration-300 rounded-full" style={{ width: `${(val * 100).toFixed(0)}%` }} />
                     </div>
                     <span className="w-10 text-right text-white/80">{(val * 100).toFixed(0)}%</span>
                   </div>

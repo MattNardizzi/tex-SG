@@ -26,12 +26,13 @@ export default function DashboardHUD() {
       {/* 📡 Grid Texture */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-10 mix-blend-screen bg-[radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:22px_22px]" />
 
-      {/* 🔝 Market Ticker */}
-      <div className="h-16 w-full bg-gradient-to-r from-[#0a1b22] via-[#0d2025]/90 to-[#0a1b22] border-b border-cyan-400/10 backdrop-blur-md shadow-[inset_0_-1px_0_rgba(0,255,255,0.05)] z-50 relative flex items-center px-6 text-[15px] text-cyan-300 font-semibold tracking-widest uppercase">
+      {/* 🔝 Market Ticker — Full Width Glow */}
+      <div className="relative z-50 w-full h-16 bg-gradient-to-r from-[#102129] via-[#142731]/80 to-[#102129] border-b border-cyan-300/10 backdrop-blur-md shadow-[inset_0_-2px_4px_rgba(0,255,255,0.08)] flex items-center px-6 text-[17px] text-cyan-200 font-semibold tracking-widest uppercase animate-pulse">
+        <div className="absolute inset-0 bg-cyan-300/5 blur-[40px] animate-pulse pointer-events-none" />
         <MarketTicker />
       </div>
 
-      {/* 🧠 Panel Grid with increased top padding */}
+      {/* 🧠 Panel Grid */}
       <div className="relative z-10 w-full h-[calc(100vh-4rem)] grid grid-cols-3 grid-rows-3 gap-7 px-10 pt-10 pb-6">
 
         {/* 🔹 Row 1 */}

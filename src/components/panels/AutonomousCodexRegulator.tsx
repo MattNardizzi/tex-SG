@@ -57,23 +57,14 @@ export default function AutonomousCodexRegulator() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* 🔵 Enhanced Glow Aura */}
-      <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/30 blur-[180px] animate-pulse"
-        style={{ opacity: insight.shadowAlignment }}
-      />
-
-      {/* ⚡ Grid & Light FX */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
-      </div>
+      {/* 🔵 Center Neural Pulse */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 🧠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
+        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#00f0ff] mb-1">
           Autonomous Codex Regulator
         </div>
 
@@ -90,7 +81,7 @@ export default function AutonomousCodexRegulator() {
               <>
                 <div className="text-[15px] text-white/40">Codex Mutation</div>
                 <div className="font-mono text-[16px] text-white">{insight.mutation.original}</div>
-                <div className="text-cyan-300 text-[16px] font-mono">→ {insight.mutation.mutated}</div>
+                <div className="text-[#00f0ff] text-[16px] font-mono">→ {insight.mutation.mutated}</div>
               </>
             )}
 
@@ -104,7 +95,7 @@ export default function AutonomousCodexRegulator() {
             {slide === 2 && (
               <>
                 <div className="text-[15px] text-white/40">Fork + Agent</div>
-                <div className="font-mono text-[16px]">Fork ID: <span className="text-cyan-300">{insight.forkId}</span></div>
+                <div className="font-mono text-[16px]">Fork ID: <span className="text-[#00f0ff]">{insight.forkId}</span></div>
                 <div className="font-mono text-[16px]">Agent: <span className="text-cyan-200">{insight.agent}</span></div>
               </>
             )}
@@ -113,7 +104,7 @@ export default function AutonomousCodexRegulator() {
               <>
                 <div className="text-[15px] text-white/40">Alignment Scores</div>
                 <div>Ethics Score: <span className="text-emerald-300 font-mono">{insight.ethicsScore}</span></div>
-                <div>Shadow Align: <span className="text-cyan-300 font-mono">{insight.shadowAlignment}</span></div>
+                <div>Shadow Align: <span className="text-[#00f0ff] font-mono">{insight.shadowAlignment}</span></div>
               </>
             )}
 

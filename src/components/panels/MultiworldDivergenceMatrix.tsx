@@ -1,6 +1,5 @@
 'use client';
 
-
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -67,22 +66,22 @@ export default function MultiworldDivergenceMatrix() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-4 py-3 bg-gradient-to-br from-[#0b1028] via-black to-[#030f1e] rounded-2xl border border-cyan-400/40 shadow-[0_0_60px_#00ffff33] text-white font-body overflow-hidden text-[10px]">
-      
-      {/* Entanglement Pulse */}
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+
+      {/* 🔵 Glow Aura */}
       <div
-        className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] animate-pulse pointer-events-none"
-        style={{ backgroundColor: insight.entangled ? 'rgba(255,0,122,0.08)' : 'transparent' }}
+        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
+        style={{ backgroundColor: insight.entangled ? 'rgba(255,0,122,0.08)' : 'rgba(0,255,255,0.08)' }}
       />
 
-      {/* Grid FX */}
+      {/* ⚡ Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.012)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[11px] tracking-[0.3em] uppercase leading-tight text-cyan-300 pt-[1px] pb-0">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
           Multiworld Divergence Matrix
         </div>
 
@@ -93,12 +92,12 @@ export default function MultiworldDivergenceMatrix() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1"
+            className="text-white px-1 space-y-1.5"
           >
             {slide === 0 && (
               <>
                 <div className="text-white/90 font-mono">Top Future Universe:</div>
-                <div className="text-cyan-300 font-body text-[10.5px]">✳ {insight.universe}</div>
+                <div className="text-cyan-300 font-body text-[16px]">✳ {insight.universe}</div>
               </>
             )}
             {slide === 1 && (
@@ -106,7 +105,7 @@ export default function MultiworldDivergenceMatrix() {
                 <div>Divergence Score: <span className="text-lime-300 font-mono">{insight.divergenceScore}</span></div>
                 <div>Contradiction Entropy: <span className="text-orange-300 font-mono">{insight.contradictionEntropy}</span></div>
                 <div>Survival Index: <span className="text-emerald-300 font-mono">{insight.survivalIndex}</span></div>
-                <div className="text-white/60 text-[9px] italic">
+                <div className="text-white/60 text-[15px] italic">
                   {parseFloat(insight.contradictionEntropy) > 0.25
                     ? '⚠ Forecast instability accelerating.'
                     : '↳ Temporal coherence holding.'}
@@ -117,7 +116,7 @@ export default function MultiworldDivergenceMatrix() {
               <>
                 <div className="text-white/40">Shadow Ghost Forks</div>
                 {insight.ghostForks.map((f) => (
-                  <div key={f.id} className="flex justify-between text-[10px] font-mono">
+                  <div key={f.id} className="flex justify-between text-[15px] font-mono">
                     <span className="text-cyan-400">#{f.id}</span>
                     <span>Δ⃗{f.divergence}</span>
                     <span>R: {f.regret}</span>
@@ -126,7 +125,7 @@ export default function MultiworldDivergenceMatrix() {
                 ))}
                 {insight.ghostForks.map(f => (
                   parseFloat(f.coherenceLoss) > 0.25 && parseFloat(f.regret) > 0.7 && (
-                    <div key={`warn-${f.id}`} className="text-red-400 text-[10px] font-mono">
+                    <div key={`warn-${f.id}`} className="text-red-400 text-[14px] font-mono">
                       ⚠ Recursive divergence loop detected
                     </div>
                   )
@@ -136,7 +135,7 @@ export default function MultiworldDivergenceMatrix() {
             {slide === 3 && (
               <>
                 <div className="text-white/40">Causal Entanglement</div>
-                <div className="font-mono text-[10px]">
+                <div className="font-mono text-[15px]">
                   {insight.entangled ? (
                     <span className="text-rose-400">⚡ Entangled with Sovereign Instability</span>
                   ) : (
@@ -148,13 +147,13 @@ export default function MultiworldDivergenceMatrix() {
             {slide === 4 && (
               <>
                 <div className="text-white/40">Simulation Regret Forecast</div>
-                <div className="text-[10px] text-white/80 font-mono">
+                <div className="text-[15px] text-white/80 font-mono">
                   Simulated regret drift: <span className="text-yellow-300">{insight.simulatedRegret}</span>
                 </div>
-                <div className="text-[10px] text-white/50 font-mono">
+                <div className="text-[15px] text-white/50 font-mono">
                   Instability Index: <span className="text-cyan-300">{insight.instabilityIndex}</span>
                 </div>
-                <div className="text-white/50 text-[9px] font-mono">
+                <div className="text-white/50 text-[14px] font-mono">
                   Ghost fork coherence drop: {insight.ghostForks[0].coherenceLoss}
                 </div>
               </>
@@ -162,7 +161,7 @@ export default function MultiworldDivergenceMatrix() {
             {slide === 5 && (
               <>
                 <div className="text-white/40">Last Evaluation</div>
-                <div className="text-right text-white/50 text-[10px] font-mono">
+                <div className="text-right text-white/50 text-[15px] font-mono">
                   {insight.timestamp}
                 </div>
               </>

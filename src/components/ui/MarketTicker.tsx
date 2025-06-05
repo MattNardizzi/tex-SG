@@ -25,32 +25,29 @@ export default function MarketTicker() {
 
   if (!quotes) return null;
 
-  const glowColor = theme === 'blue' ? 'rgba(0,240,255,0.05)' : 'rgba(177,77,255,0.05)';
+  const glowColor = 'rgba(0,240,255,0.05)';
 
   return (
-    <div
-      className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-mono tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md rounded-none"
-    >
-      {/* 🌌 Theme-Responsive Glow */}
+    <div className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-mono tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md">
+      
+      {/* 🌌 Cyan Glow Background */}
       <div
         className="absolute inset-0 blur-[40px] pointer-events-none animate-pulse"
         style={{ backgroundColor: glowColor }}
       />
 
-      {/* 🔁 Scrolling Ticker Content */}
+      {/* 🔁 Scrolling Ticker Text */}
       <motion.div
         className="flex gap-10 relative z-10 animate-scrollTicker"
         initial={{ x: 0 }}
         animate={{ x: '-50%' }}
         transition={{ repeat: Infinity, ease: 'linear', duration: 28 }}
       >
-        {[...quotes, ...quotes].map((quote, i) => (
+        {[...quotes, ...quotes].map((quote, index) => (
           <span
-            key={i}
-            style={{
-              color: i % 2 === 0 ? '#b14dff' : '#00ff99'
-            }}
+            key={index}
             className="opacity-90 hover:opacity-100 transition duration-200"
+            style={{ color: index % 2 === 0 ? '#b14dff' : '#00ff99' }}
           >
             {quote}
           </span>

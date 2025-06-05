@@ -25,10 +25,12 @@ export default function MarketTicker() {
 
   if (!quotes) return null;
 
-  const glowColor = 'rgba(0,240,255,0.05)';
+  const glowColor = 'rgba(0,240,255,0.05)'; // cyan background glow
+  const primaryColor = '#b14dff';           // purple
+  const secondaryColor = '#00f0ff';         // blue-green (panel title color)
 
   return (
-    <div className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-mono tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md !rounded-none !rounded-t-none !rounded-b-none">
+    <div className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-normal tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md !rounded-none">
       
       {/* 🌌 Cyan Glow Background */}
       <div
@@ -47,7 +49,7 @@ export default function MarketTicker() {
           <span
             key={index}
             className="opacity-90 hover:opacity-100 transition duration-200"
-            style={{ color: index % 2 === 0 ? '#b14dff' : '#00ff99' }}
+            style={{ color: index % 2 === 0 ? primaryColor : secondaryColor }}
           >
             {quote}
           </span>

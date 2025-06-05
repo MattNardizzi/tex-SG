@@ -71,23 +71,11 @@ export default function MutationReactorPanel() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
-
-      {/* 🔵 Enhanced Glow Aura */}
-      <div
-        className="absolute -z-10 top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/30 blur-[180px] animate-pulse"
-        style={{ opacity: insight.sovereignIndex }}
-      />
-
-      {/* ⚡ Grid & Light FX */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
-      </div>
+    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
 
       {/* 🧠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
+        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#00f0ff] mb-1">
           Mutation Reactor — AGI-9
         </div>
 
@@ -103,7 +91,7 @@ export default function MutationReactorPanel() {
             {slide === 0 && (
               <>
                 <div>
-                  Trigger: <span className="text-cyan-300 font-mono">{insight.trigger}</span>
+                  Trigger: <span className="text-[#00f0ff] font-mono">{insight.trigger}</span>
                 </div>
                 <div>
                   Intent: <span className="text-white/90 font-mono">{insight.intent}</span>
@@ -116,7 +104,7 @@ export default function MutationReactorPanel() {
                 <div className="text-[14px] text-white/50 font-medium">Shadow Fork Variants</div>
                 {insight.variants.map((v) => (
                   <div key={v.id} className="flex justify-between text-[15px] font-mono">
-                    <span className="text-cyan-300">#{v.id}</span>
+                    <span className="text-[#00f0ff]">#{v.id}</span>
                     <span>ΔG: {v.gain}</span>
                     <span>Coh: {v.coherence}</span>
                     <span>Surv: {v.survival}</span>

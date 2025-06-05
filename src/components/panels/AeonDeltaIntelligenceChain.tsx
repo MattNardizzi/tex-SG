@@ -45,7 +45,7 @@ const generateAeonInsight = () => {
   };
 };
 
-export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })AeonDeltaIntelligenceChain() {
+export default function AeonDeltaIntelligenceChain() {
   const [insight, setInsight] = useState<ReturnType<typeof generateAeonInsight> | null>(null);
   const [step, setStep] = useState(0);
 

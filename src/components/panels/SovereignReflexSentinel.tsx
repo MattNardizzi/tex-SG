@@ -33,7 +33,7 @@ const generateReflexState = () => {
   };
 };
 
-export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })SovereignReflexSentinel() {
+export default function SovereignReflexSentinel() {
   const [state, setState] = useState<ReturnType<typeof generateReflexState> | null>(null);
   const [slide, setSlide] = useState(0);
 

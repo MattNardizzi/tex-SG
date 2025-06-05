@@ -84,17 +84,12 @@ export default function ReflexiveCausalityMatrix() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border border-[#00f0ff11] shadow-[0_0_100px_#000000aa] text-white font-sans overflow-hidden">
+    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden">
 
-      {/* 🧠 Vertical Neural Line */}
-      <div className="absolute top-0 left-1/2 w-[1px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff44] to-black blur-[1px] opacity-80 pointer-events-none" />
+      {/* 🔵 Neural Core Line */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
-      {/* 🌌 Grid Texture */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:18px_18px]" />
-      </div>
-
-      {/* Panel Content */}
+      {/* 🧠 Panel Header */}
       <div className="relative z-10 flex flex-col justify-between h-full">
         <div className="text-center font-mono text-[17px] tracking-[0.2em] uppercase text-[#00f0ff] mb-2">
           Reflexive Causality Matrix

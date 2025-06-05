@@ -55,7 +55,7 @@ const generateCausalInsight = () => {
   };
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })ReflexiveCausalityMatrix() {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })ReflexiveCausalityMatrix() {
   const [insight, setInsight] = useState<ReturnType<typeof generateCausalInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 

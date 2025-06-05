@@ -45,7 +45,7 @@ const generateMutationInsight = () => {
   };
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })MutationReactorPanel() {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })MutationReactorPanel() {
   const [insight, setInsight] = useState<ReturnType<typeof generateMutationInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 

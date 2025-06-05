@@ -48,7 +48,7 @@ const generateContradictionInsight = () => {
   };
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })TacticalContradictionMatrix() {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })TacticalContradictionMatrix() {
   const [insight, setInsight] = useState<ReturnType<typeof generateContradictionInsight> | null>(null);
   const [step, setStep] = useState(0);
 

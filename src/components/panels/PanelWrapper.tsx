@@ -1,6 +1,6 @@
 // components/ui/PanelWrapper.tsx
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })PanelWrapper({ children }: { children: React.ReactNode }) {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })PanelWrapper({ children }: { children: React.ReactNode }) {
     return (
       <div className="w-full h-full p-2 
                       text-[clamp(9px,0.9vw,13px)] 

@@ -42,7 +42,7 @@ const generateMultiworldInsight = () => {
   };
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })MultiworldDivergenceMatrix() {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })MultiworldDivergenceMatrix() {
   const [insight, setInsight] = useState<ReturnType<typeof generateMultiworldInsight> | null>(null);
   const [slide, setSlide] = useState(0);
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })RenderProbe() {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })RenderProbe() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

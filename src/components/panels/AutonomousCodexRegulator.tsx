@@ -30,7 +30,7 @@ const generateCodexInsight = () => {
   };
 };
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })AutonomousCodexRegulator() {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })AutonomousCodexRegulator() {
   const [insight, setInsight] = useState<ReturnType<typeof generateCodexInsight> | null>(null);
   const [slide, setSlide] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);

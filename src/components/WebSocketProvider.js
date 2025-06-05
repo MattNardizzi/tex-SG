@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import usePanelStore from '@/lib/store';
 
-export default function $1({ theme }: { theme: 'blue' | 'purple' })WebSocketProvider({ children }) {
+export default function SomePanel({ theme }: { theme: 'blue' | 'purple' }) {({ theme }: { theme: 'blue' | 'purple' })WebSocketProvider({ children }) {
   const updatePanelData = usePanelStore((state) => state.updatePanelData);
 
   useEffect(() => {

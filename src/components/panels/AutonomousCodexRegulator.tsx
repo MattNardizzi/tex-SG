@@ -57,20 +57,23 @@ export default function AutonomousCodexRegulator() {
   if (!insight) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#102642] via-[#09202c] to-[#04131f] rounded-2xl border border-cyan-400/50 shadow-[0_0_100px_#00ffff55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
+    <div className="relative w-full h-full px-6 py-5 bg-gradient-to-br from-[#32052d] via-[#15001a] to-[#220018] rounded-2xl border border-pink-400/40 shadow-[0_0_100px_#ff66cc55] text-white font-body overflow-hidden text-[16px] leading-[1.4]">
 
-      {/* 🔵 Glow Aura */}
-      <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none bg-cyan-300/30" />
+      {/* 🌌 Glow Aura */}
+      <div
+        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[180px] animate-pulse pointer-events-none"
+        style={{ backgroundColor: 'rgba(255,105,180,0.12)', opacity: 0.3 }}
+      />
 
       {/* ⚡ Grid FX */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:22px_22px]" />
-        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-cyan-300/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute top-1/3 left-1/2 w-[300px] h-[300px] -translate-x-1/2 bg-pink-300/10 rounded-full blur-[100px] animate-pulse" />
       </div>
 
       {/* 🧠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-cyan-300 mb-1">
+        <div className="text-center font-display text-[18px] tracking-[0.25em] uppercase leading-tight text-pink-300 mb-1">
           Autonomous Codex Regulator
         </div>
 
@@ -87,7 +90,7 @@ export default function AutonomousCodexRegulator() {
               <>
                 <div className="text-[15px] text-white/40">Codex Mutation</div>
                 <div className="font-mono text-[16px] text-white">{insight.mutation.original}</div>
-                <div className="text-cyan-300 text-[16px] font-mono">→ {insight.mutation.mutated}</div>
+                <div className="text-pink-300 text-[16px] font-mono">→ {insight.mutation.mutated}</div>
               </>
             )}
 
@@ -101,8 +104,8 @@ export default function AutonomousCodexRegulator() {
             {slide === 2 && (
               <>
                 <div className="text-[15px] text-white/40">Fork + Agent</div>
-                <div className="font-mono text-[16px]">Fork ID: <span className="text-cyan-300">{insight.forkId}</span></div>
-                <div className="font-mono text-[16px]">Agent: <span className="text-cyan-200">{insight.agent}</span></div>
+                <div className="font-mono text-[16px]">Fork ID: <span className="text-pink-300">{insight.forkId}</span></div>
+                <div className="font-mono text-[16px]">Agent: <span className="text-pink-200">{insight.agent}</span></div>
               </>
             )}
 

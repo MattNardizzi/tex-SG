@@ -97,7 +97,6 @@ export default function NeuralExecutionCortex() {
     return out;
   };
 
-  const asciiBar = (value: number) => '▉'.repeat(Math.round(value * 20)).padEnd(20, '░');
   const weights = Object.entries(normalize());
 
   return (
@@ -153,10 +152,12 @@ export default function NeuralExecutionCortex() {
               <>
                 <div className="text-[15px] text-white/40">Allocation Map (I)</div>
                 {weights.slice(0, 2).map(([key, val]) => (
-                  <div key={key} className="flex justify-between text-[15px] font-mono">
-                    <span className="text-pink-300">{key}</span>
-                    <span>{asciiBar(val)}</span>
-                    <span>{(val * 100).toFixed(0)}%</span>
+                  <div key={key} className="flex items-center justify-between gap-3 text-[15px] font-mono w-full">
+                    <span className="w-24 text-pink-300">{key}</span>
+                    <div className="flex-1 h-3 bg-white/10 rounded-md overflow-hidden">
+                      <div className="h-full bg-pink-300 transition-all duration-300" style={{ width: `${(val * 100).toFixed(0)}%` }} />
+                    </div>
+                    <span className="w-10 text-right text-white/80">{(val * 100).toFixed(0)}%</span>
                   </div>
                 ))}
               </>
@@ -165,10 +166,12 @@ export default function NeuralExecutionCortex() {
               <>
                 <div className="text-[15px] text-white/40">Allocation Map (II)</div>
                 {weights.slice(2).map(([key, val]) => (
-                  <div key={key} className="flex justify-between text-[15px] font-mono">
-                    <span className="text-pink-300">{key}</span>
-                    <span>{asciiBar(val)}</span>
-                    <span>{(val * 100).toFixed(0)}%</span>
+                  <div key={key} className="flex items-center justify-between gap-3 text-[15px] font-mono w-full">
+                    <span className="w-24 text-pink-300">{key}</span>
+                    <div className="flex-1 h-3 bg-white/10 rounded-md overflow-hidden">
+                      <div className="h-full bg-pink-300 transition-all duration-300" style={{ width: `${(val * 100).toFixed(0)}%` }} />
+                    </div>
+                    <span className="w-10 text-right text-white/80">{(val * 100).toFixed(0)}%</span>
                   </div>
                 ))}
               </>

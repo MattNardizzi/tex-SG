@@ -28,7 +28,7 @@ export default function MarketTicker() {
   const glowColor = 'rgba(0,240,255,0.05)';
 
   return (
-    <div className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-mono tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md">
+    <div className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-mono tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md !rounded-none !rounded-t-none !rounded-b-none">
       
       {/* 🌌 Cyan Glow Background */}
       <div

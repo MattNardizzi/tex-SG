@@ -2,13 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
 
 export default function withPasswordProtect(Component: React.FC) {
   return function ProtectedPage() {
     const [authorized, setAuthorized] = useState(false);
     const [codeInput, setCodeInput] = useState('');
-    const router = useRouter();
 
     const expectedCode = process.env.NEXT_PUBLIC_TEX_ACCESS_CODE;
 
@@ -17,7 +15,7 @@ export default function withPasswordProtect(Component: React.FC) {
       if (cookie === expectedCode) {
         setAuthorized(true);
       }
-    }, []);
+    }, [expectedCode]); // ✅ Fixes the missing dependency warning
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();

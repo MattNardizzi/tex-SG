@@ -20,7 +20,6 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.511.0",
     "next": "^15.3.3",
-    "next-password-protect": "^1.8.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sonner": "^2.0.5",

@@ -1,7 +1,7 @@
 'use client';
 
 import DashboardHUD from '../components/panels/DashboardHUD';
-import withPasswordProtect from '../components/withPassword';
+import withPasswordProtect from '../components/withPassword'; // ← your custom wrapper
 
 function Home() {
   return <DashboardHUD />;

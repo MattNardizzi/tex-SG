@@ -36,17 +36,27 @@ const generateReflexState = () => {
 export default function SovereignReflexSentinel() {
   const [state, setState] = useState<ReturnType<typeof generateReflexState> | null>(null);
   const [slide, setSlide] = useState(0);
+  const [overrideActive, setOverrideActive] = useState(false);
 
   useEffect(() => {
-    setState(generateReflexState());
-
     const totalSlides = 5;
     const duration = 5000;
 
     const rotate = () => {
       setSlide((prev) => {
         const next = (prev + 1) % totalSlides;
-        if (next === 0) setState(generateReflexState());
+        if (next === 0) {
+          const newState = generateReflexState();
+          setState(newState);
+
+          if (
+            newState.trigger === 'sovereign contradiction' ||
+            newState.reflexIndex > 0.85
+          ) {
+            setOverrideActive(true);
+            setTimeout(() => setOverrideActive(false), 3000); // Pulse for 3 seconds
+          }
+        }
         return next;
       });
     };
@@ -58,8 +68,14 @@ export default function SovereignReflexSentinel() {
   if (!state) return null;
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#b14dff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
-
+    <div
+      className={`relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] text-white font-sans overflow-hidden text-[16px] leading-[1.4] transition-all duration-300
+        ${
+          overrideActive
+            ? 'border-red-500 shadow-[0_0_40px_rgba(255,0,0,0.7)] animate-pulse'
+            : 'border-[#b14dff22] shadow-[0_0_120px_#000000f0]'
+        }`}
+    >
       {/* 🟣 Center Pulse Line */}
       <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 

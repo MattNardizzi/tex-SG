@@ -1,4 +1,7 @@
+'use client';
+
 import MarketTicker from '@/components/ui/MarketTicker';
+import TickerBar from './TickerBar'; // ✅ This matches default export
 
 // 🧠 Core Panels
 import ReflexiveCausalityMatrix from './ReflexiveCausalityMatrix';
@@ -21,7 +24,7 @@ export default function DashboardHUD() {
       {/* 📡 Grid Texture */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-10 mix-blend-screen bg-[radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:22px_22px]" />
 
-      {/* 🔝 Market Ticker (Fixed Color) */}
+      {/* 🔝 Market Ticker */}
       <div
         className="relative z-50 w-full h-16 border-b border-white/10 backdrop-blur-md flex items-center px-6 text-[20px] font-semibold tracking-widest uppercase"
         style={{
@@ -37,7 +40,7 @@ export default function DashboardHUD() {
       </div>
 
       {/* 🧠 Panel Grid */}
-      <div className="relative z-10 w-full h-[calc(100vh-4rem)] grid grid-cols-3 grid-rows-3 gap-7 px-10 pt-10 pb-6">
+      <div className="relative z-10 w-full h-[calc(100vh-8rem)] grid grid-cols-3 grid-rows-3 gap-7 px-10 pt-10 pb-6">
 
         {/* 🔹 Row 1 */}
         <div className="w-full h-full"><ReflexiveCausalityMatrix /></div>
@@ -54,6 +57,9 @@ export default function DashboardHUD() {
         <div className="w-full h-full"><GhostAlphaConsole /></div>
         <div className="w-full h-full"><AutonomousCodexRegulator /></div>
       </div>
+
+      {/* 🧠 Cognition Ticker Bar */}
+      <TickerBar />
     </div>
   );
 }

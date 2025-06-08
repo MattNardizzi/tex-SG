@@ -34,7 +34,7 @@ const generateReflexState = () => {
 };
 
 export default function SovereignReflexSentinel() {
-  const [state, setState] = useState<ReturnType<typeof generateReflexState> | null>(null);
+  const [state, setState] = useState(generateReflexState());
   const [slide, setSlide] = useState(0);
   const [overrideActive, setOverrideActive] = useState(false);
 
@@ -42,30 +42,32 @@ export default function SovereignReflexSentinel() {
     const totalSlides = 5;
     const duration = 5000;
 
-    const rotate = () => {
+    const checkOverride = (newState: ReturnType<typeof generateReflexState>) => {
+      if (
+        newState.trigger === 'sovereign contradiction' ||
+        newState.reflexIndex > 0.85
+      ) {
+        setOverrideActive(true);
+        setTimeout(() => setOverrideActive(false), 3000);
+      }
+    };
+
+    checkOverride(state); // 🔥 Check initial state for override on mount
+
+    const interval = setInterval(() => {
       setSlide((prev) => {
         const next = (prev + 1) % totalSlides;
         if (next === 0) {
           const newState = generateReflexState();
           setState(newState);
-
-          if (
-            newState.trigger === 'sovereign contradiction' ||
-            newState.reflexIndex > 0.85
-          ) {
-            setOverrideActive(true);
-            setTimeout(() => setOverrideActive(false), 3000); // Pulse for 3 seconds
-          }
+          checkOverride(newState); // 🔁 Check override on every cycle
         }
         return next;
       });
-    };
+    }, duration);
 
-    const intervalId = setInterval(rotate, duration);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  if (!state) return null;
+    return () => clearInterval(interval);
+  }, [state]);
 
   return (
     <div
@@ -105,9 +107,15 @@ export default function SovereignReflexSentinel() {
             {slide === 1 && (
               <>
                 <div className="text-[15px] text-white/40">Override Diagnostics</div>
-                <div className="text-[16px] font-mono">Reflex Index: <span className="text-lime-300">{state.reflexIndex}</span></div>
-                <div className="text-[16px] font-mono">Foresight Drift: <span className="text-orange-300">{state.foresightDelta > 0 ? '+' : ''}{state.foresightDelta}</span></div>
-                <div className="text-[16px] font-mono">Override Window: <span className="text-yellow-300">{state.overrideWindow}</span></div>
+                <div className="text-[16px] font-mono">
+                  Reflex Index: <span className="text-lime-300">{state.reflexIndex}</span>
+                </div>
+                <div className="text-[16px] font-mono">
+                  Foresight Drift: <span className="text-orange-300">{state.foresightDelta > 0 ? '+' : ''}{state.foresightDelta}</span>
+                </div>
+                <div className="text-[16px] font-mono">
+                  Override Window: <span className="text-yellow-300">{state.overrideWindow}</span>
+                </div>
                 <div className="text-[14px] italic text-white/50 pt-1">
                   {Math.abs(state.foresightDelta) > 0.15
                     ? '⚠ Reflex escalation trajectory rising'

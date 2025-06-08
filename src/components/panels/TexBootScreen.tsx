@@ -8,7 +8,7 @@ export default function TexBootScreen({ onDone }: { onDone: () => void }) {
     const timer = setTimeout(() => {
       setVisible(false);
       onDone();
-    }, 3000); // 3 seconds
+    }, 3000);
     return () => clearTimeout(timer);
   }, [onDone]);
 
@@ -20,17 +20,6 @@ export default function TexBootScreen({ onDone }: { onDone: () => void }) {
         <div className="text-[#00f0ff] text-[26px] mb-2">Tex Brain Online</div>
         <div className="text-white/60 text-sm">Sovereign Cognition Activated</div>
       </div>
-      <style jsx>{`
-        .animate-fadeIn {
-          animation: fadeInOut 3s ease-in-out forwards;
-        }
-        @keyframes fadeInOut {
-          0% { opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }

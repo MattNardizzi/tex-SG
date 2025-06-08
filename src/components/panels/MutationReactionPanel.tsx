@@ -45,12 +45,11 @@ const generateMutationInsight = () => {
 };
 
 export default function MutationReactorPanel() {
-  const [insight, setInsight] = useState<ReturnType<typeof generateMutationInsight> | null>(null);
+  const [insight, setInsight] = useState(generateMutationInsight());
   const [slide, setSlide] = useState(0);
+  const [mutationPulse, setMutationPulse] = useState(false);
 
   useEffect(() => {
-    setInsight(generateMutationInsight());
-
     const totalSlides = 6;
     const duration = 5000;
 
@@ -58,20 +57,28 @@ export default function MutationReactorPanel() {
       setSlide((prev) => {
         const next = (prev + 1) % totalSlides;
         if (next === 0) {
-          setInsight(generateMutationInsight());
+          const newInsight = generateMutationInsight();
+          setInsight(newInsight);
+          setMutationPulse(true);
+          setTimeout(() => setMutationPulse(false), 3000);
         }
         return next;
       });
     };
 
-    const intervalId = setInterval(loop, duration);
-    return () => clearInterval(intervalId);
+    const interval = setInterval(loop, duration);
+    return () => clearInterval(interval);
   }, []);
 
-  if (!insight) return null;
-
   return (
-    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+    <div
+      className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black text-white font-sans overflow-hidden text-[16px] leading-[1.4] transition-all duration-300
+        ${
+          mutationPulse
+            ? 'border-[#00f0ff] shadow-[0_0_40px_rgba(0,240,255,0.7)] animate-pulse'
+            : 'border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0]'
+        }`}
+    >
       <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 🧠 Panel Content */}

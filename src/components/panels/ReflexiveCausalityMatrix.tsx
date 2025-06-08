@@ -56,40 +56,62 @@ const generateCausalInsight = () => {
 };
 
 export default function ReflexiveCausalityMatrix() {
-  const [insight, setInsight] = useState<ReturnType<typeof generateCausalInsight> | null>(null);
+  const [insight, setInsight] = useState(generateCausalInsight());
   const [slide, setSlide] = useState(0);
+  const [rippleActive, setRippleActive] = useState(false);
 
   useEffect(() => {
-    setInsight(generateCausalInsight());
-
     const durations = Array(7).fill(6000);
     let current = 0;
     let timeout: NodeJS.Timeout;
 
+    const triggerRipple = (data: ReturnType<typeof generateCausalInsight>) => {
+      if (data.path.loopDetected) {
+        setRippleActive(true);
+        setTimeout(() => setRippleActive(false), 3000);
+      }
+    };
+
+    triggerRipple(insight); // fire ripple on initial mount
+
     const advanceSlide = () => {
       current = (current + 1) % durations.length;
       setSlide(current);
+      if (current === 0) {
+        const newData = generateCausalInsight();
+        setInsight(newData);
+        triggerRipple(newData);
+      }
       timeout = setTimeout(advanceSlide, durations[current]);
     };
 
-    const interval = setInterval(() => setInsight(generateCausalInsight()), 10000);
-    timeout = setTimeout(advanceSlide, durations[0]);
+    const insightInterval = setInterval(() => {
+      const newData = generateCausalInsight();
+      setInsight(newData);
+      triggerRipple(newData);
+    }, 10000);
 
+    timeout = setTimeout(advanceSlide, durations[0]);
     return () => {
       clearTimeout(timeout);
-      clearInterval(interval);
+      clearInterval(insightInterval);
     };
   }, []);
 
-  if (!insight) return null;
-
   return (
-    <div className="relative w-full h-full px-6 py-5 rounded-2xl bg-black border-[2px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden">
+    <div className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black font-sans overflow-hidden text-[16px] leading-[1.4]
+      border-[2px] ${rippleActive ? 'border-[#00f0ff] shadow-[0_0_60px_rgba(0,240,255,0.6)] animate-pulse' : 'border-[#00f0ff22] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
+      
+      {/* 🔵 Blue Ripple Glow */}
+      {rippleActive && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00f0ff22] blur-[80px] animate-pulse opacity-50" />
+        </div>
+      )}
 
-      {/* 🔵 Neural Core Line */}
+      {/* 🔵 Core Line */}
       <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
-      {/* 🧠 Panel Header */}
       <div className="relative z-10 flex flex-col justify-between h-full">
         <div className="text-center font-mono text-[17px] tracking-[0.2em] uppercase text-[#00f0ff] mb-2">
           Reflexive Causality Matrix

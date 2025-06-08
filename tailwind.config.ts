@@ -51,6 +51,17 @@ const config: Config = {
         'xl': '2rem',
         '2xl': '3rem',
       },
+      animation: {
+        fadeIn: 'fadeInOut 3s ease-in-out',
+      },
+      keyframes: {
+        fadeInOut: {
+          '0%': { opacity: '0' },
+          '10%': { opacity: '1' },
+          '90%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
     },
   },
   plugins: [

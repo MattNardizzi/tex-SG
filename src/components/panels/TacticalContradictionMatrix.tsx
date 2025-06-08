@@ -51,13 +51,13 @@ const generateContradictionInsight = () => {
 export default function TacticalContradictionMatrix() {
   const [insight, setInsight] = useState(generateContradictionInsight());
   const [step, setStep] = useState(0);
-  const [flicker, setFlicker] = useState(false);
+  const [pulse, setPulse] = useState(false);
 
   useEffect(() => {
-    const triggerFlicker = (data: ReturnType<typeof generateContradictionInsight>) => {
+    const triggerPulse = (data: ReturnType<typeof generateContradictionInsight>) => {
       if (data.entropyScore > 0.6 || parseFloat(data.contradictionRisk) > 0.8) {
-        setFlicker(true);
-        setTimeout(() => setFlicker(false), 3000);
+        setPulse(true);
+        setTimeout(() => setPulse(false), 3000);
       }
     };
 
@@ -70,28 +70,28 @@ export default function TacticalContradictionMatrix() {
         if (next === 0) {
           const newData = generateContradictionInsight();
           setInsight(newData);
-          triggerFlicker(newData);
+          triggerPulse(newData);
         }
         return next;
       });
     };
 
-    triggerFlicker(insight);
+    triggerPulse(insight);
     const intervalId = setInterval(loop, duration);
     return () => clearInterval(intervalId);
   }, []);
 
   return (
-    <div className={`relative w-full h-full px-6 py-5 bg-black rounded-2xl text-white font-sans overflow-hidden text-[16px] leading-[1.4] border-[1.5px]
-      ${flicker ? 'border-orange-400 shadow-[0_0_40px_rgba(255,140,0,0.5)] animate-pulse' : 'border-[#b14dff22] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
+    <div className={`relative w-full h-full px-6 py-5 bg-black rounded-2xl text-white font-sans overflow-hidden text-[16px] leading-[1.4] border-[1.5px] transition-all duration-300
+      ${pulse ? 'border-crimson shadow-[0_0_40px_rgba(255,54,93,0.6)] animate-pulse' : 'border-[#b14dff22] shadow-[0_0_120px_#000000f0]'}`}>
 
-      {/* 🟠 Orange Flicker Flash */}
-      {flicker && (
-        <div className="absolute inset-0 bg-orange-300 opacity-[0.05] pointer-events-none animate-pulse blur-[2px] z-0" />
+      {/* 🔴 Crimson Pulse Flash */}
+      {pulse && (
+        <div className="absolute inset-0 bg-red-500 opacity-[0.05] pointer-events-none animate-pulse blur-[2px] z-0" />
       )}
 
       {/* 🔸 Core Line */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#ff660066] to-black blur-[1px] opacity-90 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#ff365d88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">

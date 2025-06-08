@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import MarketTicker from '@/components/ui/MarketTicker';
-import TickerBar from './TickerBar'; // ✅ This matches default export
+import TickerBar from './TickerBar';
+import TexBootScreen from './TexBootScreen';
 
 // 🧠 Core Panels
 import ReflexiveCausalityMatrix from './ReflexiveCausalityMatrix';
@@ -15,6 +17,10 @@ import GhostAlphaConsole from './GhostAlphaConsole';
 import AutonomousCodexRegulator from './AutonomousCodexRegulator';
 
 export default function DashboardHUD() {
+  const [bootDone, setBootDone] = useState(false);
+
+  if (!bootDone) return <TexBootScreen onDone={() => setBootDone(true)} />;
+
   return (
     <div className="w-screen h-screen relative bg-black text-white font-mono overflow-hidden">
 
@@ -27,10 +33,7 @@ export default function DashboardHUD() {
       {/* 🔝 Market Ticker */}
       <div
         className="relative z-50 w-full h-16 border-b border-white/10 backdrop-blur-md flex items-center px-6 text-[20px] font-semibold tracking-widest uppercase"
-        style={{
-          backgroundColor: 'black',
-          color: '#00f0ff',
-        }}
+        style={{ backgroundColor: 'black', color: '#00f0ff' }}
       >
         <div
           className="absolute inset-0 blur-[40px] pointer-events-none animate-pulse"

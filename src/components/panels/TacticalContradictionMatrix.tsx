@@ -49,11 +49,17 @@ const generateContradictionInsight = () => {
 };
 
 export default function TacticalContradictionMatrix() {
-  const [insight, setInsight] = useState<ReturnType<typeof generateContradictionInsight> | null>(null);
+  const [insight, setInsight] = useState(generateContradictionInsight());
   const [step, setStep] = useState(0);
+  const [flicker, setFlicker] = useState(false);
 
   useEffect(() => {
-    setInsight(generateContradictionInsight());
+    const triggerFlicker = (data: ReturnType<typeof generateContradictionInsight>) => {
+      if (data.entropyScore > 0.6 || parseFloat(data.contradictionRisk) > 0.8) {
+        setFlicker(true);
+        setTimeout(() => setFlicker(false), 3000);
+      }
+    };
 
     const totalSteps = 6;
     const duration = 5000;
@@ -61,22 +67,31 @@ export default function TacticalContradictionMatrix() {
     const loop = () => {
       setStep((prev) => {
         const next = (prev + 1) % totalSteps;
-        if (next === 0) setInsight(generateContradictionInsight());
+        if (next === 0) {
+          const newData = generateContradictionInsight();
+          setInsight(newData);
+          triggerFlicker(newData);
+        }
         return next;
       });
     };
 
+    triggerFlicker(insight);
     const intervalId = setInterval(loop, duration);
     return () => clearInterval(intervalId);
   }, []);
 
-  if (!insight) return null;
-
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#b14dff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+    <div className={`relative w-full h-full px-6 py-5 bg-black rounded-2xl text-white font-sans overflow-hidden text-[16px] leading-[1.4] border-[1.5px]
+      ${flicker ? 'border-orange-400 shadow-[0_0_40px_rgba(255,140,0,0.5)] animate-pulse' : 'border-[#b14dff22] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
 
-      {/* 🟣 Center Pulse Line */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
+      {/* 🟠 Orange Flicker Flash */}
+      {flicker && (
+        <div className="absolute inset-0 bg-orange-300 opacity-[0.05] pointer-events-none animate-pulse blur-[2px] z-0" />
+      )}
+
+      {/* 🔸 Core Line */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#ff660066] to-black blur-[1px] opacity-90 pointer-events-none" />
 
       {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
@@ -99,16 +114,12 @@ export default function TacticalContradictionMatrix() {
                 <div className="text-[16px] text-[#b14dff] font-mono">{insight.cause}</div>
               </>
             )}
-
             {step === 1 && (
               <>
                 <div className="text-[15px] text-white/40">Resolution Path</div>
-                <div className="text-[16px] text-white font-body">
-                  {insight.resolution}
-                </div>
+                <div className="text-[16px] text-white font-body">{insight.resolution}</div>
               </>
             )}
-
             {step === 2 && (
               <>
                 <div className="text-[15px] text-white/40">Shadow Fork Diagnostics</div>
@@ -123,7 +134,6 @@ export default function TacticalContradictionMatrix() {
                 ))}
               </>
             )}
-
             {step === 3 && (
               <>
                 <div className="text-[15px] text-white/40">Reflex Engagement</div>
@@ -134,7 +144,6 @@ export default function TacticalContradictionMatrix() {
                 ))}
               </>
             )}
-
             {step === 4 && (
               <>
                 <div className="text-[15px] text-white/40">Entropy Load / Memory Rewrite</div>
@@ -151,13 +160,10 @@ export default function TacticalContradictionMatrix() {
                 </div>
               </>
             )}
-
             {step === 5 && (
               <>
                 <div className="text-[15px] text-white/40">Last Update</div>
-                <div className="text-right text-[16px] text-white/50 font-mono">
-                  {insight.timestamp}
-                </div>
+                <div className="text-right text-[16px] text-white/50 font-mono">{insight.timestamp}</div>
               </>
             )}
           </motion.div>

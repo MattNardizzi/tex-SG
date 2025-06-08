@@ -46,28 +46,53 @@ const generateAeonInsight = () => {
 };
 
 export default function AeonDeltaIntelligenceChain() {
-  const [insight, setInsight] = useState<ReturnType<typeof generateAeonInsight> | null>(null);
+  const [insight, setInsight] = useState(generateAeonInsight());
   const [step, setStep] = useState(0);
+  const [lastTrace, setLastTrace] = useState(insight.alignmentTrace);
+  const [pulse, setPulse] = useState(false);
 
   useEffect(() => {
-    setInsight(generateAeonInsight());
-    const insightTimer = setInterval(() => setInsight(generateAeonInsight()), 12000);
-    const rotationTimer = setInterval(() => setStep((s) => (s + 1) % 5), 6000);
+    const triggerPulse = (current: number, previous: number) => {
+      if (Math.abs(current - previous) > 0.08) {
+        setPulse(true);
+        setTimeout(() => setPulse(false), 3000);
+      }
+    };
+
+    const insightTimer = setInterval(() => {
+      const newInsight = generateAeonInsight();
+      triggerPulse(newInsight.alignmentTrace, lastTrace);
+      setLastTrace(newInsight.alignmentTrace);
+      setInsight(newInsight);
+    }, 12000);
+
+    const stepTimer = setInterval(() => {
+      setStep((s) => (s + 1) % 5);
+    }, 6000);
+
     return () => {
       clearInterval(insightTimer);
-      clearInterval(rotationTimer);
+      clearInterval(stepTimer);
     };
-  }, []);
-
-  if (!insight) return null;
+  }, [lastTrace]);
 
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+    <div
+      className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black font-sans overflow-hidden text-[16px] leading-[1.4] border-[1.5px]
+        ${pulse ? 'border-[#b14dff] shadow-[0_0_50px_rgba(177,77,255,0.5)] animate-pulse' : 'border-[#00f0ff22] shadow-[0_0_120px_#000000f0]'}
+        transition-all duration-300`}
+    >
+      {/* 🧬 Neon Pulse Ring */}
+      {pulse && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b14dff22] blur-[80px] animate-ping opacity-40" />
+        </div>
+      )}
 
-      {/* 🔵 Center Pulse Line */}
+      {/* 🧬 Core Line */}
       <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
 
-      {/* 🧠 Panel Content */}
+      {/* Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">
         <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#00f0ff] mb-1">
           AeonDelta Intelligence Chain
@@ -95,7 +120,6 @@ export default function AeonDeltaIntelligenceChain() {
                 </div>
               </>
             )}
-
             {step === 1 && (
               <>
                 <div className="text-white/40">Spawned Aeon Agents</div>
@@ -109,7 +133,6 @@ export default function AeonDeltaIntelligenceChain() {
                 ))}
               </>
             )}
-
             {step === 2 && (
               <>
                 <div className="text-white/40">Cognitive Fusion Signatures</div>
@@ -120,7 +143,6 @@ export default function AeonDeltaIntelligenceChain() {
                 ))}
               </>
             )}
-
             {step === 3 && (
               <>
                 <div className="text-white/40">Swarm Alignment Trace</div>
@@ -130,7 +152,6 @@ export default function AeonDeltaIntelligenceChain() {
                 </div>
               </>
             )}
-
             {step === 4 && (
               <>
                 <div className="text-white/40">Last Chain Update</div>

@@ -42,17 +42,32 @@ const generateGhostAlpha = () => {
 };
 
 export default function GhostAlphaConsole() {
-  const [insight, setInsight] = useState<ReturnType<typeof generateGhostAlpha> | null>(null);
+  const [insight, setInsight] = useState(generateGhostAlpha());
   const [slide, setSlide] = useState(0);
+  const [flicker, setFlicker] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    setInsight(generateGhostAlpha());
+    const maybeTriggerFlicker = (data: ReturnType<typeof generateGhostAlpha>) => {
+      if (data.stealthLayer || data.rejectionRate > 0.5) {
+        setFlicker(true);
+        setTimeout(() => setFlicker(false), 3000);
+      }
+    };
+
+    setInsight((initial) => {
+      maybeTriggerFlicker(initial);
+      return initial;
+    });
 
     intervalRef.current = setInterval(() => {
       setSlide((prev) => {
         const next = (prev + 1) % 5;
-        if (next === 0) setInsight(generateGhostAlpha());
+        if (next === 0) {
+          const newData = generateGhostAlpha();
+          setInsight(newData);
+          maybeTriggerFlicker(newData);
+        }
         return next;
       });
     }, 6000);
@@ -62,13 +77,17 @@ export default function GhostAlphaConsole() {
     };
   }, []);
 
-  if (!insight) return null;
-
   return (
-    <div className="relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] border-[#b14dff22] shadow-[0_0_120px_#000000f0] text-white font-sans overflow-hidden text-[16px] leading-[1.4]">
+    <div className={`relative w-full h-full px-6 py-5 bg-black rounded-2xl text-white font-sans overflow-hidden text-[16px] leading-[1.4] border-[1.5px]
+      ${flicker ? 'border-white shadow-[0_0_60px_rgba(255,255,255,0.35)] animate-pulse' : 'border-[#b14dff22] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
 
       {/* 🟣 Center Pulse Line */}
       <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
+
+      {/* 👻 White Flicker Layer */}
+      {flicker && (
+        <div className="absolute inset-0 z-0 bg-white opacity-10 pointer-events-none animate-pulse blur-[3px]" />
+      )}
 
       {/* 💠 Panel Content */}
       <div className="relative z-10 flex flex-col justify-between h-full">

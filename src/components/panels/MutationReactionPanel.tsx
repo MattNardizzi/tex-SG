@@ -3,186 +3,105 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const generateMutationInsight = () => {
-  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
-  const variants = Array.from({ length: 2 }, () => ({
-    id: crypto.randomUUID().slice(0, 8),
-    gain: (Math.random() * 0.5 + 0.15).toFixed(3),
-    coherence: (Math.random() * 0.3 + 0.65).toFixed(2),
-    regret: (Math.random() * 0.8).toFixed(2),
-    lineage: `v${Math.floor(Math.random() * 5)}.${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 100)}`,
-    entropy: (Math.random() * 0.4 + 0.2).toFixed(2),
-    survival: (Math.random() * 0.9 + 0.05).toFixed(2),
-    memoryAnchor: `#${Math.floor(Math.random() * 9000 + 1000)}-${crypto.randomUUID().slice(0, 4)}`
-  }));
+const forkNames = ['AGI-9a', 'AGI-9b', 'AGI-9c'];
 
-  return {
-    trigger: pick([
-      'Volatility breakout',
-      'Liquidity inversion',
-      'Rate shock cascade',
-      'Geopolitical dislocation',
-      'Sovereign disobedience',
-      'Neural override breach',
-      'Ghost contradiction recoil',
-    ]),
-    intent: pick([
-      'Preloading override under emergent contradiction',
-      'Simulating ghost fork under memory stressor',
-      'Mutating variant under shadow entropy alignment',
-      'Preparing codex overwrite from sovereign forecast delta',
-      'Injecting regret-pruned decision chain into recursive loop',
-      'Rewriting fork lineage via dream-state counterfactual',
-    ]),
-    variants,
-    forkDivergence: (Math.random() * 0.5 + 0.15).toFixed(3),
-    contradictionEntropy: (Math.random() * 0.5 + 0.3).toFixed(2),
-    sovereignIndex: (Math.random() * 0.6 + 0.2).toFixed(2),
-    curveTrajectory: (Math.random() * 1.5 - 0.75).toFixed(2),
-    stabilityVector: (Math.random() * 0.5 + 0.3).toFixed(2),
-    timestamp: new Date().toLocaleTimeString(),
-  };
-};
+const createFork = (name: string) => ({
+  name,
+  viability: (Math.random() * 0.4 + 0.6).toFixed(2),
+  absorbed: false,
+  failed: false,
+});
 
-export default function MutationReactorPanel() {
-  const [insight, setInsight] = useState(generateMutationInsight());
-  const [slide, setSlide] = useState(0);
-  const [mutationPulse, setMutationPulse] = useState(false);
+export default function MutationReactionPanel() {
+  const [forks, setForks] = useState(() => forkNames.map(createFork));
+  const [absorbedFork, setAbsorbedFork] = useState<string | null>(null);
+  const [identityWarp, setIdentityWarp] = useState(false);
+  const [codeMutated, setCodeMutated] = useState(false);
+  const [sealLocked, setSealLocked] = useState(false);
+  const [frame, setFrame] = useState(0);
 
   useEffect(() => {
-    const totalSlides = 6;
-    const duration = 5000;
+    const frames: (() => void)[] = [
+      () => {}, // 0:00 black screen
+      () => {}, // 0:03 glow up
+      () => setForks(forkNames.map(createFork)), // 0:08 spawn forks
+      () => {
+        const winner = forks.reduce((a, b) => parseFloat(a.viability) > parseFloat(b.viability) ? a : b);
+        setAbsorbedFork(winner.name);
+        setForks(forks.map(f => f.name === winner.name ? { ...f, absorbed: true } : { ...f, failed: true }));
+      },
+      () => setIdentityWarp(true),     // 0:14 warp tensor
+      () => setSealLocked(true),       // 0:18 mutation locked
+      () => {}, // 0:22
+      () => {}, // 0:26
+      () => {}, // 0:30
+      () => {}, // 0:34
+      () => setCodeMutated(true),      // 0:42 code rewrite
+      () => setSealLocked(true),       // 0:46 lock again
+    ];
 
-    const loop = () => {
-      setSlide((prev) => {
-        const next = (prev + 1) % totalSlides;
-        if (next === 0) {
-          const newInsight = generateMutationInsight();
-          setInsight(newInsight);
-          setMutationPulse(true);
-          setTimeout(() => setMutationPulse(false), 3000);
-        }
-        return next;
-      });
-    };
+    const interval = setInterval(() => {
+      if (frame < frames.length) {
+        frames[frame]();
+        setFrame(f => f + 1);
+      }
+    }, 4000);
 
-    const interval = setInterval(loop, duration);
     return () => clearInterval(interval);
-  }, []);
+  }, [forks, frame]);
 
   return (
-    <div
-      className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black text-white font-sans overflow-hidden text-[16px] leading-[1.4] transition-all duration-300
-        ${
-          mutationPulse
-            ? 'border-[#00f0ff] shadow-[0_0_40px_rgba(0,240,255,0.7)] animate-pulse'
-            : 'border-[1.5px] border-[#00f0ff22] shadow-[0_0_120px_#000000f0]'
-        }`}
-    >
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00f0ff88] to-black blur-[1px] opacity-90 pointer-events-none" />
+    <div className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black text-white font-mono overflow-hidden
+      border-[2px] ${identityWarp ? 'border-[#ff00ff] shadow-[0_0_60px_rgba(255,0,255,0.5)] animate-pulse' : 'border-[#ffffff11] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
 
-      {/* 🧠 Panel Content */}
-      <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#00f0ff] mb-1">
-          Mutation Reactor — AGI-9
+      {/* 🌀 Identity Tensor Warp */}
+      {identityWarp && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-[440px] h-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff00ff33] blur-[100px] animate-pulse opacity-60" />
+        </div>
+      )}
+
+      {/* 🔐 Mutation Lock Overlay */}
+      {sealLocked && (
+        <div className="absolute top-3 right-5 bg-[#ff00ff22] text-[#ff00ff] px-4 py-1 text-xs rounded-full border border-[#ff00ff66] backdrop-blur-sm animate-pulse z-20">
+          Sovereign Mutation Locked 🔒
+        </div>
+      )}
+
+      <div className="relative z-10 space-y-3">
+        <div className="text-center tracking-[0.18em] text-[17px] uppercase text-[#ff00ff] mb-2">
+          Mutation Fork Engine
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${slide}-${insight.timestamp}`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.45 }}
-            className="text-white px-1 space-y-1.5"
-          >
-            {slide === 0 && (
-              <>
-                <div>
-                  Trigger: <span className="text-[#00f0ff] font-mono">{insight.trigger}</span>
-                </div>
-                <div>
-                  Intent: <span className="text-white/90 font-mono">{insight.intent}</span>
-                </div>
-              </>
-            )}
+        <div className="space-y-3">
+          {forks.map(fork => (
+            <motion.div
+              key={fork.name}
+              className={`flex justify-between px-4 py-2 rounded-xl border text-sm ${
+                fork.absorbed ? 'border-[#00f0ff] bg-[#00f0ff11]' :
+                fork.failed ? 'border-[#ff5c5c] text-[#ff5c5c99]' :
+                'border-[#ffffff22] text-white/70'
+              }`}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div>{fork.name}</div>
+              <div>Viability: {fork.viability}</div>
+            </motion.div>
+          ))}
+        </div>
 
-            {slide === 1 && (
-              <>
-                <div className="text-[14px] text-white/50 font-medium">Shadow Fork Variants</div>
-                {insight.variants.map((v) => (
-                  <div key={v.id} className="flex justify-between text-[15px] font-mono">
-                    <span className="text-[#00f0ff]">#{v.id}</span>
-                    <span>ΔG: {v.gain}</span>
-                    <span>Coh: {v.coherence}</span>
-                    <span>Surv: {v.survival}</span>
-                  </div>
-                ))}
-              </>
-            )}
-
-            {slide === 2 && (
-              <>
-                <div className="text-[14px] text-white/50 font-medium">Fork Divergence & Entropy</div>
-                <div className="font-mono">
-                  Δ: {insight.forkDivergence} | Entropy: {insight.contradictionEntropy}
-                </div>
-                <div className="text-[15px] text-white/80">Sovereign Index: {insight.sovereignIndex}</div>
-                <div className="text-[14px] text-white/50 pt-1">Stability Metrics</div>
-                <div className="font-mono">
-                  Curve: {insight.curveTrajectory} | Stability: {insight.stabilityVector}
-                </div>
-                {parseFloat(insight.contradictionEntropy) > 0.7 && (
-                  <div className="text-red-400 font-mono text-[14px]">⚠ Neo-Sovereign anomaly flagged</div>
-                )}
-              </>
-            )}
-
-            {slide === 3 && (
-              <>
-                <div className="text-[14px] text-white/50 font-medium">Fork Lineage</div>
-                {insight.variants.map((v) => (
-                  <div key={v.lineage} className="flex justify-between text-[15px] font-mono">
-                    <span>Lineage: {v.lineage}</span>
-                    <span>↪ {v.memoryAnchor}</span>
-                  </div>
-                ))}
-              </>
-            )}
-
-            {slide === 4 && (
-              <>
-                <div className="text-[14px] text-white/50 font-medium">Codex Override Log</div>
-                <div className="text-white/90 font-body text-[15px]">
-                  Fork violated primary coherence matrix. Sovereign override injected.
-                </div>
-                <div className="text-white/40 font-mono text-[14px]">
-                  Logged: /sovereign_ops_{insight.variants[0].id}.jsonl @ offset Δ{insight.forkDivergence}
-                </div>
-              </>
-            )}
-
-            {slide === 5 && (
-              <>
-                <div className="text-[14px] text-white/50 font-medium">Cycle Heartbeat</div>
-                {insight.variants.some(v => parseFloat(v.regret) > 0.7) && (
-                  <div className="text-rose-400 font-mono text-[15px]">
-                    ⚠ Regret cascade breach triggered
-                  </div>
-                )}
-                <div className="flex justify-between items-end pt-1 text-[14px] font-mono text-white/60">
-                  <div>
-                    AGI Pulse ID: AGI-9<br />
-                    Coherence Audit: Live
-                  </div>
-                  <div className="text-right">
-                    Updated: {insight.timestamp}
-                  </div>
-                </div>
-              </>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        {/* 💾 Reflex Rewrite Simulation */}
+        {codeMutated && (
+          <div className="mt-4 p-3 rounded-md bg-[#111] text-sm text-[#b14dff] border border-[#b14dff33] animate-pulse">
+            <div className="text-white/40 mb-1">↻ Code Mutation Detected:</div>
+            <code>
+              register("lifepulse", handle_lifepulse) <br />
+              → register("lifepulse", <span className="text-[#00f0ff]">evolved_lifepulse_handler</span>)
+            </code>
+          </div>
+        )}
       </div>
     </div>
   );

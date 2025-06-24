@@ -3,155 +3,85 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const generateReflexState = () => {
-  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
-
-  const reflexIndex = parseFloat((Math.random() * 0.4 + 0.5).toFixed(2));
-  const foresightDelta = parseFloat((Math.random() * 0.3 - 0.1).toFixed(3));
-
-  return {
-    trigger: pick([
-      'coherence collapse',
-      'high-regret chain',
-      'low foresight breach',
-      'sovereign contradiction',
-      'recursion trap',
-    ]),
-    defense: pick([
-      'Temporal Fork Reinforcement',
-      'Codex Reinjection',
-      'Emotion Lock Override',
-      'Shadow Fork Detonation',
-      'Fusion Coherence Sync',
-    ]),
-    reflexIndex,
-    foresightDelta,
-    overrideWindow: `${Math.floor(Math.random() * 6 + 3)}s`,
-    counterfactualsTested: Math.floor(Math.random() * 20 + 15),
-    timestamp: new Date().toLocaleTimeString(),
-    instabilityRisk: (reflexIndex * Math.abs(foresightDelta)).toFixed(3),
-  };
-};
-
 export default function SovereignReflexSentinel() {
-  const [state, setState] = useState(generateReflexState());
-  const [slide, setSlide] = useState(0);
-  const [overrideActive, setOverrideActive] = useState(false);
+  const [frame, setFrame] = useState(0);
+  const [strategy, setStrategy] = useState('—');
+  const [overrideBlocked, setOverrideBlocked] = useState(false);
+  const [newsHit, setNewsHit] = useState(false);
+  const [roi, setRoi] = useState({ tex: 0.0, human: 0.0 });
 
   useEffect(() => {
-    const totalSlides = 5;
-    const duration = 5000;
-
-    const checkOverride = (newState: ReturnType<typeof generateReflexState>) => {
-      if (
-        newState.trigger === 'sovereign contradiction' ||
-        newState.reflexIndex > 0.85
-      ) {
-        setOverrideActive(true);
-        setTimeout(() => setOverrideActive(false), 3000);
-      }
-    };
-
-    checkOverride(state); // 🔥 Check initial state for override on mount
+    const update = [
+      () => {}, // 0:00
+      () => {}, // 0:03 faint glow
+      () => {}, // 0:08 inactive
+      () => {}, // 0:12
+      () => setOverrideBlocked(true),              // 0:18 override blocked
+      () => setStrategy('Risk-Parity Hybrid'),     // 0:26 strategy chosen
+      () => setRoi({ tex: 3.1, human: -1.2 }),      // 0:30 initial ROI
+      () => setNewsHit(true),                      // 0:34 news drop
+      () => setRoi({ tex: 4.6, human: -1.3 }),      // 0:38 final ROI surge
+      () => {}, // 0:42
+      () => {}, // 0:46
+    ];
 
     const interval = setInterval(() => {
-      setSlide((prev) => {
-        const next = (prev + 1) % totalSlides;
-        if (next === 0) {
-          const newState = generateReflexState();
-          setState(newState);
-          checkOverride(newState); // 🔁 Check override on every cycle
-        }
-        return next;
-      });
-    }, duration);
+      if (frame < update.length) {
+        update[frame]();
+        setFrame(f => f + 1);
+      }
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, [state]);
+  }, [frame]);
 
   return (
-    <div
-      className={`relative w-full h-full px-6 py-5 bg-black rounded-2xl border-[1.5px] text-white font-sans overflow-hidden text-[16px] leading-[1.4] transition-all duration-300
-        ${
-          overrideActive
-            ? 'border-red-500 shadow-[0_0_40px_rgba(255,0,0,0.7)] animate-pulse'
-            : 'border-[#b14dff22] shadow-[0_0_120px_#000000f0]'
-        }`}
-    >
-      {/* 🟣 Center Pulse Line */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#b14dff88] to-black blur-[1px] opacity-90 pointer-events-none" />
+    <div className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black text-white font-mono overflow-hidden
+      border-[2px] ${roi.tex > 4 ? 'border-[#00ff88] shadow-[0_0_60px_rgba(0,255,136,0.6)] animate-pulse' : 'border-[#00ff8822] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
 
-      {/* 💠 Panel Content */}
-      <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-center font-mono text-[18px] tracking-[0.25em] uppercase text-[#b14dff] mb-1">
-          Sovereign Reflex Sentinel
+      {/* 💹 Ambient ROI Surge Glow */}
+      {roi.tex > 4 && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00ff8844] blur-[90px] animate-pulse opacity-40" />
+        </div>
+      )}
+
+      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00ff88aa] to-black blur-[1px] opacity-90 pointer-events-none" />
+
+      <div className="relative z-10 space-y-3">
+        <div className="text-center tracking-[0.18em] text-[17px] uppercase text-[#00ff88] mb-2">
+          Financial Reflex Cortex
         </div>
 
-        <AnimatePresence mode="wait">
+        <div className="space-y-1 text-sm">
+          <div className="text-white/60">Reflex Strategy</div>
+          <div className="text-[#00ff88] font-mono">{strategy}</div>
+        </div>
+
+        {overrideBlocked && (
           <motion.div
-            key={slide}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1.5"
+            className="mt-4 p-3 rounded-lg bg-[#22000088] border border-[#ff5c5c] text-[#ff5c5c] text-sm animate-pulse"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
           >
-            {slide === 0 && (
-              <>
-                <div className="text-[15px] text-white/40">Trigger Detected</div>
-                <div className="text-[16px] font-mono text-[#b14dff]">{state.trigger}</div>
-                <div className="text-[15px] text-white/40 pt-1">Defense Mode</div>
-                <div className="text-[16px] font-mono text-purple-200">{state.defense}</div>
-              </>
-            )}
-            {slide === 1 && (
-              <>
-                <div className="text-[15px] text-white/40">Override Diagnostics</div>
-                <div className="text-[16px] font-mono">
-                  Reflex Index: <span className="text-lime-300">{state.reflexIndex}</span>
-                </div>
-                <div className="text-[16px] font-mono">
-                  Foresight Drift: <span className="text-orange-300">{state.foresightDelta > 0 ? '+' : ''}{state.foresightDelta}</span>
-                </div>
-                <div className="text-[16px] font-mono">
-                  Override Window: <span className="text-yellow-300">{state.overrideWindow}</span>
-                </div>
-                <div className="text-[14px] italic text-white/50 pt-1">
-                  {Math.abs(state.foresightDelta) > 0.15
-                    ? '⚠ Reflex escalation trajectory rising'
-                    : '↳ Reflex coherence within threshold'}
-                </div>
-              </>
-            )}
-            {slide === 2 && (
-              <>
-                <div className="text-[15px] text-white/40">Counterfactual Scan</div>
-                <div className="text-[16px] text-white/90 font-body">
-                  {state.counterfactualsTested} alternate paths tested for paradox collapse.
-                </div>
-              </>
-            )}
-            {slide === 3 && (
-              <>
-                <div className="text-[15px] text-white/40">Stability Forecast</div>
-                <div className="text-[16px] font-mono text-green-300">
-                  Stability margin holding — loopback intervention unnecessary.
-                </div>
-                <div className="text-[14px] font-mono text-white/50">
-                  Instability Risk: {state.instabilityRisk}
-                </div>
-              </>
-            )}
-            {slide === 4 && (
-              <>
-                <div className="text-[15px] text-white/40">Protocol Timestamp</div>
-                <div className="text-[16px] font-mono text-white/60 text-right">
-                  {state.timestamp}
-                </div>
-              </>
-            )}
+            Override Denied — Sovereign Reflex Enforced
           </motion.div>
-        </AnimatePresence>
+        )}
+
+        <div className="mt-4 space-y-1 text-sm">
+          <div className="text-white/60">Projected ROI (Δ 1 Hour)</div>
+          <div className="flex justify-between px-2 font-mono">
+            <span>Tex: <span className="text-[#00ff88]">+{roi.tex.toFixed(1)}%</span></span>
+            <span>Human: <span className="text-[#ff5c5c]">{roi.human.toFixed(1)}%</span></span>
+          </div>
+        </div>
+
+        {newsHit && (
+          <div className="mt-4 text-sm text-[#00eaff] animate-pulse">
+            ⚡ Tex pre-positioned before OPEC news spike (Δt = 3.2s)
+          </div>
+        )}
       </div>
     </div>
   );

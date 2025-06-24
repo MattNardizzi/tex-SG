@@ -5,26 +5,32 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/layout/**/*.{js,ts,jsx,tsx,mdx}", // ✅ Added layout folder
+    "./src/layout/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'], // For titles
-        body: ['"Inter"', 'sans-serif'],            // For panel text
+        display: ['"Space Grotesk"', 'sans-serif'],
+        body: ['"Inter"', 'sans-serif'],
       },
       fontSize: {
-        fluid: "clamp(8px, 0.95vw, 11px)",       // Main panel font
-        "fluid-sm": "clamp(7px, 0.85vw, 10px)",  // Sub-labels
-        "fluid-lg": "clamp(10px, 1.15vw, 13px)", // Headings
+        fluid: "clamp(8px, 0.95vw, 11px)",
+        "fluid-sm": "clamp(7px, 0.85vw, 10px)",
+        "fluid-lg": "clamp(10px, 1.15vw, 13px)",
+        "title-xl": "clamp(1.6rem, 2.5vw, 2.8rem)",
+        "reflex-lg": "clamp(1.2rem, 1.8vw, 2.1rem)",
+        "core-sm": "clamp(0.8rem, 1vw, 1.1rem)",
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        sovereignCyan: "#00F0FF",   // Core Cognition
-        crimson: "#FF365D",         // Override / Intervention
-        indigoCore: "#5A6BFF",      // Strategy / Forecast
-        violetMeta: "#D74EFF",      // Meta / Reflex / Memory
+        sovereignCyan: "#00F0FF",
+        crimson: "#FF365D",
+        indigoCore: "#5A6BFF",
+        violetMeta: "#D74EFF",
+        entropyBlue: "#00C8FF",
+        contradictionRed: "#FF5C5C",
+        reflexGold: "#ffaa00",
       },
       borderRadius: {
         xl: "1rem",
@@ -33,14 +39,17 @@ const config: Config = {
       },
       boxShadow: {
         panel: "0 0 20px rgba(0, 0, 0, 0.25)",
-        cinematic: "0 0 90px rgba(0, 240, 255, 0.25)", // ✅ Added cinematic shadow
+        cinematic: "0 0 90px rgba(0, 240, 255, 0.25)",
+        cognitive: "0 0 140px rgba(0, 240, 255, 0.2)",
+        sovereignGlow: "0 0 80px rgba(0, 240, 255, 0.6)",
       },
       backdropBlur: {
         intense: "20px",
       },
       zIndex: {
-        100: '100',
-        200: '200',
+        100: "100",
+        200: "200",
+        300: "300",
       },
       spacing: {
         '2xs': '0.25rem',
@@ -52,7 +61,10 @@ const config: Config = {
         '2xl': '3rem',
       },
       animation: {
-        fadeIn: 'fadeInOut 3s ease-in-out',
+        fadeIn: "fadeInOut 3s ease-in-out",
+        'spin-slow': "spin 24s linear infinite",
+        'pulse-fade': "pulseFade 5s ease-in-out infinite",
+        'ripple-ping': "ripplePing 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         fadeInOut: {
@@ -60,6 +72,15 @@ const config: Config = {
           '10%': { opacity: '1' },
           '90%': { opacity: '1' },
           '100%': { opacity: '0' },
+        },
+        pulseFade: {
+          '0%, 100%': { opacity: '0.3' },
+          '50%': { opacity: '1' },
+        },
+        ripplePing: {
+          '0%': { transform: 'scale(0.9)', opacity: '0.2' },
+          '70%': { transform: 'scale(1.1)', opacity: '0.8' },
+          '100%': { transform: 'scale(1.2)', opacity: '0' },
         },
       },
     },
@@ -85,6 +106,11 @@ const config: Config = {
         },
         ".glow-violet": {
           boxShadow: "0 0 10px #D74EFF, 0 0 20px #D74EFF",
+        },
+        ".signal-line": {
+          backgroundImage: "linear-gradient(to bottom, rgba(0,240,255,0), rgba(0,240,255,0.6), rgba(0,240,255,0))",
+          width: "2px",
+          opacity: "0.8",
         },
       });
     },

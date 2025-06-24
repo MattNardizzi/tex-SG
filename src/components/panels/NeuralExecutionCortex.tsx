@@ -1,17 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const generateNeuralSnapshot = () => {
   const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
-
-  const weights = {
-    equities: Math.random(),
-    bonds: Math.random(),
-    alternatives: Math.random(),
-    cash: Math.random(),
-  };
 
   return {
     emotion: pick(['resolve', 'fear', 'curious', 'alert', 'focus']),
@@ -32,7 +25,6 @@ const generateNeuralSnapshot = () => {
     override: Math.random() > 0.6,
     mutation: Math.random() > 0.5,
     forkId: `QF-${Math.random().toString(36).substring(2, 6).toUpperCase()}`,
-    weights,
     neuralLoad: (Math.random() * 0.9 + 0.1).toFixed(2),
     execCountdown: (Math.random() * 3 + 0.5).toFixed(1),
     swarmConflict: (Math.random() * 0.6).toFixed(2),
@@ -62,7 +54,6 @@ export default function NeuralExecutionCortex() {
   useEffect(() => {
     const durations = Array(10).fill(6000);
     let current = 0;
-    let timeout: ReturnType<typeof setTimeout>;
 
     const advanceSlide = () => {
       current = (current + 1) % 10;
@@ -73,24 +64,12 @@ export default function NeuralExecutionCortex() {
         setPulse(true);
         setTimeout(() => setPulse(false), 3000);
       }
-      timeout = setTimeout(advanceSlide, durations[current]);
+      setTimeout(advanceSlide, durations[current]);
     };
 
-    timeout = setTimeout(advanceSlide, durations[0]);
-    return () => clearTimeout(timeout);
+    const interval = setTimeout(advanceSlide, durations[0]);
+    return () => clearTimeout(interval);
   }, []);
-
-  const normalize = () => {
-    const total = Object.values(snapshot.weights).reduce((a, b) => a + b, 0);
-    const out: Record<string, number> = {};
-    for (const key in snapshot.weights) {
-      const typedKey = key as keyof typeof snapshot.weights;
-      out[typedKey] = snapshot.weights[typedKey] / total;
-    }
-    return out;
-  };
-
-  const weights = Object.entries(normalize());
 
   return (
     <div
@@ -112,21 +91,32 @@ export default function NeuralExecutionCortex() {
           Neural Execution Cortex
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={slide}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.5 }}
-            className="text-white px-1 space-y-1.5"
-          >
-            {/* Keep your existing content structure here — no changes needed */}
-
-            {/* Keep all existing slides as-is */}
-            {/* Just reuse what you already had for slides 0–9 */}
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={slide}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.5 }}
+          className="text-white px-1 space-y-1.5"
+        >
+          <div className="text-sm text-white/70">Latest Insight</div>
+          <div className="text-[#b14dff] font-mono text-sm">{snapshot.recentThought}</div>
+          <div className="text-sm text-white/60 mt-3">
+            Emotion: <span className="text-white">{snapshot.emotion}</span> | Confidence: <span className="text-[#00f0ff]">{snapshot.confidence}</span>
+          </div>
+          <div className="text-sm text-white/60">
+            Contradiction: <span className="text-[#ff5c5c]">{snapshot.contradictionLevel}</span> | Urgency: <span className="text-[#ffaa00]">{snapshot.urgency}</span>
+          </div>
+          <div className="text-sm text-white/60">
+            Fork ID: <span className="text-white">{snapshot.forkId}</span> | Strategy: <span className="text-white">{snapshot.strategyId}</span>
+          </div>
+          <div className="text-sm text-white/60">
+            Neural Load: <span className="text-white">{snapshot.neuralLoad}</span> | Execution ETA: <span className="text-white">{snapshot.execCountdown}s</span>
+          </div>
+          <div className="text-sm text-white/60">
+            Risk Level: <span className="text-white">{snapshot.riskLevel}</span> | Swarm Conflict: <span className="text-white">{snapshot.swarmConflict}</span>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

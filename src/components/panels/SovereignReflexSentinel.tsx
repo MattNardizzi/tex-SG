@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function SovereignReflexSentinel() {
   const [frame, setFrame] = useState(0);
@@ -18,9 +18,9 @@ export default function SovereignReflexSentinel() {
       () => {}, // 0:12
       () => setOverrideBlocked(true),              // 0:18 override blocked
       () => setStrategy('Risk-Parity Hybrid'),     // 0:26 strategy chosen
-      () => setRoi({ tex: 3.1, human: -1.2 }),      // 0:30 initial ROI
+      () => setRoi({ tex: 3.1, human: -1.2 }),     // 0:30 initial ROI
       () => setNewsHit(true),                      // 0:34 news drop
-      () => setRoi({ tex: 4.6, human: -1.3 }),      // 0:38 final ROI surge
+      () => setRoi({ tex: 4.6, human: -1.3 }),     // 0:38 final ROI surge
       () => {}, // 0:42
       () => {}, // 0:46
     ];

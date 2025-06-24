@@ -5,12 +5,9 @@ import MarketTicker from '@/components/ui/MarketTicker';
 import TickerBar from './TickerBar';
 import TexBootScreen from './TexBootScreen';
 
-// 🧠 Core Panels (imports preserved)
+// 🧠 Core Panels (internal names preserved to avoid breaking imports)
 import ReflexiveCausalityMatrix from './ReflexiveCausalityMatrix';
-import TacticalContradictionMatrix from './TacticalContradictionMatrix';
 import MutationReactionPanel from './MutationReactionPanel';
-import NeuralExecutionCortex from './NeuralExecutionCortex';
-import MultiworldDivergenceMatrix from './MultiworldDivergenceMatrix';
 import SovereignReflexSentinel from './SovereignReflexSentinel';
 
 export default function DashboardHUD() {
@@ -39,18 +36,23 @@ export default function DashboardHUD() {
         <MarketTicker />
       </div>
 
-      {/* 🧠 AGI Reflex Panel Grid — 6 Panel Layout */}
-      <div className="relative z-10 w-full h-[calc(100vh-8rem)] grid grid-cols-3 grid-rows-2 gap-7 px-10 pt-10 pb-6">
+      {/* 🧠 Sovereign AGI System — 3 Synced Cinematic Panels */}
+      <div className="relative z-10 w-full h-[calc(100vh-8rem)] grid grid-cols-3 grid-rows-1 gap-7 px-10 pt-10 pb-6">
 
-        {/* 🔹 Row 1 */}
-        <div className="w-full h-full"><ReflexiveCausalityMatrix /></div>
-        <div className="w-full h-full"><TacticalContradictionMatrix /></div>
-        <div className="w-full h-full"><MutationReactionPanel /></div>
+        {/* 🔹 Panel 1: Reflex Cortex */}
+        <div className="w-full h-full">
+          <ReflexiveCausalityMatrix />
+        </div>
 
-        {/* 🔹 Row 2 */}
-        <div className="w-full h-full"><NeuralExecutionCortex /></div>
-        <div className="w-full h-full"><MultiworldDivergenceMatrix /></div>
-        <div className="w-full h-full"><SovereignReflexSentinel /></div>
+        {/* 🔹 Panel 2: Mutation + Identity Core */}
+        <div className="w-full h-full">
+          <MutationReactionPanel />
+        </div>
+
+        {/* 🔹 Panel 3: Financial Sovereignty System */}
+        <div className="w-full h-full">
+          <SovereignReflexSentinel />
+        </div>
       </div>
 
       {/* 🧠 Cognition Ticker Bar */}

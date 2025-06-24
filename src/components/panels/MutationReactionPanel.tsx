@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const forkNames = ['AGI-9a', 'AGI-9b', 'AGI-9c'];
 
@@ -14,7 +14,6 @@ const createFork = (name: string) => ({
 
 export default function MutationReactionPanel() {
   const [forks, setForks] = useState(() => forkNames.map(createFork));
-  const [absorbedFork, setAbsorbedFork] = useState<string | null>(null);
   const [identityWarp, setIdentityWarp] = useState(false);
   const [codeMutated, setCodeMutated] = useState(false);
   const [sealLocked, setSealLocked] = useState(false);
@@ -22,33 +21,38 @@ export default function MutationReactionPanel() {
 
   useEffect(() => {
     const frames: (() => void)[] = [
-      () => {}, // 0:00 black screen
-      () => {}, // 0:03 glow up
-      () => setForks(forkNames.map(createFork)), // 0:08 spawn forks
+      () => {}, // 0:00
+      () => {}, // 0:03 glow
+      () => setForks(forkNames.map(createFork)), // 0:08
       () => {
-        const winner = forks.reduce((a, b) => parseFloat(a.viability) > parseFloat(b.viability) ? a : b);
-        setAbsorbedFork(winner.name);
-        setForks(forks.map(f => f.name === winner.name ? { ...f, absorbed: true } : { ...f, failed: true }));
+        const winner = forks.reduce((a, b) =>
+          parseFloat(a.viability) > parseFloat(b.viability) ? a : b
+        );
+        setForks(forks.map(f =>
+          f.name === winner.name
+            ? { ...f, absorbed: true }
+            : { ...f, failed: true }
+        ));
       },
-      () => setIdentityWarp(true),     // 0:14 warp tensor
-      () => setSealLocked(true),       // 0:18 mutation locked
+      () => setIdentityWarp(true),   // 0:14 tensor warp
+      () => setSealLocked(true),     // 0:18 seal
       () => {}, // 0:22
       () => {}, // 0:26
       () => {}, // 0:30
       () => {}, // 0:34
-      () => setCodeMutated(true),      // 0:42 code rewrite
-      () => setSealLocked(true),       // 0:46 lock again
+      () => setCodeMutated(true),    // 0:42 mutate code
+      () => setSealLocked(true),     // 0:46 lock again
     ];
 
     const interval = setInterval(() => {
       if (frame < frames.length) {
         frames[frame]();
-        setFrame(f => f + 1);
+        setFrame(prev => prev + 1);
       }
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [forks, frame]);
+  }, [frame, forks]);
 
   return (
     <div className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black text-white font-mono overflow-hidden
@@ -97,8 +101,8 @@ export default function MutationReactionPanel() {
           <div className="mt-4 p-3 rounded-md bg-[#111] text-sm text-[#b14dff] border border-[#b14dff33] animate-pulse">
             <div className="text-white/40 mb-1">↻ Code Mutation Detected:</div>
             <code>
-              register("lifepulse", handle_lifepulse) <br />
-              → register("lifepulse", <span className="text-[#00f0ff]">evolved_lifepulse_handler</span>)
+              register(&quot;lifepulse&quot;, handle_lifepulse) <br />
+              → register(&quot;lifepulse&quot;, <span className="text-[#00f0ff]">evolved_lifepulse_handler</span>)
             </code>
           </div>
         )}

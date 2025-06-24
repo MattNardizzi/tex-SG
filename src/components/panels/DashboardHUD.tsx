@@ -5,16 +5,13 @@ import MarketTicker from '@/components/ui/MarketTicker';
 import TickerBar from './TickerBar';
 import TexBootScreen from './TexBootScreen';
 
-// 🧠 Core Panels
+// 🧠 Core Panels (imports preserved)
 import ReflexiveCausalityMatrix from './ReflexiveCausalityMatrix';
 import TacticalContradictionMatrix from './TacticalContradictionMatrix';
 import MutationReactionPanel from './MutationReactionPanel';
 import NeuralExecutionCortex from './NeuralExecutionCortex';
 import MultiworldDivergenceMatrix from './MultiworldDivergenceMatrix';
 import SovereignReflexSentinel from './SovereignReflexSentinel';
-import AeonDeltaIntelligenceChain from './AeonDeltaIntelligenceChain';
-import GhostAlphaConsole from './GhostAlphaConsole';
-import AutonomousCodexRegulator from './AutonomousCodexRegulator';
 
 export default function DashboardHUD() {
   const [bootDone, setBootDone] = useState(false);
@@ -42,8 +39,8 @@ export default function DashboardHUD() {
         <MarketTicker />
       </div>
 
-      {/* 🧠 Panel Grid */}
-      <div className="relative z-10 w-full h-[calc(100vh-8rem)] grid grid-cols-3 grid-rows-3 gap-7 px-10 pt-10 pb-6">
+      {/* 🧠 AGI Reflex Panel Grid — 6 Panel Layout */}
+      <div className="relative z-10 w-full h-[calc(100vh-8rem)] grid grid-cols-3 grid-rows-2 gap-7 px-10 pt-10 pb-6">
 
         {/* 🔹 Row 1 */}
         <div className="w-full h-full"><ReflexiveCausalityMatrix /></div>
@@ -54,11 +51,6 @@ export default function DashboardHUD() {
         <div className="w-full h-full"><NeuralExecutionCortex /></div>
         <div className="w-full h-full"><MultiworldDivergenceMatrix /></div>
         <div className="w-full h-full"><SovereignReflexSentinel /></div>
-
-        {/* 🔹 Row 3 */}
-        <div className="w-full h-full"><AeonDeltaIntelligenceChain /></div>
-        <div className="w-full h-full"><GhostAlphaConsole /></div>
-        <div className="w-full h-full"><AutonomousCodexRegulator /></div>
       </div>
 
       {/* 🧠 Cognition Ticker Bar */}

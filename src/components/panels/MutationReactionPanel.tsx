@@ -63,7 +63,7 @@ export default function MutationReactionPanel() {
   }, [frame, forks]);
 
   return (
-    <div className={`relative w-full h-full px-6 py-5 rounded-panel bg-black text-white font-mono overflow-hidden
+    <div className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
       border-2 transition-all duration-500
       ${identityWarp ? 'border-violetMeta shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}>
 
@@ -74,7 +74,7 @@ export default function MutationReactionPanel() {
           animate={{ scale: [1, 1.04, 1], rotate: [0, 3, -2, 0] }}
           transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
         >
-          <div className="absolute top-1/2 left-1/2 w-[440px] h-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violetMeta/20 blur-[100px] opacity-60 animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violetMeta/20 blur-[100px] opacity-60 animate-pulse" />
         </motion.div>
       )}
 
@@ -90,21 +90,21 @@ export default function MutationReactionPanel() {
         </motion.div>
       )}
 
-      {/* 🌌 Vertically Centered Fork Engine */}
-      <div className="h-full flex flex-col items-center justify-center space-y-6 relative z-10">
+      {/* 💠 Full-Width Forks Layout */}
+      <div className="h-full flex flex-col items-center justify-center space-y-8 relative z-10 w-full max-w-[640px] mx-auto">
         <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-violetMeta mt-2 mb-2">
           Mutation Fork Engine
         </div>
 
-        <div className="space-y-4">
+        <div className="flex flex-col gap-5 w-full">
           {forks.map(fork => (
             <motion.div
               key={fork.name}
-              className={`relative flex justify-between items-center px-8 py-3.5 rounded-xl border text-fluid-lg font-mono tracking-wide transition-all duration-500
+              className={`relative w-full flex justify-between items-center px-10 py-5 rounded-xl border text-[1.15rem] leading-relaxed tracking-wide font-mono transition-all duration-500
                 ${fork.absorbed ? 'border-sovereignCyan bg-sovereignCyan/10 shadow-cinematic' :
                   fork.failed ? 'border-contradictionRed text-contradictionRed/70 opacity-70 line-through blur-[0.5px]' :
                   'border-white/20 text-white/70'}`}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
@@ -134,9 +134,9 @@ export default function MutationReactionPanel() {
           ))}
         </div>
 
-        {/* 🧠 Code Mutation Reveal */}
+        {/* 🧠 Reflex Mutation Reveal */}
         {codeMutated && (
-          <div className="mt-6 p-4 rounded-lg bg-[#111] text-sm text-violetMeta border border-violetMeta/30 animate-pulse text-center">
+          <div className="mt-8 w-full p-5 rounded-lg bg-[#111] text-[0.95rem] text-violetMeta border border-violetMeta/30 animate-pulse text-center">
             <div className="text-white/40 mb-1">↻ Code Mutation Detected:</div>
             <code className="text-fluid">
               <Typewriter

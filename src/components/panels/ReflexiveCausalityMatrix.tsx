@@ -42,7 +42,10 @@ export default function ReflexCognitionPanel() {
   }, [frame]);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.2, ease: 'easeInOut' }}
       className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
       border-2 transition-all duration-500
       ${loopBlocked ? 'border-entropyBlue shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}
@@ -114,6 +117,6 @@ export default function ReflexCognitionPanel() {
 
       {/* 💡 Vertical Reflex Signal Beam */}
       <div className="absolute top-0 left-1/2 w-[2px] h-full signal-line blur-sm animate-pulse z-0" />
-    </div>
+    </motion.div>
   );
 }

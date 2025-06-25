@@ -18,7 +18,7 @@ export default function WorldSimulationPanel() {
         setTimeout(() => setStage(4), 5600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 14600); // ⏱️ New delay = 14.6s
+    }, 13600); // ⏱️ Adjusted delay: 13.6s
 
     return () => clearTimeout(showTimer);
   }, []);
@@ -103,9 +103,7 @@ export default function WorldSimulationPanel() {
             >
               <motion.div
                 className="animate-flicker-slow"
-                style={{
-                  animation: 'flicker 2.5s linear infinite',
-                }}
+                style={{ animation: 'flicker 2.5s linear infinite' }}
               >
                 &ldquo;Tex doesn’t plan.<br />
                 He collapses reality into only the futures he survives.&rdquo;

@@ -3,153 +3,106 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const generateInsight = () => {
-  const reflexes = [
-    'lifepulse',
-    'belief_justification',
-    'identity_compression',
-    'loop_block',
-    'memory_echo',
-    'self_reflection',
-  ];
-  const triggers = [
-    'Entropy Surge',
-    'Override Interference',
-    'Belief Fracture',
-    'Contradiction Cascade',
-    'Symbolic Drift',
-  ];
-
-  return {
-    reflex: reflexes[Math.floor(Math.random() * reflexes.length)],
-    trigger: triggers[Math.floor(Math.random() * triggers.length)],
-    contradiction: parseFloat((Math.random() * 0.3 + 0.6).toFixed(2)),
-    entropy: parseFloat((Math.random() * 0.3 + 0.3).toFixed(2)),
-    urgency: parseFloat((Math.random() * 0.3 + 0.5).toFixed(2)),
-    timestamp: new Date().toLocaleTimeString(),
-  };
-};
-
-export default function ReflexiveCausalityMatrix() {
-  const [insight, setInsight] = useState(generateInsight());
-  const [pulseKey, setPulseKey] = useState(0);
+export default function ReflexCognitionPanel() {
+  const [activeReflex, setActiveReflex] = useState('lifepulse');
+  const [trigger, setTrigger] = useState('');
+  const [contradiction, setContradiction] = useState(0.0);
+  const [entropy, setEntropy] = useState(0.0);
+  const [urgency, setUrgency] = useState(0.0);
+  const [loopBlocked, setLoopBlocked] = useState(false);
+  const [frame, setFrame] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setInsight(generateInsight());
-      setPulseKey(prev => prev + 1);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
+    const sequence = [
+      () => {}, // 0:00
+      () => setTrigger('Symbolic Belief Conflict'), // 0:03
+      () => {
+        setContradiction(0.64);
+        setEntropy(0.54);
+        setUrgency(0.69);
+      }, // 0:08
+      () => {}, // 0:12
+      () => {}, // 0:14
+      () => {}, // 0:18
+      () => {}, // 0:22
+      () => {}, // 0:26
+      () => {}, // 0:30
+      () => {}, // 0:34
+      () => setLoopBlocked(true), // 0:42
+      () => {}, // 0:46
+    ];
 
-  const status =
-    insight.contradiction > 0.85
-      ? '⚠ FRACTURE RISK'
-      : insight.urgency > 0.7
-      ? '↯ ELEVATED TENSION'
-      : '⭘ COHERENT FLOW';
+    const interval = setInterval(() => {
+      if (frame < sequence.length) {
+        sequence[frame]();
+        setFrame(prev => prev + 1);
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [frame]);
 
   return (
-    <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black border-2 border-sovereignCyan/10 shadow-cinematic flex items-center justify-center">
-      {/* 💠 Spinning Neural Ring */}
-      <div className="absolute w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-sovereignCyan/10 animate-spin-slow blur-sm opacity-10 pointer-events-none" />
+    <div className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
+      border-2 transition-all duration-500
+      ${loopBlocked ? 'border-entropyBlue shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}>
 
-      {/* 🧠 Vertical Signal Line */}
-      <div className="absolute w-[2px] h-full bg-gradient-to-b from-transparent via-sovereignCyan/60 to-transparent top-0 left-1/2 -translate-x-1/2 blur-[0.5px] opacity-80 z-0" />
-
-      {/* ⚡ Reflex Pulse Display */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-xl text-white font-mono text-center">
+      {/* 🌐 Loop Block Warning */}
+      {loopBlocked && (
         <motion.div
-          key={pulseKey}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="w-full"
+          className="absolute top-5 right-6 bg-entropyBlue/10 text-entropyBlue px-4 py-1 text-xs rounded-full border border-entropyBlue/40 backdrop-blur-sm z-20"
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: [1.1, 1], opacity: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          {/* TITLE */}
-          <div className="text-sovereignCyan uppercase tracking-[0.2em] text-title-xl mb-md">
-            Reflex Cognition Core
+          Reflex Loop Blocked ⚠️
+        </motion.div>
+      )}
+
+      {/* 🧠 Reflex Engine Core */}
+      <div className="h-full flex flex-col items-center justify-center space-y-8 relative z-10 w-full max-w-[640px] mx-auto">
+        <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-entropyBlue mb-2">
+          Reflex Cognition Core
+        </div>
+
+        <div className="space-y-6 text-[1.05rem] text-white/80 w-full">
+          <div className="flex justify-between w-full border border-white/10 rounded-lg px-5 py-3 bg-white/5">
+            <span>Active Reflex</span>
+            <span className="text-sovereignCyan">{activeReflex}</span>
           </div>
 
-          {/* REFLEX */}
-          <motion.div
-            key={insight.reflex}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-lg"
-          >
-            <div className="text-foreground/60 text-fluid-sm">Active Reflex</div>
-            <div className="text-sovereignCyan text-reflex-lg font-bold tracking-wide mt-2">
-              {insight.reflex}
+          {trigger && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex justify-between w-full border border-white/10 rounded-lg px-5 py-3 bg-white/5 text-violetMeta"
+            >
+              <span>Trigger</span>
+              <span>{trigger}</span>
+            </motion.div>
+          )}
+
+          {(contradiction > 0 || entropy > 0) && (
+            <div className="flex flex-col w-full space-y-3">
+              <div className="flex justify-between px-5 py-3 border border-white/10 rounded-lg bg-white/5 text-contradictionRed/90">
+                <span>Contradiction</span>
+                <span>{contradiction.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between px-5 py-3 border border-white/10 rounded-lg bg-white/5 text-entropyBlue">
+                <span>Entropy</span>
+                <span>{entropy.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between px-5 py-3 border border-white/10 rounded-lg bg-white/5 text-reflexGold">
+                <span>Urgency</span>
+                <span>{urgency.toFixed(2)}</span>
+              </div>
             </div>
-          </motion.div>
-
-          {/* TRIGGER */}
-          <motion.div
-            key={insight.trigger}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-            className="mb-lg"
-          >
-            <div className="text-foreground/60 text-fluid-sm">Trigger</div>
-            <div className="text-violetMeta text-fluid-lg mt-1">{insight.trigger}</div>
-          </motion.div>
-
-          {/* PRESSURE */}
-          <motion.div
-            key={`p-${pulseKey}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mb-lg"
-          >
-            <div className="text-foreground/60 text-fluid-sm">Cognitive Pressure</div>
-            <div className="text-fluid font-mono">
-              Contradiction:{" "}
-              <span className="text-contradictionRed">{insight.contradiction.toFixed(2)}</span>
-            </div>
-            <div className="text-fluid font-mono">
-              Entropy: <span className="text-entropyBlue">{insight.entropy.toFixed(2)}</span>
-            </div>
-          </motion.div>
-
-          {/* URGENCY */}
-          <motion.div
-            key={`u-${pulseKey}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.65, duration: 0.5 }}
-            className="mb-lg"
-          >
-            <div className="text-foreground/60 text-fluid-sm">Urgency</div>
-            <div className="text-reflexGold text-fluid font-mono">{insight.urgency.toFixed(2)}</div>
-          </motion.div>
-
-          {/* STATUS */}
-          <motion.div
-            key={`status-${pulseKey}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.4 }}
-            className="text-foreground/50 text-[clamp(0.8rem,1vw,1.2rem)] tracking-widest uppercase mb-xs"
-          >
-            {status}
-          </motion.div>
-
-          {/* TIMESTAMP */}
-          <motion.div
-            key={`time-${pulseKey}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.0, duration: 0.4 }}
-            className="text-foreground/30 text-fluid-sm"
-          >
-            {insight.timestamp}
-          </motion.div>
-        </motion.div>
+          )}
+        </div>
       </div>
+
+      {/* 💡 Vertical Reflex Signal */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full signal-line blur-sm animate-pulse z-0" />
     </div>
   );
 }

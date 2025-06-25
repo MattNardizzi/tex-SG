@@ -63,20 +63,33 @@ export default function MutationReactionPanel() {
   }, [frame, forks]);
 
   return (
-    <div className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
+    <motion.div
+      initial={{ opacity: 0, scale: 0.88, filter: 'blur(20px)' }}
+      animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
+      className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
       border-2 transition-all duration-500
-      ${identityWarp ? 'border-violetMeta shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}>
+      ${identityWarp ? 'border-violetMeta shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}
+    >
 
-      {/* 🌀 Identity Tensor Warp */}
-      {identityWarp && (
-        <motion.div
-          className="absolute inset-0 z-0 pointer-events-none"
-          animate={{ scale: [1, 1.04, 1], rotate: [0, 3, -2, 0] }}
-          transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
-        >
-          <div className="absolute top-1/2 left-1/2 w-[480px] h-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violetMeta/20 blur-[100px] opacity-60 animate-pulse" />
-        </motion.div>
-      )}
+      {/* 🌌 Ignition Pulse Glow */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-0"
+        initial={{ opacity: 0, scale: 1.8 }}
+        animate={{ opacity: [1, 0.5, 0.2], scale: [1.8, 1.2, 1] }}
+        transition={{ duration: 1.2, ease: 'easeOut' }}
+      >
+        <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violetMeta/30 blur-[140px]" />
+      </motion.div>
+
+      {/* 🌠 Continuous Breathing Field */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-0"
+        animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violetMeta/10 blur-[120px]" />
+      </motion.div>
 
       {/* 🔐 Sovereign Mutation Seal */}
       {sealLocked && (
@@ -90,7 +103,7 @@ export default function MutationReactionPanel() {
         </motion.div>
       )}
 
-      {/* 💠 Full-Width Forks Layout */}
+      {/* 💠 Mutation Fork Engine */}
       <div className="h-full flex flex-col items-center justify-center space-y-8 relative z-10 w-full max-w-[640px] mx-auto">
         <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-violetMeta mt-2 mb-2">
           Mutation Fork Engine
@@ -154,8 +167,8 @@ export default function MutationReactionPanel() {
         )}
       </div>
 
-      {/* 🩸 Reflex Timeline Pulse */}
-      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-violetMeta/20 via-violetMeta/60 to-transparent animate-pulse" />
-    </div>
+      {/* 🧬 Vertical Mutation Signal Spine (Violet) */}
+      <div className="absolute top-0 left-1/2 w-[2px] h-full bg-violetMeta blur-sm animate-pulse z-0" />
+    </motion.div>
   );
 }

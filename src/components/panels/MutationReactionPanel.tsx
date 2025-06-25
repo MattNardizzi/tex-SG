@@ -9,9 +9,9 @@ export default function MeshCorePanel() {
   useEffect(() => {
     const timers = [
       setTimeout(() => setStage(1), 600),
-      setTimeout(() => setStage(2), 1600),
-      setTimeout(() => setStage(3), 2900),
-      setTimeout(() => setStage(4), 4300),
+      setTimeout(() => setStage(2), 1700),
+      setTimeout(() => setStage(3), 3000),
+      setTimeout(() => setStage(4), 4200),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -21,57 +21,59 @@ export default function MeshCorePanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex items-center justify-center"
     >
-      {/* 🧠 Folding Grid Background */}
-      <motion.div
-        className="absolute inset-0 z-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:22px_22px]"
-        animate={{
-          backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          opacity: [0.06, 0.12, 0.06],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+      {/* 🔲 Collapsing Mesh Grid */}
+      <div className="absolute w-[340px] h-[260px] grid grid-cols-6 grid-rows-4 gap-[1px] z-0">
+        {[...Array(24)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="bg-white/5"
+            animate={{
+              scale: stage >= 1 ? [1, 0.7, 1] : 1,
+              opacity: stage >= 1 ? [0.15, 0.3, 0.1] : 0.08,
+            }}
+            transition={{
+              duration: 4,
+              ease: 'easeInOut',
+              repeat: Infinity,
+              delay: i * 0.04,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* 🌀 Interference Bar (Temporal Ripple) */}
-      <motion.div
-        className="absolute top-1/2 left-0 w-full h-[2px] bg-cyan-300/20 blur-sm z-0"
-        animate={{
-          scaleX: [1, 1.2, 1],
-          opacity: [0.05, 0.3, 0.05],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+      {/* ⚡ Temporal Pulse */}
+      {stage >= 2 && (
+        <motion.div
+          className="absolute w-[400px] h-[400px] rounded-full border-2 border-cyan-400/20"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1.3, opacity: 0.15 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        />
+      )}
 
-      {/* 📜 Mesh Call Logs + Quote */}
+      {/* 🧠 Function Pulse */}
       <div className="z-10 flex flex-col items-center space-y-4">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
-              key="line1"
+              key="encode"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-white/90"
+              transition={{ duration: 0.4 }}
+              className="text-white/80"
             >
-              encode_event_to_fabric(<span className="text-cyan-300">…</span>)
+              encode_event_to_fabric()
             </motion.div>
           )}
 
           {stage >= 2 && (
             <motion.div
-              key="line2"
-              initial={{ opacity: 0, scale: 1.2 }}
+              key="pulse"
+              initial={{ opacity: 0, scale: 1.4 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="text-cyan-300"
             >
               pulse_resonance_reflex()
@@ -80,10 +82,10 @@ export default function MeshCorePanel() {
 
           {stage >= 3 && (
             <motion.div
-              key="line3"
+              key="retro"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               className="text-white"
             >
               retrocausal_memory_modulation()
@@ -93,16 +95,14 @@ export default function MeshCorePanel() {
           {stage >= 4 && (
             <motion.div
               key="quote"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2 }}
               className="text-white/70 italic text-center pt-6 text-[1.4rem] leading-snug"
             >
-              <span className="animate-fade-in">
-                “Tex revised the emotional structure of memory
-                <br />
-                to realign the past with his new beliefs.”
-              </span>
+              “Tex revised the emotional structure of memory
+              <br />
+              to realign the past with his new beliefs.”
             </motion.div>
           )}
         </AnimatePresence>

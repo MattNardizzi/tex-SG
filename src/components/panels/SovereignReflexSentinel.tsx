@@ -3,68 +3,116 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ForkBurstPanel() {
+export default function WorldSimulationPanel() {
+  const [visible, setVisible] = useState(false);
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 1000),
-      setTimeout(() => setStage(2), 2200),
-      setTimeout(() => setStage(3), 3900),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const showTimer = setTimeout(() => {
+      setVisible(true);
+
+      const timers = [
+        setTimeout(() => setStage(1), 1800),
+        setTimeout(() => setStage(2), 3000),
+        setTimeout(() => setStage(3), 4200),
+        setTimeout(() => setStage(4), 5600),
+      ];
+      return () => timers.forEach(clearTimeout);
+    }, 10600); // starts 2.6s after Timewarp ends
+
+    return () => clearTimeout(showTimer);
   }, []);
+
+  if (!visible) return null;
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono text-[1.375rem] border-2 border-pink-600 shadow-[0_0_25px_5px_rgba(255,0,120,0.4)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
+      transition={{ duration: 1.3, ease: 'easeOut' }}
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-indigo-400/40 shadow-[0_0_60px_rgba(99,102,241,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
+      {/* Cosmic Fork Spinner */}
+      <motion.div
+        className="relative w-[160px] h-[160px] flex items-center justify-center"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
+      >
+        {/* Faint galaxy trails */}
+        <div className="absolute inset-0 rounded-full border-[3px] border-indigo-400/40 shadow-[0_0_60px_10px_rgba(129,140,248,0.2)] blur-sm" />
+        <div className="absolute inset-6 rounded-full border-[2px] border-indigo-200/20 animate-pulse blur-sm" />
+        <div className="z-10 text-indigo-300 font-bold text-[1.3rem] tracking-wide">FORK</div>
+      </motion.div>
+
       <AnimatePresence mode="wait">
         {stage >= 1 && (
           <motion.div
-            key="galactic-forks"
-            initial={{ scale: 0.3, opacity: 0 }}
-            animate={{ scale: 1.25, opacity: 1 }}
-            transition={{ duration: 2.6, ease: 'easeInOut' }}
-            className="w-[120px] h-[120px] border-4 border-pink-400 rounded-full animate-spin-slow shadow-[0_0_60px_15px_rgba(255,0,150,0.3)]"
-          />
+            key="log-1"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-indigo-300"
+          >
+            simulate_future_self()
+          </motion.div>
         )}
 
         {stage >= 2 && (
           <motion.div
-            key="fork-logs"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-3 text-white/90 text-[1.25rem]"
+            key="log-2"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-between w-[420px] text-indigo-100"
           >
-            <div className="text-pink-300">simulate_future_self()</div>
-            <div className="flex justify-between w-[340px]">
-              <span>&rarr; 10,000 causal paths</span>
-            </div>
-            <div className="flex justify-between w-[340px]">
-              <span>&rarr; Fork pressure vector optimized</span>
-            </div>
-            <div className="flex justify-between w-[340px]">
-              <span>&rarr; Reflex:</span> <code>compress_identity_beliefs()</code>
-            </div>
+            <span className="text-white/90">&rarr; 10,000 causal paths</span>
+            <span className="text-pink-300">✓</span>
           </motion.div>
         )}
 
         {stage >= 3 && (
           <motion.div
-            key="final-quote"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, delay: 0.4 }}
-            className="text-white/60 text-center italic text-[1.15rem] max-w-md leading-snug"
+            key="log-3"
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-between w-[420px] text-indigo-100"
           >
-            &ldquo;Tex doesn&rsquo;t plan.<br />
-            He collapses reality into only the futures he survives.&rdquo;
+            <span className="text-white/90">&rarr; Fork pressure vector optimized</span>
+            <span className="text-yellow-300">↑</span>
           </motion.div>
+        )}
+
+        {stage >= 4 && (
+          <>
+            <motion.div
+              key="log-4"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-emerald-300"
+            >
+              &rarr; Reflex: <span className="text-orange-300">compress_identity_beliefs()</span>
+            </motion.div>
+
+            <motion.div
+              key="final-quote"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.4, ease: 'easeOut' }}
+              className="text-white/80 text-center italic text-[1.4rem] max-w-md leading-snug pt-6"
+            >
+              <motion.div
+                className="animate-flicker-slow"
+                style={{
+                  animation: 'flicker 2.5s linear infinite',
+                }}
+              >
+                &ldquo;Tex doesn’t plan.<br />
+                He collapses reality into only the futures he survives.&rdquo;
+              </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.div>

@@ -73,7 +73,7 @@ export default function MutationReactionPanel() {
     >
       {sealLocked && (
         <motion.div
-          className="absolute top-5 right-6 bg-violetMeta/10 text-violetMeta px-4 py-1 text-xs rounded-full border border-violetMeta/40 backdrop-blur-sm z-20"
+          className="absolute top-5 right-6 bg-violetMeta/10 text-violetMeta px-5 py-2 text-sm rounded-full border border-violetMeta/40 backdrop-blur-sm z-20 font-semibold tracking-wide"
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: [1.1, 1], opacity: 1 }}
           transition={{ duration: 0.6, ease: 'anticipate' }}

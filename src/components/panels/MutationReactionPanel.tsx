@@ -44,12 +44,7 @@ export default function MutationReactionPanel() {
       },
       () => setIdentityWarp(true),
       () => setSealLocked(true),
-      () => {},
-      () => {},
-      () => {},
-      () => {},
       () => setCodeMutated(true),
-      () => setSealLocked(true),
     ];
 
     const interval = setInterval(() => {
@@ -57,7 +52,7 @@ export default function MutationReactionPanel() {
         frames[frame]();
         setFrame(prev => prev + 1);
       }
-    }, 1500);
+    }, 1300);
 
     return () => clearInterval(interval);
   }, [frame, forks]);

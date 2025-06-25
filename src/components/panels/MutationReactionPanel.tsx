@@ -24,12 +24,17 @@ export default function MutationCorePanel() {
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
 
-      {/* 💠 Glowing Blue Mutation Core Above */}
+      {/* 🔷 Blue Glowing Core - Now Positioned Above */}
       <motion.div
-        className="z-10 mb-8 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_80px_20px_rgba(0,255,255,0.4)] flex items-center justify-center"
+        className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.3)]"
         animate={{
           rotate: [0, -8, 6, -4, 0],
-          scale: [1, 1.12, 0.94, 1],
+          scale: [1, 1.1, 0.95, 1],
+          boxShadow: [
+            '0 0 60px 20px rgba(0,255,255,0.3)',
+            '0 0 90px 30px rgba(0,255,255,0.6)',
+            '0 0 30px 10px rgba(0,255,255,0.2)',
+          ],
         }}
         transition={{
           duration: 3,
@@ -38,14 +43,16 @@ export default function MutationCorePanel() {
         }}
       >
         <motion.div
-          className="absolute inset-8 rounded-full border-[2px] border-cyan-200/20"
-          animate={{ opacity: [1, 0.6, 1], scale: [1, 1.15, 1] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-8 rounded-full border-[2px] border-white/10"
+          animate={{ opacity: [1, 0.6, 1], scale: [1, 1.2, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <span className="text-cyan-300 tracking-widest text-[1.2rem] font-bold">MUTATION CORE</span>
+        <div className="flex items-center justify-center h-full">
+          <span className="text-cyan-300 tracking-widest text-[1.2rem] font-bold">MUTATION CORE</span>
+        </div>
       </motion.div>
 
-      {/* ⚡ Text Sequence */}
+      {/* ⚡ Text Below Core */}
       <div className="z-10 flex flex-col items-center space-y-4">
         <AnimatePresence mode="wait">
           {stage >= 1 && (

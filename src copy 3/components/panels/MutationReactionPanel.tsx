@@ -26,23 +26,6 @@ export default function ReflexStormPanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center"
     >
-      {/* 🌌 Constant Background Aura */}
-      <div className="absolute w-[360px] h-[360px] rounded-full bg-cyan-300/10 blur-3xl z-0" />
-
-      {/* 🧬 Wireframe Pulse Overlay */}
-      <motion.div
-        className="absolute w-[280px] h-[280px] rounded-full border border-cyan-400/20 z-0"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.15, 0.4, 0.15],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-
       {/* ⚡ Reflex Core Shock Pulse */}
       {stage >= 1 && stage < 5 && (
         <motion.div

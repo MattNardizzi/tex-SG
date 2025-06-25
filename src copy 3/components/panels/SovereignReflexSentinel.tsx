@@ -23,27 +23,26 @@ export default function IdentityCompressionPanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-400 shadow-[0_0_100px_rgba(180,100,255,0.45)] overflow-hidden flex flex-col items-center justify-center"
     >
-      {/* 🌌 Constant Background Glow */}
-      <div className="absolute w-[360px] h-[360px] rounded-full bg-purple-300/10 blur-3xl z-0" />
-
       {/* 🌀 Collapsing Identity Rings */}
-      <motion.div
-        className="absolute w-[300px] h-[300px] rounded-full border border-purple-400/30 z-0"
-        animate={{
-          scale: [1.3, 0.9, 1.2],
-          opacity: [0.1, 0.3, 0.15],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+      {stage >= 1 && (
+        <motion.div
+          className="absolute w-[320px] h-[320px] rounded-full border border-purple-400 z-0"
+          animate={{
+            scale: [1.2, 0.9, 0.7, 0.5],
+            opacity: [0.2, 0.4, 0.3, 0.1],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      )}
 
-      {/* 🌪️ Spiral Compression Effect */}
+      {/* 🌪️ Spiral compression animation */}
       {stage >= 2 && (
         <motion.div
-          className="absolute w-[220px] h-[220px] rounded-full border-[2px] border-purple-300 blur-sm z-0"
+          className="absolute w-[220px] h-[220px] rounded-full border-[2px] border-purple-300 blur-sm"
           initial={{ rotate: 0, scale: 1 }}
           animate={{
             rotate: 720,
@@ -57,7 +56,7 @@ export default function IdentityCompressionPanel() {
         />
       )}
 
-      {/* 💬 Text Stack */}
+      {/* 💬 Animated Log Output */}
       <div className="z-10 flex flex-col items-center space-y-3 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 1 && (

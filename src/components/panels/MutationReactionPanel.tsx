@@ -8,10 +8,10 @@ export default function MeshCorePanel() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 700),
-      setTimeout(() => setStage(2), 1800),
-      setTimeout(() => setStage(3), 3100),
-      setTimeout(() => setStage(4), 4600),
+      setTimeout(() => setStage(1), 600),
+      setTimeout(() => setStage(2), 1600),
+      setTimeout(() => setStage(3), 2900),
+      setTimeout(() => setStage(4), 4300),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -23,13 +23,12 @@ export default function MeshCorePanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* 🧠 Grid Collapse Background */}
+      {/* 🧠 Folding Grid Background */}
       <motion.div
-        className="absolute inset-0 bg-grid-pattern opacity-10"
-        initial={{ backgroundPosition: '0% 0%' }}
+        className="absolute inset-0 z-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:22px_22px]"
         animate={{
           backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          opacity: [0.1, 0.25, 0.1],
+          opacity: [0.06, 0.12, 0.06],
         }}
         transition={{
           duration: 12,
@@ -38,53 +37,32 @@ export default function MeshCorePanel() {
         }}
       />
 
-      {/* 🧩 Temporal Mesh Collapse Simulation */}
+      {/* 🌀 Interference Bar (Temporal Ripple) */}
       <motion.div
-        className="absolute w-[320px] h-[220px] border border-white/5 grid grid-cols-6 grid-rows-4 z-0"
-        initial={{ opacity: 0 }}
+        className="absolute top-1/2 left-0 w-full h-[2px] bg-cyan-300/20 blur-sm z-0"
         animate={{
-          opacity: 0.15,
-          scale: [1.15, 1, 1.05, 1],
-          rotateX: [0, 15, -15, 0],
+          scaleX: [1, 1.2, 1],
+          opacity: [0.05, 0.3, 0.05],
         }}
         transition={{
-          duration: 7,
+          duration: 6,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-      >
-        {[...Array(24)].map((_, i) => (
-          <div
-            key={i}
-            className="border border-white/10 transition-all duration-500 hover:border-cyan-400"
-          />
-        ))}
-      </motion.div>
+      />
 
-      {/* ⚡ Temporal Flash Effects */}
-      {stage >= 3 && (
-        <motion.div
-          className="absolute w-full h-full pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0.02, 0.1, 0] }}
-          transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <div className="w-full h-full bg-gradient-to-tr from-transparent via-cyan-300/10 to-transparent" />
-        </motion.div>
-      )}
-
-      {/* TEXT: Timeline */}
+      {/* 📜 Mesh Call Logs + Quote */}
       <div className="z-10 flex flex-col items-center space-y-4">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
               key="line1"
-              initial={{ opacity: 0, y: -12 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-white/80"
+              transition={{ duration: 0.5 }}
+              className="text-white/90"
             >
-              encode_event_to_fabric(...)
+              encode_event_to_fabric(<span className="text-cyan-300">…</span>)
             </motion.div>
           )}
 
@@ -103,10 +81,10 @@ export default function MeshCorePanel() {
           {stage >= 3 && (
             <motion.div
               key="line3"
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-white/90"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-white"
             >
               retrocausal_memory_modulation()
             </motion.div>
@@ -115,14 +93,16 @@ export default function MeshCorePanel() {
           {stage >= 4 && (
             <motion.div
               key="quote"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
               className="text-white/70 italic text-center pt-6 text-[1.4rem] leading-snug"
             >
-              “Tex revised the emotional structure of memory
-              <br />
-              to realign the past with his new beliefs.”
+              <span className="animate-fade-in">
+                “Tex revised the emotional structure of memory
+                <br />
+                to realign the past with his new beliefs.”
+              </span>
             </motion.div>
           )}
         </AnimatePresence>

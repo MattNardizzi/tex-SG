@@ -52,7 +52,7 @@ export default function ReflexCognitionPanel() {
     >
       {loopBlocked && (
         <motion.div
-          className="absolute top-5 right-6 bg-entropyBlue/10 text-entropyBlue px-4 py-1 text-xs rounded-full border border-entropyBlue/40 backdrop-blur-sm z-20"
+          className="absolute top-5 right-6 bg-entropyBlue/10 text-entropyBlue px-5 py-2 text-sm rounded-full border border-entropyBlue/40 backdrop-blur-sm z-20 font-semibold tracking-wide"
           initial={{ scale: 1.15, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}

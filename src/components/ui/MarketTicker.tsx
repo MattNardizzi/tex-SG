@@ -25,18 +25,11 @@ export default function MarketTicker() {
 
   if (!quotes) return null;
 
-  const glowColor = 'rgba(0,240,255,0.05)'; // cyan background glow
   const primaryColor = '#b14dff';           // purple
   const secondaryColor = '#00f0ff';         // blue-green (panel title color)
 
   return (
     <div className="relative h-16 w-full overflow-hidden flex items-center text-[20px] font-normal tracking-wide leading-none whitespace-nowrap px-6 bg-black border-b border-white/10 backdrop-blur-md !rounded-none">
-      
-      {/* 🌌 Cyan Glow Background */}
-      <div
-        className="absolute inset-0 blur-[40px] pointer-events-none animate-pulse"
-        style={{ backgroundColor: glowColor }}
-      />
 
       {/* 🔁 Scrolling Ticker Text */}
       <motion.div

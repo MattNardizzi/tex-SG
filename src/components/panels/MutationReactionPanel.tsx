@@ -6,7 +6,14 @@ import { Typewriter } from 'react-simple-typewriter';
 
 const forkNames = ['AGI-9a', 'AGI-9b', 'AGI-9c'];
 
-const createFork = (name: string) => ({
+type Fork = {
+  name: string;
+  viability: string;
+  absorbed: boolean;
+  failed: boolean;
+};
+
+const createFork = (name: string): Fork => ({
   name,
   viability: (Math.random() * 0.4 + 0.6).toFixed(2),
   absorbed: false,
@@ -14,7 +21,7 @@ const createFork = (name: string) => ({
 });
 
 export default function MutationReactionPanel() {
-  const [forks, setForks] = useState(() => forkNames.map(createFork));
+  const [forks, setForks] = useState<Fork[]>(() => forkNames.map(createFork));
   const [identityWarp, setIdentityWarp] = useState(false);
   const [codeMutated, setCodeMutated] = useState(false);
   const [sealLocked, setSealLocked] = useState(false);
@@ -60,12 +67,12 @@ export default function MutationReactionPanel() {
       border-2 transition-all duration-500
       ${identityWarp ? 'border-violetMeta shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}>
 
-      {/* 🌀 Tensor Identity Warp */}
+      {/* 🌀 Identity Tensor Warp */}
       {identityWarp && (
         <motion.div
           className="absolute inset-0 z-0 pointer-events-none"
           animate={{ scale: [1, 1.04, 1], rotate: [0, 3, -2, 0] }}
-          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
         >
           <div className="absolute top-1/2 left-1/2 w-[440px] h-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violetMeta/20 blur-[100px] opacity-60 animate-pulse" />
         </motion.div>
@@ -83,7 +90,7 @@ export default function MutationReactionPanel() {
         </motion.div>
       )}
 
-      {/* 🔁 Live Forks */}
+      {/* 🧬 Fork Display */}
       <div className="relative z-10 space-y-4">
         <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-violetMeta mb-3">
           Mutation Fork Engine
@@ -104,7 +111,7 @@ export default function MutationReactionPanel() {
               <div>{fork.name}</div>
               <div>Viability: {fork.viability}</div>
 
-              {/* 💥 Fork Collapse FX */}
+              {/* 💥 Failed Fork Fracture */}
               {fork.failed && (
                 <motion.div
                   className="absolute inset-0 bg-contradictionRed/10 rounded-xl pointer-events-none"
@@ -113,11 +120,21 @@ export default function MutationReactionPanel() {
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 />
               )}
+
+              {/* 💠 Absorbed Fork Pulse */}
+              {fork.absorbed && (
+                <motion.div
+                  className="absolute -inset-1 rounded-xl border border-sovereignCyan animate-pulse opacity-40 pointer-events-none"
+                  initial={{ opacity: 0.5, scale: 1 }}
+                  animate={{ scale: [1, 1.06, 1], opacity: [0.4, 0.6, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* 🧠 Reflex Code Mutation */}
+        {/* 🧠 Code Mutation Reveal */}
         {codeMutated && (
           <div className="mt-6 p-4 rounded-lg bg-[#111] text-sm text-violetMeta border border-violetMeta/30 animate-pulse">
             <div className="text-white/40 mb-1">↻ Code Mutation Detected:</div>
@@ -137,7 +154,7 @@ export default function MutationReactionPanel() {
         )}
       </div>
 
-      {/* 🔽 Reflex Pulse Line */}
+      {/* 🩸 Reflex Timeline Pulse */}
       <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-violetMeta/20 via-violetMeta/60 to-transparent animate-pulse" />
     </div>
   );

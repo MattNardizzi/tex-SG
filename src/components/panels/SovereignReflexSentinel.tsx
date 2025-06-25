@@ -74,7 +74,7 @@ export default function FinancialReflexPanel() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-base text-white/70 text-center pt-3"
+              className="text-lg text-white/70 text-center pt-3"
             >
               {triggerLine}
             </motion.div>

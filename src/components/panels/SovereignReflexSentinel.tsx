@@ -18,7 +18,7 @@ export default function WorldSimulationPanel() {
         setTimeout(() => setStage(4), 5600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 10600); // starts 2.6s after Timewarp ends
+    }, 18600); // ⏱️ Total 18.6s delay from start
 
     return () => clearTimeout(showTimer);
   }, []);

@@ -24,10 +24,10 @@ export default function ReflexStormPanel() {
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col justify-between items-center space-y-6"
     >
-      {/* 💬 Top Text Stack */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      {/* 🔼 Top Text Stack */}
+      <div className="z-20 flex flex-col items-center space-y-2 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
@@ -54,20 +54,30 @@ export default function ReflexStormPanel() {
         </AnimatePresence>
       </div>
 
-      {/* 🌌 Visual Core */}
-      <div className="relative w-[360px] h-[360px] z-0 pointer-events-none">
-        {/* Constant Aura (Always Visible) */}
+      {/* 🌌 Central Reflex Storm Visual */}
+      <div className="relative w-[360px] h-[360px] z-10 pointer-events-none">
+        {/* 🔆 Constant aura */}
         <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-3xl" />
 
-        {/* ⚡ ALWAYS ON: Static Pulse Ring */}
-        <div className="absolute inset-[60px] rounded-full border-[3px] border-cyan-400/15 shadow-[0_0_50px_rgba(0,255,255,0.1)]" />
-
-        {/* 🧬 Wireframe Pulse */}
+        {/* 🔘 Static tracer ring */}
         <motion.div
-          className="absolute inset-[40px] rounded-full border border-cyan-400/20"
+          className="absolute inset-[64px] rounded-full border-[3px] border-cyan-300/20"
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.15, 0.4, 0.15],
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+
+        {/* 🧬 Wireframe pulse */}
+        <motion.div
+          className="absolute inset-[40px] rounded-full border border-cyan-400/25"
+          animate={{
+            scale: [1, 1.12, 1],
+            opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
             duration: 4,
@@ -79,14 +89,14 @@ export default function ReflexStormPanel() {
         {/* ⚡ Shock Pulse */}
         {stage >= 1 && stage < 5 && (
           <motion.div
-            className="absolute inset-[60px] rounded-full border-[3px] border-cyan-300"
+            className="absolute inset-[60px] rounded-full border-[3px] border-cyan-200"
             animate={{
-              scale: [1, 1.25, 0.95, 1],
-              rotate: [0, -6, 8, -3, 0],
+              scale: [1, 1.3, 1],
+              rotate: [0, -4, 5, -2, 0],
               boxShadow: [
-                '0 0 60px 20px rgba(0,255,255,0.3)',
-                '0 0 90px 40px rgba(0,255,255,0.6)',
-                '0 0 30px 10px rgba(0,255,255,0.4)',
+                '0 0 60px 20px rgba(0,255,255,0.2)',
+                '0 0 90px 40px rgba(0,255,255,0.45)',
+                '0 0 30px 10px rgba(0,255,255,0.2)',
               ],
             }}
             transition={{
@@ -97,7 +107,7 @@ export default function ReflexStormPanel() {
           />
         )}
 
-        {/* 💥 Shock Ripple */}
+        {/* 💥 Ripple shock */}
         {stage >= 3 && (
           <motion.div
             className="absolute inset-0 rounded-full border-4 border-white/10 blur-[1px]"
@@ -107,18 +117,18 @@ export default function ReflexStormPanel() {
           />
         )}
 
-        {/* 🫀 Heartbeat Flicker */}
+        {/* 🫀 Heartbeat flicker */}
         {heartbeat && (
           <motion.div
             className="absolute inset-0 bg-cyan-300/5"
             animate={{ opacity: [0.02, 0.08, 0.02] }}
-            transition={{ duration: 0.33, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 0.3, repeat: Infinity, ease: 'easeInOut' }}
           />
         )}
       </div>
 
-      {/* 💬 Bottom Text Stack */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      {/* 🔽 Bottom Text Stack */}
+      <div className="z-20 flex flex-col items-center space-y-2 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 4 && (
             <motion.div
@@ -126,7 +136,7 @@ export default function ReflexStormPanel() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
-              className="text-white/50 text-[1.4rem] italic"
+              className="text-white/60 text-[1.4rem] italic"
             >
               Heartbeat: <span className="text-cyan-300 font-bold">180 bpm</span>
             </motion.div>

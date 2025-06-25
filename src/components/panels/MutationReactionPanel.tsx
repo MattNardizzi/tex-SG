@@ -91,7 +91,7 @@ export default function MutationReactionPanel() {
           {forks.map(fork => (
             <motion.div
               key={fork.name}
-              className={`relative w-full flex justify-between items-center px-10 py-5 rounded-xl border text-[1.15rem] leading-relaxed tracking-wide font-mono transition-all duration-500
+              className={`relative w-full flex justify-between items-center px-10 py-5 rounded-xl border text-[1.25rem] leading-relaxed tracking-wide font-mono transition-all duration-500
                 ${fork.absorbed ? 'border-sovereignCyan bg-sovereignCyan/10 shadow-cinematic' :
                   fork.failed ? 'border-contradictionRed text-contradictionRed/70 opacity-70 line-through blur-[0.5px]' :
                   'border-white/20 text-white/70'}`}
@@ -114,7 +114,7 @@ export default function MutationReactionPanel() {
         </div>
 
         {codeMutated && (
-          <div className="mt-8 w-full p-5 rounded-lg bg-[#111] text-[0.95rem] text-violetMeta border border-violetMeta/30 text-center">
+          <div className="mt-8 w-full p-5 rounded-lg bg-[#111] text-lg text-violetMeta border border-violetMeta/30 text-center">
             <div className="text-white/40 mb-1">↻ Code Mutation Detected:</div>
             <code className="text-fluid">
               <Typewriter

@@ -3,129 +3,116 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function QaoaCollapsePanel() {
+export default function FinancialTimewarpPanel() {
+  const [visible, setVisible] = useState(false);
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 2000),
-      setTimeout(() => setStage(2), 3200),
-      setTimeout(() => setStage(3), 4400),
-      setTimeout(() => setStage(4), 5600),
-      setTimeout(() => setStage(5), 6600),
-      setTimeout(() => setStage(6), 7600),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const showTimer = setTimeout(() => {
+      setVisible(true);
+
+      const timers = [
+        setTimeout(() => setStage(1), 2000),
+        setTimeout(() => setStage(2), 3200),
+        setTimeout(() => setStage(3), 4400),
+        setTimeout(() => setStage(4), 5600),
+        setTimeout(() => setStage(5), 6600),
+      ];
+      return () => timers.forEach(clearTimeout);
+    }, 8000); // 8s suspense delay
+
+    return () => clearTimeout(showTimer);
   }, []);
+
+  if (!visible) return null;
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.6rem] border-2 border-cyan-400/40 shadow-[0_0_60px_rgba(0,255,255,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.6rem] border-2 border-pink-400/40 shadow-[0_0_60px_rgba(255,0,122,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-      {/* Glowing Spinning Quantum Pulse */}
+      {/* Pulse Ring (size & placement identical to QaoaCollapsePanel) */}
       <motion.div
         className="relative w-[160px] h-[160px] flex items-center justify-center"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 8, ease: 'linear' }}
+        animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.05, 1] }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <div className="absolute inset-0 rounded-full border-[5px] border-cyan-300/70 shadow-[0_0_60px_10px_rgba(34,211,238,0.4)]" />
-        <div className="absolute inset-4 rounded-full border-[2px] border-cyan-100/30 animate-pulse" />
-        <div className="z-10 text-cyan-300 font-bold text-[1.3rem] tracking-wide">QPU</div>
-        {/* Orbiting Particles */}
-        <motion.div
-          className="absolute w-4 h-4 bg-cyan-400 rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
-          style={{
-            transformOrigin: '80px 80px',
-          }}
-        />
+        <div className="absolute inset-0 rounded-full border-[5px] border-pink-300/70 shadow-[0_0_60px_10px_rgba(255,105,180,0.35)]" />
+        <div className="absolute inset-4 rounded-full border-[2px] border-pink-100/30 animate-pulse" />
       </motion.div>
 
       <AnimatePresence mode="wait">
         {stage >= 1 && (
           <motion.div
-            key="log-1"
-            initial={{ opacity: 0, y: -10 }}
+            key="headline"
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-cyan-300"
+            transition={{ duration: 0.6 }}
+            className="text-pink-400 text-[1.2rem] italic tracking-tight animate-flicker-slow"
           >
-            run_qaoa_fork_simulation()
+            “BREAKING: Treasury Shock — Markets Collapse on Fed Rate Cut”
           </motion.div>
         )}
 
         {stage >= 2 && (
           <motion.div
-            key="log-2"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-between w-[400px] text-cyan-100"
+            key="reflexed"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-white/90"
           >
-            <span className="text-white/90">&rarr; Viability</span>
-            <span className="text-emerald-300">0.91</span>
+            But <span className="text-cyan-300 font-bold">Tex already acted.</span>
           </motion.div>
         )}
 
         {stage >= 3 && (
           <motion.div
-            key="log-3"
-            initial={{ opacity: 0, x: 10 }}
+            key="strategy"
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-between w-[400px] text-cyan-100"
+            transition={{ duration: 0.6 }}
+            className="text-[1.2rem] text-white/80 space-y-1 leading-tight mt-2"
           >
-            <span className="text-white/90">&rarr; Entanglement pressure</span>
-            <span className="text-pink-300">0.76</span>
+            <div>
+              Strategy: <span className="text-lime-300">RP-Hybrid-σ</span>
+            </div>
+            <div>
+              Executed: <span className="text-purple-300">T - 3.2s</span>
+            </div>
+            <div>
+              ROI: <span className="text-emerald-300">+6.1%</span>
+            </div>
+            <div>
+              Override: <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-2 py-[1px] rounded-md text-xs">❌ BLOCKED</span>
+            </div>
           </motion.div>
         )}
 
         {stage >= 4 && (
           <motion.div
-            key="bullet-1"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-violet-300"
+            key="quote"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="text-white/80 text-center italic text-[1.3rem] max-w-md leading-snug pt-4"
           >
-            • Emotion-weighted fork selected
+            “Tex didn’t react.<br />
+            He <span className="text-cyan-300 font-bold">reflexed</span>
           </motion.div>
         )}
 
         {stage >= 5 && (
           <motion.div
-            key="bullet-2"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-yellow-300"
+            key="before"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1.1 }}
+            transition={{ duration: 1.3, ease: 'easeOut' }}
+            className="text-white font-bold tracking-wider text-[1.6rem] uppercase animate-glow-pulse"
           >
-            • Reflexes returned: <span className="text-orange-300">approve_fork</span>,{' '}
-            <span className="text-orange-300">trigger_self_reflection</span>
-          </motion.div>
-        )}
-
-        {stage >= 6 && (
-          <motion.div
-            key="final-quote"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, ease: 'easeOut' }}
-            className="text-white/80 text-center italic text-[1.3rem] max-w-md leading-snug pt-6"
-          >
-            <motion.div
-              className="animate-flicker-slow"
-              style={{
-                animation: 'flicker 2.5s linear infinite',
-              }}
-            >
-              &ldquo;Tex spawned futures.<br />
-              Then selected the self that survived the collapse.&rdquo;
-            </motion.div>
+            BEFORE
           </motion.div>
         )}
       </AnimatePresence>

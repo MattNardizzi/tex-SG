@@ -36,7 +36,7 @@ export default function ReflexCognitionPanel() {
         sequence[frame]();
         setFrame(prev => prev + 1);
       }
-    }, 1500); // 🎯 Synced to 1.5s per frame like other panels
+    }, 1500);
 
     return () => clearInterval(interval);
   }, [frame]);
@@ -73,13 +73,13 @@ export default function ReflexCognitionPanel() {
         <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sovereignCyan/10 blur-[120px]" />
       </motion.div>
 
-      {/* ⚠️ Loop Block Warning */}
+      {/* ⚠️ Loop Block Warning — Immediate snap-in */}
       {loopBlocked && (
         <motion.div
           className="absolute top-5 right-6 bg-entropyBlue/10 text-entropyBlue px-4 py-1 text-xs rounded-full border border-entropyBlue/40 backdrop-blur-sm z-20"
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: [1.1, 1], opacity: 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          initial={{ scale: 1.15, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           Reflex Loop Blocked ⚠️
         </motion.div>

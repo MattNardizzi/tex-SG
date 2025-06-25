@@ -13,22 +13,22 @@ export default function ReflexCognitionPanel() {
 
   useEffect(() => {
     const sequence = [
-      () => {}, // 0:00
-      () => setTrigger('Symbolic Belief Conflict'), // 0:03
+      () => {},
+      () => setTrigger('Symbolic Belief Conflict'),
       () => {
         setContradiction(0.64);
         setEntropy(0.54);
         setUrgency(0.69);
-      }, // 0:08
-      () => {}, // 0:12
-      () => {}, // 0:14
-      () => {}, // 0:18
-      () => {}, // 0:22
-      () => {}, // 0:26
-      () => {}, // 0:30
-      () => {}, // 0:34
-      () => setLoopBlocked(true), // 0:42
-      () => {}, // 0:46
+      },
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      () => setLoopBlocked(true),
+      () => {},
     ];
 
     const interval = setInterval(() => {
@@ -36,7 +36,7 @@ export default function ReflexCognitionPanel() {
         sequence[frame]();
         setFrame(prev => prev + 1);
       }
-    }, 4000);
+    }, 1500); // 🎯 Synced to 1.5s per frame like other panels
 
     return () => clearInterval(interval);
   }, [frame]);
@@ -128,7 +128,7 @@ export default function ReflexCognitionPanel() {
       </div>
 
       {/* 🧬 Vertical Sovereign Signal Spine */}
-      <div className="absolute top-0 left-1/2 w-[2px] h-full signal-line blur-sm animate-pulse z-0" />
+      <div className="absolute top-0 left-1/2 w-[2px] h-full bg-sovereignCyan blur-sm animate-pulse z-0" />
     </motion.div>
   );
 }

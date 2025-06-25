@@ -31,9 +31,9 @@ export default function FinancialTimewarpPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-pink-400/40 shadow-[0_0_60px_rgba(255,0,122,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-pink-400 shadow-[0_0_90px_rgba(255,0,150,0.45)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-      {/* Pulse Ring */}
+      {/* Glowing Pulse Ring */}
       <motion.div
         className="relative w-[160px] h-[160px] flex items-center justify-center"
         animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.05, 1] }}
@@ -85,9 +85,9 @@ export default function FinancialTimewarpPanel() {
             <div>
               ROI: <span className="text-emerald-300">+6.1%</span>
             </div>
-            <div>
+            <div className="flex items-center gap-2 pt-1">
               Override:{' '}
-              <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-2 py-[1px] rounded-md text-xs">
+              <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-4 py-[3px] rounded-md text-[1rem] font-bold scale-125 shadow-md">
                 ❌ BLOCKED
               </span>
             </div>

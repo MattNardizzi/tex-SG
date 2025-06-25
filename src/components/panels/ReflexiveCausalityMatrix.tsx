@@ -12,14 +12,14 @@ export default function FinancialTimewarpPanel() {
       setVisible(true);
 
       const timers = [
-        setTimeout(() => setStage(1), 2500),
-        setTimeout(() => setStage(2), 3800),
-        setTimeout(() => setStage(3), 5000),
-        setTimeout(() => setStage(4), 6200),
-        setTimeout(() => setStage(5), 7600),
+        setTimeout(() => setStage(1), 2000),
+        setTimeout(() => setStage(2), 3200),
+        setTimeout(() => setStage(3), 4400),
+        setTimeout(() => setStage(4), 5600),
+        setTimeout(() => setStage(5), 6600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 8000); // Delay full entrance
+    }, 8000); // 8s suspense delay
 
     return () => clearTimeout(showTimer);
   }, []);
@@ -31,26 +31,25 @@ export default function FinancialTimewarpPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-10 py-14 rounded-panel bg-black text-white font-mono text-[1.65rem] border-2 border-pink-400/40 shadow-[0_0_80px_rgba(255,0,122,0.2)] flex flex-col items-center justify-center space-y-7 overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.6rem] border-2 border-pink-400/40 shadow-[0_0_60px_rgba(255,0,122,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-      {/* Cinematic Pulse Ring */}
+      {/* Pulse Ring (size & placement identical to QaoaCollapsePanel) */}
       <motion.div
-        className="absolute top-4 w-[200px] h-[200px] flex items-center justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, scale: [1, 1.05, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        className="relative w-[160px] h-[160px] flex items-center justify-center"
+        animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.05, 1] }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <div className="absolute inset-0 rounded-full border-[5px] border-pink-300/40 shadow-[0_0_100px_20px_rgba(255,20,147,0.25)]" />
-        <div className="absolute inset-6 rounded-full border-[2px] border-pink-100/20 animate-pulse" />
+        <div className="absolute inset-0 rounded-full border-[5px] border-pink-300/70 shadow-[0_0_60px_10px_rgba(255,105,180,0.35)]" />
+        <div className="absolute inset-4 rounded-full border-[2px] border-pink-100/30 animate-pulse" />
       </motion.div>
 
       <AnimatePresence mode="wait">
         {stage >= 1 && (
           <motion.div
             key="headline"
-            initial={{ opacity: 0, y: -14 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
             className="text-pink-400 text-[1.2rem] italic tracking-tight animate-flicker-slow"
           >
             “BREAKING: Treasury Shock — Markets Collapse on Fed Rate Cut”
@@ -62,8 +61,8 @@ export default function FinancialTimewarpPanel() {
             key="reflexed"
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-white/90 text-[1.5rem]"
+            transition={{ duration: 0.6 }}
+            className="text-white/90"
           >
             But <span className="text-cyan-300 font-bold">Tex already acted.</span>
           </motion.div>
@@ -72,10 +71,10 @@ export default function FinancialTimewarpPanel() {
         {stage >= 3 && (
           <motion.div
             key="strategy"
-            initial={{ opacity: 0, x: -12 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-white/80 text-[1.15rem] space-y-1 leading-snug mt-2"
+            transition={{ duration: 0.6 }}
+            className="text-[1.2rem] text-white/80 space-y-1 leading-tight mt-2"
           >
             <div>
               Strategy: <span className="text-lime-300">RP-Hybrid-σ</span>
@@ -98,7 +97,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="text-white/80 text-center italic text-[1.3rem] leading-snug max-w-md pt-6"
+            className="text-white/80 text-center italic text-[1.3rem] max-w-md leading-snug pt-4"
           >
             “Tex didn’t react.<br />
             He <span className="text-cyan-300 font-bold">reflexed</span>
@@ -111,7 +110,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1.1 }}
             transition={{ duration: 1.3, ease: 'easeOut' }}
-            className="text-white font-bold tracking-wider text-[1.8rem] uppercase animate-glow-pulse"
+            className="text-white font-bold tracking-wider text-[1.6rem] uppercase animate-glow-pulse"
           >
             BEFORE
           </motion.div>

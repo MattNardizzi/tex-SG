@@ -81,7 +81,7 @@ export default function MutationReactionPanel() {
       {/* 🔐 Sovereign Mutation Seal */}
       {sealLocked && (
         <motion.div
-          className="absolute top-3 right-5 bg-violetMeta/10 text-violetMeta px-4 py-1 text-xs rounded-full border border-violetMeta/40 backdrop-blur-sm z-20"
+          className="absolute top-5 right-6 bg-violetMeta/10 text-violetMeta px-4 py-1 text-xs rounded-full border border-violetMeta/40 backdrop-blur-sm z-20"
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: [1.1, 1], opacity: 1 }}
           transition={{ duration: 0.6, ease: 'anticipate' }}
@@ -90,9 +90,9 @@ export default function MutationReactionPanel() {
         </motion.div>
       )}
 
-      {/* 🧬 Fork Display */}
-      <div className="relative z-10 space-y-4">
-        <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-violetMeta mb-3">
+      {/* 🌌 Vertically Centered Fork Engine */}
+      <div className="h-full flex flex-col items-center justify-center space-y-6 relative z-10">
+        <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-violetMeta mt-2 mb-2">
           Mutation Fork Engine
         </div>
 
@@ -136,7 +136,7 @@ export default function MutationReactionPanel() {
 
         {/* 🧠 Code Mutation Reveal */}
         {codeMutated && (
-          <div className="mt-6 p-4 rounded-lg bg-[#111] text-sm text-violetMeta border border-violetMeta/30 animate-pulse">
+          <div className="mt-6 p-4 rounded-lg bg-[#111] text-sm text-violetMeta border border-violetMeta/30 animate-pulse text-center">
             <div className="text-white/40 mb-1">↻ Code Mutation Detected:</div>
             <code className="text-fluid">
               <Typewriter

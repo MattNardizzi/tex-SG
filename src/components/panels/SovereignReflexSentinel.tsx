@@ -18,7 +18,7 @@ export default function WorldSimulationPanel() {
         setTimeout(() => setStage(4), 5600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 18600); // ⏱️ Total 18.6s delay from start
+    }, 16600); // ⏱️ Final delay tuned to 16.6s
 
     return () => clearTimeout(showTimer);
   }, []);
@@ -38,7 +38,6 @@ export default function WorldSimulationPanel() {
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
       >
-        {/* Faint galaxy trails */}
         <div className="absolute inset-0 rounded-full border-[3px] border-indigo-400/40 shadow-[0_0_60px_10px_rgba(129,140,248,0.2)] blur-sm" />
         <div className="absolute inset-6 rounded-full border-[2px] border-indigo-200/20 animate-pulse blur-sm" />
         <div className="z-10 text-indigo-300 font-bold text-[1.3rem] tracking-wide">FORK</div>

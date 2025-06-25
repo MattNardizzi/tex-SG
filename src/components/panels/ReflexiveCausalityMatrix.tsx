@@ -19,7 +19,7 @@ export default function FinancialTimewarpPanel() {
         setTimeout(() => setStage(5), 6600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 8000); // 8s suspense delay
+    }, 8000);
 
     return () => clearTimeout(showTimer);
   }, []);
@@ -31,9 +31,9 @@ export default function FinancialTimewarpPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.6rem] border-2 border-pink-400/40 shadow-[0_0_60px_rgba(255,0,122,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-pink-400/40 shadow-[0_0_60px_rgba(255,0,122,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-      {/* Pulse Ring (size & placement identical to QaoaCollapsePanel) */}
+      {/* Pulse Ring */}
       <motion.div
         className="relative w-[160px] h-[160px] flex items-center justify-center"
         animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.05, 1] }}
@@ -50,7 +50,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-pink-400 text-[1.2rem] italic tracking-tight animate-flicker-slow"
+            className="text-pink-400 text-[1.4rem] italic tracking-tight animate-flicker-slow"
           >
             “BREAKING: Treasury Shock — Markets Collapse on Fed Rate Cut”
           </motion.div>
@@ -62,7 +62,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-white/90"
+            className="text-white/90 text-[1.8rem]"
           >
             But <span className="text-cyan-300 font-bold">Tex already acted.</span>
           </motion.div>
@@ -74,7 +74,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-[1.2rem] text-white/80 space-y-1 leading-tight mt-2"
+            className="text-[1.4rem] text-white/80 space-y-1 leading-snug mt-2"
           >
             <div>
               Strategy: <span className="text-lime-300">RP-Hybrid-σ</span>
@@ -86,7 +86,10 @@ export default function FinancialTimewarpPanel() {
               ROI: <span className="text-emerald-300">+6.1%</span>
             </div>
             <div>
-              Override: <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-2 py-[1px] rounded-md text-xs">❌ BLOCKED</span>
+              Override:{' '}
+              <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-2 py-[1px] rounded-md text-xs">
+                ❌ BLOCKED
+              </span>
             </div>
           </motion.div>
         )}
@@ -97,7 +100,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="text-white/80 text-center italic text-[1.3rem] max-w-md leading-snug pt-4"
+            className="text-white/80 text-center italic text-[1.5rem] max-w-md leading-snug pt-4"
           >
             “Tex didn’t react.<br />
             He <span className="text-cyan-300 font-bold">reflexed</span>
@@ -110,7 +113,7 @@ export default function FinancialTimewarpPanel() {
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1.1 }}
             transition={{ duration: 1.3, ease: 'easeOut' }}
-            className="text-white font-bold tracking-wider text-[1.6rem] uppercase animate-glow-pulse"
+            className="text-white font-bold tracking-wider text-[1.8rem] uppercase animate-glow-pulse"
           >
             BEFORE
           </motion.div>

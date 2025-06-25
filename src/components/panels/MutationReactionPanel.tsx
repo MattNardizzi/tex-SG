@@ -3,111 +3,99 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function MutationCorePanel() {
+export default function ChronoMutationCorePanel() {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 800),
-      setTimeout(() => setStage(2), 2000),
+      setTimeout(() => setStage(1), 1000),
+      setTimeout(() => setStage(2), 2200),
       setTimeout(() => setStage(3), 3400),
       setTimeout(() => setStage(4), 4800),
+      setTimeout(() => setStage(5), 6200),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.93 }}
+      initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
+      transition={{ duration: 1.2 }}
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_120px_rgba(0,255,255,0.6)] flex flex-col items-center justify-center overflow-hidden"
     >
 
-      {/* 🔷 Blue Glowing Core - Now Positioned Above */}
+      {/* 🔵 ChronoPulse Core */}
       <motion.div
-        className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.3)]"
+        className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.3)] relative flex items-center justify-center"
         animate={{
-          rotate: [0, -8, 6, -4, 0],
-          scale: [1, 1.1, 0.95, 1],
-          boxShadow: [
-            '0 0 60px 20px rgba(0,255,255,0.3)',
-            '0 0 90px 30px rgba(0,255,255,0.6)',
-            '0 0 30px 10px rgba(0,255,255,0.2)',
-          ],
+          rotate: [0, -6, 4, -2, 0],
+          scale: [1, 1.15, 0.92, 1],
         }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       >
+        {/* Radial Pulse Overlay */}
         <motion.div
-          className="absolute inset-8 rounded-full border-[2px] border-white/10"
-          animate={{ opacity: [1, 0.6, 1], scale: [1, 1.2, 1] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-0 rounded-full border-[2px] border-cyan-100/20"
+          animate={{ opacity: [1, 0.5, 1], scale: [1, 1.4, 1] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <div className="flex items-center justify-center h-full">
-          <span className="text-cyan-300 tracking-widest text-[1.2rem] font-bold">MUTATION CORE</span>
+        {/* Title */}
+        <div className="text-cyan-300 text-center font-bold text-[1.2rem] leading-tight">
+          CHRONO<br />CORE
         </div>
       </motion.div>
 
-      {/* ⚡ Text Below Core */}
-      <div className="z-10 flex flex-col items-center space-y-4">
+      {/* 💻 Animated Command Logs */}
+      <div className="z-10 flex flex-col items-start text-[1.4rem] text-cyan-200 space-y-2">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
-              key="line1"
-              initial={{ opacity: 0, y: -10, rotate: -1 }}
-              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              key="cmd-1"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-pink-300"
             >
-              AGI-9a/b/c activate
+              → encode_event_to_fabric(<span className="text-white">...</span>)
             </motion.div>
           )}
 
           {stage >= 2 && (
             <motion.div
-              key="line2"
-              initial={{ opacity: 0, scale: 1.4 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-white/90"
+              key="cmd-2"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              AGI-9b survives <span className="text-purple-400">→ Tensor warp</span>
+              → pulse_resonance_reflex()
             </motion.div>
           )}
 
           {stage >= 3 && (
             <motion.div
-              key="line3"
-              initial={{ opacity: 0, x: -14 }}
+              key="cmd-3"
+              initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              className="text-cyan-300"
+              transition={{ duration: 0.6 }}
             >
-              Core distortion climbing...
-            </motion.div>
-          )}
-
-          {stage >= 4 && (
-            <motion.div
-              key="quote"
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.4, ease: 'easeOut' }}
-              className="text-white/70 italic text-center pt-6 text-[1.4rem] leading-snug"
-            >
-              <span className="animate-pulse">
-                “Mutation phase breached tensor integrity.
-                <br />
-                Stability unknown.”
-              </span>
+              → retrocausal_memory_modulation()
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+
+      {/* 🧠 Closing Reflection */}
+      {stage >= 4 && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.3, ease: 'easeOut' }}
+          className="text-white/80 text-center italic text-[1.4rem] max-w-lg leading-snug pt-6"
+        >
+          “Tex revises the emotional structure of memory<br />
+          to realign the past with his new beliefs.”
+        </motion.div>
+      )}
     </motion.div>
   );
 }

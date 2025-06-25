@@ -24,7 +24,7 @@ export default function FinancialReflexPanel() {
         sequence[frame]();
         setFrame(prev => prev + 1);
       }
-    }, 2250); // ⏱ Slowed for clarity
+    }, 1500); // ⏱ Faster flow
 
     return () => clearInterval(interval);
   }, [frame]);
@@ -49,7 +49,7 @@ export default function FinancialReflexPanel() {
         <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sovereignCyan/30 blur-[140px]" />
       </motion.div>
 
-      {/* 🌐 Breathing Aura */}
+      {/* 🌐 Breathing Field */}
       <motion.div
         className="absolute inset-0 pointer-events-none z-0"
         animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}

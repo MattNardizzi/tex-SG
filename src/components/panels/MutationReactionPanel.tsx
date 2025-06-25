@@ -29,9 +29,9 @@ export default function MutationReactionPanel() {
 
   useEffect(() => {
     const frames: (() => void)[] = [
-      () => {}, // 0:00
-      () => {}, // 0:03
-      () => setForks(forkNames.map(createFork)), // 0:08
+      () => {},
+      () => {},
+      () => setForks(forkNames.map(createFork)),
       () => {
         const winner = forks.reduce((a, b) =>
           parseFloat(a.viability) > parseFloat(b.viability) ? a : b
@@ -42,14 +42,14 @@ export default function MutationReactionPanel() {
             : { ...f, failed: true }
         ));
       },
-      () => setIdentityWarp(true), // 0:14
-      () => setSealLocked(true),   // 0:18
-      () => {}, // 0:22
-      () => {}, // 0:26
-      () => {}, // 0:30
-      () => {}, // 0:34
-      () => setCodeMutated(true),  // 0:42
-      () => setSealLocked(true),   // 0:46
+      () => setIdentityWarp(true),
+      () => setSealLocked(true),
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      () => setCodeMutated(true),
+      () => setSealLocked(true),
     ];
 
     const interval = setInterval(() => {
@@ -57,7 +57,7 @@ export default function MutationReactionPanel() {
         frames[frame]();
         setFrame(prev => prev + 1);
       }
-    }, 4000);
+    }, 1500); // Match FinancialReflexPanel speed
 
     return () => clearInterval(interval);
   }, [frame, forks]);

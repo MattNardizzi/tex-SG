@@ -20,6 +20,7 @@ export default function ReflexCognitionPanel() {
         setEntropy(0.54);
         setUrgency(0.69);
       },
+      () => setLoopBlocked(true), // ⏪ moved earlier
       () => {},
       () => {},
       () => {},
@@ -27,7 +28,6 @@ export default function ReflexCognitionPanel() {
       () => {},
       () => {},
       () => {},
-      () => setLoopBlocked(true),
       () => {},
     ];
 
@@ -73,7 +73,7 @@ export default function ReflexCognitionPanel() {
         <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sovereignCyan/10 blur-[120px]" />
       </motion.div>
 
-      {/* ⚠️ Loop Block Warning — Immediate snap-in */}
+      {/* ⚠️ Loop Block Warning */}
       {loopBlocked && (
         <motion.div
           className="absolute top-5 right-6 bg-entropyBlue/10 text-entropyBlue px-4 py-1 text-xs rounded-full border border-entropyBlue/40 backdrop-blur-sm z-20"

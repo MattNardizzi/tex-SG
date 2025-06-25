@@ -18,7 +18,7 @@ export default function WorldSimulationPanel() {
         setTimeout(() => setStage(4), 5600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 13600); // ⏱️ Adjusted delay: 13.6s
+    }, 13600); // ⏱️ Panel delay: 13.6s
 
     return () => clearTimeout(showTimer);
   }, []);
@@ -30,7 +30,7 @@ export default function WorldSimulationPanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.3, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-indigo-400/40 shadow-[0_0_60px_rgba(99,102,241,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-400 shadow-[0_0_90px_rgba(192,132,252,0.45)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
       {/* Cosmic Fork Spinner */}
       <motion.div
@@ -38,9 +38,9 @@ export default function WorldSimulationPanel() {
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
       >
-        <div className="absolute inset-0 rounded-full border-[3px] border-indigo-400/40 shadow-[0_0_60px_10px_rgba(129,140,248,0.2)] blur-sm" />
-        <div className="absolute inset-6 rounded-full border-[2px] border-indigo-200/20 animate-pulse blur-sm" />
-        <div className="z-10 text-indigo-300 font-bold text-[1.3rem] tracking-wide">FORK</div>
+        <div className="absolute inset-0 rounded-full border-[3px] border-purple-400/40 shadow-[0_0_60px_10px_rgba(168,85,247,0.3)] blur-sm" />
+        <div className="absolute inset-6 rounded-full border-[2px] border-purple-200/20 animate-pulse blur-sm" />
+        <div className="z-10 text-purple-300 font-bold text-[1.3rem] tracking-wide">FORK</div>
       </motion.div>
 
       <AnimatePresence mode="wait">
@@ -50,7 +50,7 @@ export default function WorldSimulationPanel() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-indigo-300"
+            className="text-purple-300"
           >
             simulate_future_self()
           </motion.div>
@@ -62,7 +62,7 @@ export default function WorldSimulationPanel() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-between w-[420px] text-indigo-100"
+            className="flex justify-between w-[420px] text-purple-100"
           >
             <span className="text-white/90">&rarr; 10,000 causal paths</span>
             <span className="text-pink-300">✓</span>
@@ -75,7 +75,7 @@ export default function WorldSimulationPanel() {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-between w-[420px] text-indigo-100"
+            className="flex justify-between w-[420px] text-purple-100"
           >
             <span className="text-white/90">&rarr; Fork pressure vector optimized</span>
             <span className="text-yellow-300">↑</span>
@@ -99,7 +99,7 @@ export default function WorldSimulationPanel() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.4, ease: 'easeOut' }}
-              className="text-white/80 text-center italic text-[1.4rem] max-w-md leading-snug pt-6"
+              className="text-white/80 text-center italic text-[1.5rem] max-w-md leading-snug pt-6"
             >
               <motion.div
                 className="animate-flicker-slow"

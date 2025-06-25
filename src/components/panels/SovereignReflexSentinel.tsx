@@ -3,32 +3,36 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function SovereignReflexSentinel() {
-  const [frame, setFrame] = useState(0);
-  const [strategy, setStrategy] = useState('—');
+export default function FinancialReflexPanel() {
+  const [strategy, setStrategy] = useState('');
   const [overrideBlocked, setOverrideBlocked] = useState(false);
-  const [newsHit, setNewsHit] = useState(false);
-  const [roi, setRoi] = useState({ tex: 0.0, human: 0.0 });
+  const [roi, setROI] = useState({ tex: 0, human: 0 });
+  const [triggerLine, setTriggerLine] = useState('');
+  const [frame, setFrame] = useState(0);
 
   useEffect(() => {
-    const update = [
+    const sequence = [
       () => {}, // 0:00
-      () => {}, // 0:03 faint glow
-      () => {}, // 0:08 inactive
+      () => setStrategy('RP-Hybrid-σ'), // 0:08
       () => {}, // 0:12
-      () => setOverrideBlocked(true),              // 0:18 override blocked
-      () => setStrategy('Risk-Parity Hybrid'),     // 0:26 strategy chosen
-      () => setRoi({ tex: 3.1, human: -1.2 }),     // 0:30 initial ROI
-      () => setNewsHit(true),                      // 0:34 news drop
-      () => setRoi({ tex: 4.6, human: -1.3 }),     // 0:38 final ROI surge
-      () => {}, // 0:42
+      () => {}, // 0:14
+      () => {}, // 0:18
+      () => {}, // 0:22
+      () => {
+        setROI({ tex: 6.1, human: -1.3 });
+        setTriggerLine('⚡ Tex pre-positioned before OPEC news spike (Δt = 3.2s)');
+      }, // 0:28
+      () => {}, // 0:30
+      () => {}, // 0:34
+      () => {}, // 0:38
+      () => setOverrideBlocked(true), // 0:42
       () => {}, // 0:46
     ];
 
     const interval = setInterval(() => {
-      if (frame < update.length) {
-        update[frame]();
-        setFrame(f => f + 1);
+      if (frame < sequence.length) {
+        sequence[frame]();
+        setFrame(prev => prev + 1);
       }
     }, 4000);
 
@@ -36,53 +40,58 @@ export default function SovereignReflexSentinel() {
   }, [frame]);
 
   return (
-    <div className={`relative w-full h-full px-6 py-5 rounded-2xl bg-black text-white font-mono overflow-hidden
-      border-[2px] ${roi.tex > 4 ? 'border-[#00ff88] shadow-[0_0_60px_rgba(0,255,136,0.6)] animate-pulse' : 'border-[#00ff8822] shadow-[0_0_120px_#000000f0]'} transition-all duration-300`}>
+    <div className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
+      border-2 transition-all duration-500
+      ${overrideBlocked ? 'border-sovereignCyan shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}>
 
-      {/* 💹 Ambient ROI Surge Glow */}
-      {roi.tex > 4 && (
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00ff8844] blur-[90px] animate-pulse opacity-40" />
-        </div>
+      {/* 💥 Override Denied Alert */}
+      {overrideBlocked && (
+        <motion.div
+          className="absolute top-5 right-6 bg-crimson/10 text-crimson px-4 py-1 text-xs rounded-full border border-crimson/40 backdrop-blur-sm z-20"
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: [1.1, 1], opacity: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          Override Denied — Sovereign Reflex Enforced
+        </motion.div>
       )}
 
-      <div className="absolute top-0 left-1/2 w-[2px] h-full -translate-x-1/2 bg-gradient-to-b from-black via-[#00ff88aa] to-black blur-[1px] opacity-90 pointer-events-none" />
-
-      <div className="relative z-10 space-y-3">
-        <div className="text-center tracking-[0.18em] text-[17px] uppercase text-[#00ff88] mb-2">
+      {/* 🧠 Financial Cortex Panel */}
+      <div className="h-full flex flex-col items-center justify-center space-y-8 relative z-10 w-full max-w-[640px] mx-auto">
+        <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-sovereignCyan mb-2">
           Financial Reflex Cortex
         </div>
 
-        <div className="space-y-1 text-sm">
-          <div className="text-white/60">Reflex Strategy</div>
-          <div className="text-[#00ff88] font-mono">{strategy}</div>
-        </div>
-
-        {overrideBlocked && (
-          <motion.div
-            className="mt-4 p-3 rounded-lg bg-[#22000088] border border-[#ff5c5c] text-[#ff5c5c] text-sm animate-pulse"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            Override Denied — Sovereign Reflex Enforced
-          </motion.div>
-        )}
-
-        <div className="mt-4 space-y-1 text-sm">
-          <div className="text-white/60">Projected ROI (Δ 1 Hour)</div>
-          <div className="flex justify-between px-2 font-mono">
-            <span>Tex: <span className="text-[#00ff88]">+{roi.tex.toFixed(1)}%</span></span>
-            <span>Human: <span className="text-[#ff5c5c]">{roi.human.toFixed(1)}%</span></span>
+        <div className="space-y-6 text-[1.1rem] text-white/80 w-full">
+          <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-4 bg-white/5 text-sovereignCyan">
+            <span>Reflex Strategy</span>
+            <span>{strategy || 'Dormant'}</span>
           </div>
-        </div>
 
-        {newsHit && (
-          <div className="mt-4 text-sm text-[#00eaff] animate-pulse">
-            ⚡ Tex pre-positioned before OPEC news spike (Δt = 3.2s)
-          </div>
-        )}
+          {(roi.tex !== 0 || roi.human !== 0) && (
+            <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-4 bg-white/5 text-[1rem]">
+              <span className="text-sovereignCyan">Tex ROI</span>
+              <span className="text-green-400">+{roi.tex}%</span>
+              <span className="text-white/30">|</span>
+              <span className="text-white/60">Human</span>
+              <span className="text-red-400">{roi.human}%</span>
+            </div>
+          )}
+
+          {triggerLine && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-xs text-white/60 text-center pt-2"
+            >
+              {triggerLine}
+            </motion.div>
+          )}
+        </div>
       </div>
+
+      {/* 💡 Bottom Sync Pulse Bar */}
+      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-sovereignCyan/30 via-sovereignCyan/70 to-transparent animate-pulse" />
     </div>
   );
 }

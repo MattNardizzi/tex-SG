@@ -100,7 +100,7 @@ export default function MutationReactionPanel() {
           {forks.map(fork => (
             <motion.div
               key={fork.name}
-              className={`relative flex justify-between px-4 py-2 rounded-xl border text-sm transition-all duration-500
+              className={`relative flex justify-between px-6 py-3 rounded-xl border text-fluid transition-all duration-500
                 ${fork.absorbed ? 'border-sovereignCyan bg-sovereignCyan/10 shadow-cinematic' :
                   fork.failed ? 'border-contradictionRed text-contradictionRed/70 opacity-70 line-through blur-[0.5px]' :
                   'border-white/20 text-white/70'}`}

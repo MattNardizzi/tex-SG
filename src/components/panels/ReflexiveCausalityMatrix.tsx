@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function ReflexCognitionPanel() {
-  const [activeReflex, setActiveReflex] = useState('lifepulse');
   const [trigger, setTrigger] = useState('');
   const [contradiction, setContradiction] = useState(0.0);
   const [entropy, setEntropy] = useState(0.0);
@@ -59,23 +58,23 @@ export default function ReflexCognitionPanel() {
         </motion.div>
       )}
 
-      {/* 🧠 Reflex Engine Core */}
+      {/* 🧠 Reflex Cognition Core */}
       <div className="h-full flex flex-col items-center justify-center space-y-8 relative z-10 w-full max-w-[640px] mx-auto">
         <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-entropyBlue mb-2">
           Reflex Cognition Core
         </div>
 
-        <div className="space-y-6 text-[1.05rem] text-white/80 w-full">
-          <div className="flex justify-between w-full border border-white/10 rounded-lg px-5 py-3 bg-white/5">
+        <div className="space-y-6 text-[1.1rem] text-white/80 w-full">
+          <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-4 bg-white/5 text-sovereignCyan">
             <span>Active Reflex</span>
-            <span className="text-sovereignCyan">{activeReflex}</span>
+            <span>lifepulse()</span>
           </div>
 
           {trigger && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex justify-between w-full border border-white/10 rounded-lg px-5 py-3 bg-white/5 text-violetMeta"
+              className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-4 bg-white/5 text-violetMeta"
             >
               <span>Trigger</span>
               <span>{trigger}</span>
@@ -83,16 +82,16 @@ export default function ReflexCognitionPanel() {
           )}
 
           {(contradiction > 0 || entropy > 0) && (
-            <div className="flex flex-col w-full space-y-3">
-              <div className="flex justify-between px-5 py-3 border border-white/10 rounded-lg bg-white/5 text-contradictionRed/90">
+            <div className="flex flex-col w-full space-y-4">
+              <div className="flex justify-between px-6 py-4 border border-white/10 rounded-xl bg-white/5 text-contradictionRed/90">
                 <span>Contradiction</span>
                 <span>{contradiction.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between px-5 py-3 border border-white/10 rounded-lg bg-white/5 text-entropyBlue">
+              <div className="flex justify-between px-6 py-4 border border-white/10 rounded-xl bg-white/5 text-entropyBlue">
                 <span>Entropy</span>
                 <span>{entropy.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between px-5 py-3 border border-white/10 rounded-lg bg-white/5 text-reflexGold">
+              <div className="flex justify-between px-6 py-4 border border-white/10 rounded-xl bg-white/5 text-reflexGold">
                 <span>Urgency</span>
                 <span>{urgency.toFixed(2)}</span>
               </div>
@@ -101,7 +100,7 @@ export default function ReflexCognitionPanel() {
         </div>
       </div>
 
-      {/* 💡 Vertical Reflex Signal */}
+      {/* 💡 Vertical Reflex Signal Beam */}
       <div className="absolute top-0 left-1/2 w-[2px] h-full signal-line blur-sm animate-pulse z-0" />
     </div>
   );

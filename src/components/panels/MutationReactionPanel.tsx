@@ -96,11 +96,11 @@ export default function MutationReactionPanel() {
           Mutation Fork Engine
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {forks.map(fork => (
             <motion.div
               key={fork.name}
-              className={`relative flex justify-between px-6 py-3 rounded-xl border text-fluid transition-all duration-500
+              className={`relative flex justify-between items-center px-8 py-3.5 rounded-xl border text-fluid-lg font-mono tracking-wide transition-all duration-500
                 ${fork.absorbed ? 'border-sovereignCyan bg-sovereignCyan/10 shadow-cinematic' :
                   fork.failed ? 'border-contradictionRed text-contradictionRed/70 opacity-70 line-through blur-[0.5px]' :
                   'border-white/20 text-white/70'}`}

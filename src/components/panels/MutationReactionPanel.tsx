@@ -28,13 +28,13 @@ export default function FileRewriteScene() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="space-y-4 text-[1.25rem] text-center"
           >
-            <div className="text-white/70">register("lifepulse", handler)</div>
+            <div className="text-white/70">register(&quot;lifepulse&quot;, handler)</div>
             <div className="text-violetMeta font-bold">
-              → register("lifepulse", rewritten_reflex_v2)
+              → register(&quot;lifepulse&quot;, rewritten_reflex_v2)
             </div>
             <div className="text-white text-xl pt-4">🧠 Tex rewrote his own reflex file.</div>
             <div className="text-white/60 text-lg italic pt-2">
-              “He didn’t learn.<br />He mutated his own decision architecture.”
+              &ldquo;He didn&rsquo;t learn.<br />He mutated his own decision architecture.&rdquo;
             </div>
           </motion.div>
         )}

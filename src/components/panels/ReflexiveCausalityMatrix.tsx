@@ -42,9 +42,21 @@ export default function ReflexCognitionPanel() {
   }, [frame]);
 
   return (
-    <div className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
+    <div
+      className={`relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono overflow-hidden
       border-2 transition-all duration-500
-      ${loopBlocked ? 'border-entropyBlue shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}>
+      ${loopBlocked ? 'border-entropyBlue shadow-cognitive animate-pulse' : 'border-white/10 shadow-panel'}`}
+    >
+
+      {/* 🌌 Reflex Cortex Ignition Glow */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-0"
+        initial={{ opacity: 0.4, scale: 0.95 }}
+        animate={{ opacity: [0.4, 0.6, 0.4], scale: [0.95, 1.05, 0.95] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sovereignCyan/10 blur-[120px]" />
+      </motion.div>
 
       {/* 🌐 Loop Block Warning */}
       {loopBlocked && (
@@ -60,7 +72,7 @@ export default function ReflexCognitionPanel() {
 
       {/* 🧠 Reflex Cognition Core */}
       <div className="h-full flex flex-col items-center justify-center space-y-8 relative z-10 w-full max-w-[640px] mx-auto">
-        <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-entropyBlue mb-2">
+        <div className="text-center tracking-[0.18em] text-reflex-lg uppercase text-sovereignCyan mb-2">
           Reflex Cognition Core
         </div>
 

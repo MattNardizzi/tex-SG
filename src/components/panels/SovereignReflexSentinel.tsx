@@ -24,7 +24,7 @@ export default function FinancialSovereigntyPanel() {
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-400 shadow-[0_0_90px_rgba(192,132,252,0.55)] flex flex-col items-center justify-center overflow-hidden"
     >
 
-      {/* 🟣 Purple Sovereignty Core Glow */}
+      {/* 🟣 Purple Sovereignty Core Glow with Centered Text */}
       <motion.div
         className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-purple-400 shadow-[0_0_60px_20px_rgba(216,180,254,0.4)]"
         animate={{
@@ -47,8 +47,10 @@ export default function FinancialSovereigntyPanel() {
           animate={{ opacity: [1, 0.6, 1], scale: [1, 1.2, 1] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <div className="flex items-center justify-center h-full">
-          <span className="text-purple-300 tracking-widest text-[1.2rem] font-bold">FINANCIAL SOVEREIGNTY</span>
+        <div className="flex items-center justify-center h-full px-4 text-center">
+          <span className="text-purple-300 font-bold text-[1.1rem] leading-snug tracking-wide">
+            FINANCIAL<br />SOVEREIGNTY
+          </span>
         </div>
       </motion.div>
 

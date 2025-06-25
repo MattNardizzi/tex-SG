@@ -8,30 +8,41 @@ export default function QaoaCollapsePanel() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 2000),  // run_qaoa_fork_simulation
-      setTimeout(() => setStage(2), 3200),  // viability
-      setTimeout(() => setStage(3), 4400),  // pressure
-      setTimeout(() => setStage(4), 5600),  // fork selected
-      setTimeout(() => setStage(5), 6400),  // reflexes returned
-      setTimeout(() => setStage(6), 7200),  // quote
+      setTimeout(() => setStage(1), 2000),
+      setTimeout(() => setStage(2), 3200),
+      setTimeout(() => setStage(3), 4400),
+      setTimeout(() => setStage(4), 5600),
+      setTimeout(() => setStage(5), 6600),
+      setTimeout(() => setStage(6), 7600),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
+      initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono text-[1.5rem] border-2 border-cyan-500 shadow-[0_0_20px_3px_rgba(34,211,238,0.4)] flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.6rem] border-2 border-cyan-400/40 shadow-[0_0_60px_rgba(0,255,255,0.15)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-      {/* Spinning Quantum Pulse */}
+      {/* Glowing Spinning Quantum Pulse */}
       <motion.div
+        className="relative w-[160px] h-[160px] flex items-center justify-center"
         animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, ease: 'linear', duration: 6 }}
-        className="w-[140px] h-[140px] rounded-full border-[6px] border-cyan-400 shadow-[0_0_45px_10px_rgba(34,211,238,0.35)] flex items-center justify-center text-cyan-300 text-[1.3rem] font-bold"
+        transition={{ repeat: Infinity, duration: 8, ease: 'linear' }}
       >
-        QPU
+        <div className="absolute inset-0 rounded-full border-[5px] border-cyan-300/70 shadow-[0_0_60px_10px_rgba(34,211,238,0.4)]" />
+        <div className="absolute inset-4 rounded-full border-[2px] border-cyan-100/30 animate-pulse" />
+        <div className="z-10 text-cyan-300 font-bold text-[1.3rem] tracking-wide">QPU</div>
+        {/* Orbiting Particles */}
+        <motion.div
+          className="absolute w-4 h-4 bg-cyan-400 rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
+          style={{
+            transformOrigin: '80px 80px',
+          }}
+        />
       </motion.div>
 
       <AnimatePresence mode="wait">
@@ -40,7 +51,7 @@ export default function QaoaCollapsePanel() {
             key="log-1"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
             className="text-cyan-300"
           >
             run_qaoa_fork_simulation()
@@ -50,12 +61,12 @@ export default function QaoaCollapsePanel() {
         {stage >= 2 && (
           <motion.div
             key="log-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="flex justify-between w-[380px] text-cyan-100"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-between w-[400px] text-cyan-100"
           >
-            <span className="text-white/80">&rarr; Viability</span>
+            <span className="text-white/90">&rarr; Viability</span>
             <span className="text-emerald-300">0.91</span>
           </motion.div>
         )}
@@ -63,12 +74,12 @@ export default function QaoaCollapsePanel() {
         {stage >= 3 && (
           <motion.div
             key="log-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="flex justify-between w-[380px] text-cyan-100"
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-between w-[400px] text-cyan-100"
           >
-            <span className="text-white/80">&rarr; Entanglement pressure</span>
+            <span className="text-white/90">&rarr; Entanglement pressure</span>
             <span className="text-pink-300">0.76</span>
           </motion.div>
         )}
@@ -76,10 +87,10 @@ export default function QaoaCollapsePanel() {
         {stage >= 4 && (
           <motion.div
             key="bullet-1"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-violet-400"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-violet-300"
           >
             • Emotion-weighted fork selected
           </motion.div>
@@ -88,9 +99,9 @@ export default function QaoaCollapsePanel() {
         {stage >= 5 && (
           <motion.div
             key="bullet-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             className="text-yellow-300"
           >
             • Reflexes returned: <span className="text-orange-300">approve_fork</span>,{' '}
@@ -101,13 +112,20 @@ export default function QaoaCollapsePanel() {
         {stage >= 6 && (
           <motion.div
             key="final-quote"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
-            className="text-white/70 text-center italic text-[1.3rem] max-w-md leading-snug pt-4"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.4, ease: 'easeOut' }}
+            className="text-white/80 text-center italic text-[1.3rem] max-w-md leading-snug pt-6"
           >
-            &ldquo;Tex spawned futures.<br />
-            Then selected the self that survived the collapse.&rdquo;
+            <motion.div
+              className="animate-flicker-slow"
+              style={{
+                animation: 'flicker 2.5s linear infinite',
+              }}
+            >
+              &ldquo;Tex spawned futures.<br />
+              Then selected the self that survived the collapse.&rdquo;
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -23,41 +23,7 @@ export default function IdentityCompressionPanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-400 shadow-[0_0_100px_rgba(180,100,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
     >
-      {/* 🌌 Permanent Visual Field */}
-      <div className="absolute w-[360px] h-[360px] rounded-full bg-purple-400/10 blur-3xl z-0" />
-
-      {/* 🌀 Animated Collapsing Identity Core */}
-      <motion.div
-        className="absolute w-[280px] h-[280px] rounded-full border border-purple-300/30 z-0"
-        animate={{
-          scale: [1.3, 1.1, 1.2],
-          opacity: [0.1, 0.25, 0.15],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-
-      {/* 🌪️ Compression Spiral (Pulse-Down) */}
-      {stage >= 2 && (
-        <motion.div
-          className="absolute w-[220px] h-[220px] rounded-full border-[2px] border-purple-300 blur-sm z-0"
-          initial={{ rotate: 0, scale: 1 }}
-          animate={{
-            rotate: 720,
-            scale: [1, 0.85, 0.65],
-            opacity: [0.4, 0.1, 0],
-          }}
-          transition={{
-            duration: 3,
-            ease: 'easeOut',
-          }}
-        />
-      )}
-
-      {/* 🔼 Function Stack — ABOVE visual */}
+      {/* 🔼 Top Text */}
       <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
@@ -96,14 +62,54 @@ export default function IdentityCompressionPanel() {
         </AnimatePresence>
       </div>
 
-      {/* 🔽 Final Statement — BELOW visual */}
+      {/* 🧠 Visual Core */}
+      <div className="relative w-[360px] h-[360px] z-0 pointer-events-none">
+        {/* 🔆 Always-Visible Compression Core */}
+        <div className="absolute inset-[70px] rounded-full border-[2px] border-purple-300 shadow-[0_0_80px_rgba(180,100,255,0.3)] bg-purple-300/5" />
+
+        {/* 🌌 Background Aura */}
+        <div className="absolute inset-0 rounded-full bg-purple-400/10 blur-3xl" />
+
+        {/* 🌀 Collapsing Ring Animation */}
+        <motion.div
+          className="absolute inset-[30px] rounded-full border border-purple-400/30"
+          animate={{
+            scale: [1.3, 1, 1.2],
+            opacity: [0.15, 0.35, 0.15],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        {/* 🌪️ Spiral Compression */}
+        {stage >= 2 && (
+          <motion.div
+            className="absolute inset-[60px] rounded-full border-[2px] border-purple-300 blur-sm"
+            initial={{ rotate: 0, scale: 1 }}
+            animate={{
+              rotate: 720,
+              scale: [1, 0.8, 0.6],
+              opacity: [0.4, 0.1, 0],
+            }}
+            transition={{
+              duration: 3,
+              ease: 'easeOut',
+            }}
+          />
+        )}
+      </div>
+
+      {/* 🔽 Bottom Quote */}
       {stage >= 4 && (
         <motion.div
           key="complete"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="z-10 text-white/40 italic text-[1.4rem] pt-6 text-center pointer-events-none"
+          className="z-10 text-white/40 italic text-[1.4rem] pt-4 text-center pointer-events-none"
         >
           Compression complete.
         </motion.div>

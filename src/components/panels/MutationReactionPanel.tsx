@@ -56,10 +56,13 @@ export default function ReflexStormPanel() {
 
       {/* 🌌 Visual Core */}
       <div className="relative w-[360px] h-[360px] z-0 pointer-events-none">
-        {/* Constant Background Aura */}
+        {/* Constant Aura (Always Visible) */}
         <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-3xl" />
 
-        {/* Wireframe Pulse */}
+        {/* ⚡ ALWAYS ON: Static Pulse Ring */}
+        <div className="absolute inset-[60px] rounded-full border-[3px] border-cyan-400/15 shadow-[0_0_50px_rgba(0,255,255,0.1)]" />
+
+        {/* 🧬 Wireframe Pulse */}
         <motion.div
           className="absolute inset-[40px] rounded-full border border-cyan-400/20"
           animate={{
@@ -73,7 +76,7 @@ export default function ReflexStormPanel() {
           }}
         />
 
-        {/* Shock Pulse */}
+        {/* ⚡ Shock Pulse */}
         {stage >= 1 && stage < 5 && (
           <motion.div
             className="absolute inset-[60px] rounded-full border-[3px] border-cyan-300"
@@ -94,7 +97,7 @@ export default function ReflexStormPanel() {
           />
         )}
 
-        {/* Shock Ripple */}
+        {/* 💥 Shock Ripple */}
         {stage >= 3 && (
           <motion.div
             className="absolute inset-0 rounded-full border-4 border-white/10 blur-[1px]"
@@ -104,7 +107,7 @@ export default function ReflexStormPanel() {
           />
         )}
 
-        {/* Heartbeat Flicker */}
+        {/* 🫀 Heartbeat Flicker */}
         {heartbeat && (
           <motion.div
             className="absolute inset-0 bg-cyan-300/5"

@@ -1,59 +1,91 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function MutationReactionPanel() {
-  const [showRewrite, setShowRewrite] = useState(false);
+export default function ReflexRewritePanel() {
+  const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowRewrite(true);
-    }, 600);
-    return () => clearTimeout(timer);
+    const timer = setTimeout(() => setStage(1), 1000);   // Show original
+    const timer2 = setTimeout(() => setStage(2), 2600);  // Mutation arrow
+    const timer3 = setTimeout(() => setStage(3), 3900);  // Rewritten line + 🧠
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, []);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      className="relative w-full h-full bg-black text-white font-mono px-6 py-6 rounded-panel border-2 border-white/10 shadow-panel flex items-center justify-center"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: 'easeOut' }}
+      className="relative w-full h-full px-6 py-6 rounded-panel bg-black text-white font-mono text-[1.25rem] border-2 border-white/10 shadow-panel flex flex-col items-center justify-center space-y-4"
     >
-      <motion.div
-        initial={{ boxShadow: '0 0 0px rgba(255, 0, 0, 0.2)' }}
-        animate={{
-          boxShadow: [
-            '0 0 0px rgba(255, 0, 0, 0.2)',
-            '0 0 12px rgba(255, 0, 0, 0.5)',
-            '0 0 0px rgba(255, 0, 0, 0.2)',
-          ],
-        }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="w-full max-w-3xl px-6 py-10 border border-red-500 rounded-xl text-white text-center bg-black"
-      >
-        {showRewrite && (
+      <AnimatePresence mode="wait">
+        {stage === 1 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="space-y-4 text-[1.25rem]"
+            key="original"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-green-400"
           >
-            <div className="text-white/70">register(&quot;lifepulse&quot;, handler)</div>
-            <div className="text-violetMeta font-bold">
-              → register(&quot;lifepulse&quot;, rewritten_reflex_v2)
-            </div>
-            <div className="text-white text-xl pt-4">🧠 Tex rewrote his own reflex file.</div>
+            register("lifepulse", handler)
           </motion.div>
         )}
-      </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0.4, scale: 1.1 }}
-        animate={{ opacity: [0.4, 0.1, 0.4], scale: [1.1, 1.05, 1.1] }}
-        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-        className="absolute top-0 left-0 w-full h-full bg-violetMeta/5 blur-xl z-0"
-      />
+        {stage === 2 && (
+          <motion.div
+            key="arrow"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-white text-xl"
+          >
+            →
+          </motion.div>
+        )}
+
+        {stage === 3 && (
+          <>
+            <motion.div
+              key="mutated"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7 }}
+              className="text-purple-400"
+            >
+              register("lifepulse", <span className="text-pink-400">rewritten_reflex_v2</span>)
+            </motion.div>
+
+            <motion.div
+              key="brain"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 180, damping: 12, delay: 0.4 }}
+              className="text-white/60 text-2xl mt-2"
+            >
+              🧠 <span className="text-white/70">Tex rewrote his own reflex file.</span>
+            </motion.div>
+
+            <motion.div
+              key="quote"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.4, delay: 0.8 }}
+              className="text-white/50 text-center max-w-[500px] leading-relaxed mt-4"
+            >
+              “He didn’t learn.<br />
+              He mutated his own decision architecture.”
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

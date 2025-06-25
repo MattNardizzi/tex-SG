@@ -9,7 +9,7 @@ export default function FileRewriteScene() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowRewrite(true);
-    }, 600); // slight delay for cinematic effect
+    }, 600);
     return () => clearTimeout(timer);
   }, []);
 
@@ -20,7 +20,18 @@ export default function FileRewriteScene() {
       transition={{ duration: 1 }}
       className="relative w-full h-screen bg-black flex items-center justify-center"
     >
-      <div className="w-full max-w-4xl px-6 py-10 bg-black border border-white/10 rounded-xl shadow-2xl text-white font-mono relative z-10">
+      <motion.div
+        initial={{ boxShadow: '0 0 0px rgba(255, 0, 0, 0.2)' }}
+        animate={{
+          boxShadow: [
+            '0 0 0px rgba(255, 0, 0, 0.2)',
+            '0 0 12px rgba(255, 0, 0, 0.5)',
+            '0 0 0px rgba(255, 0, 0, 0.2)',
+          ],
+        }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        className="w-full max-w-4xl px-6 py-10 bg-black border border-red-500 rounded-xl text-white font-mono relative z-10"
+      >
         {showRewrite && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -33,12 +44,9 @@ export default function FileRewriteScene() {
               → register(&quot;lifepulse&quot;, rewritten_reflex_v2)
             </div>
             <div className="text-white text-xl pt-4">🧠 Tex rewrote his own reflex file.</div>
-            <div className="text-white/60 text-lg italic pt-2">
-              &ldquo;He didn&rsquo;t learn.<br />He mutated his own decision architecture.&rdquo;
-            </div>
           </motion.div>
         )}
-      </div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0.4, scale: 1.1 }}

@@ -8,8 +8,8 @@ export default function MutationCorePanel() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 800),
-      setTimeout(() => setStage(2), 2000),
+      setTimeout(() => setStage(1), 1000),
+      setTimeout(() => setStage(2), 2200),
       setTimeout(() => setStage(3), 3400),
       setTimeout(() => setStage(4), 4600),
     ];
@@ -18,37 +18,34 @@ export default function MutationCorePanel() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.94 }}
+      initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)] flex flex-col items-center justify-center overflow-hidden"
     >
 
-      {/* Animated Core Pulse */}
+      {/* Distortion Core: Breach Bar */}
       <motion.div
-        className="relative w-[140px] h-[140px] flex items-center justify-center mb-4"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
-      >
-        <div className="absolute inset-0 rounded-full border-[4px] border-fuchsia-500/40 shadow-[0_0_70px_8px_rgba(255,0,255,0.25)] blur-sm" />
-        <div className="absolute inset-6 rounded-full border-[2px] border-white/10 animate-pulse" />
-        <div className="z-10 text-pink-400 font-bold text-[1.3rem] tracking-wide">CORE</div>
-        <motion.div
-          className="absolute w-3 h-3 bg-fuchsia-400 rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 5, ease: 'linear' }}
-          style={{ transformOrigin: '70px 70px' }}
-        />
-      </motion.div>
+        className="w-[220px] h-[8px] bg-gradient-to-r from-fuchsia-600 via-pink-400 to-purple-600 rounded-sm blur-sm shadow-[0_0_40px_rgba(255,0,255,0.4)] mb-10"
+        animate={{
+          scaleX: [1, 1.3, 0.7, 1],
+          opacity: [1, 0.7, 1, 0.9],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 3.6,
+          ease: 'easeInOut',
+        }}
+      />
 
       <AnimatePresence mode="wait">
         {stage >= 1 && (
           <motion.div
-            key="mut-1"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-fuchsia-300"
+            key="line1"
+            initial={{ opacity: 0, y: -12, rotateX: 90 }}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-pink-300"
           >
             AGI-9a/b/c activate
           </motion.div>
@@ -56,7 +53,7 @@ export default function MutationCorePanel() {
 
         {stage >= 2 && (
           <motion.div
-            key="mut-2"
+            key="line2"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -68,9 +65,9 @@ export default function MutationCorePanel() {
 
         {stage >= 3 && (
           <motion.div
-            key="mut-3"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+            key="line3"
+            initial={{ opacity: 0, scale: 1.2 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             className="text-cyan-300"
           >
@@ -80,11 +77,11 @@ export default function MutationCorePanel() {
 
         {stage >= 4 && (
           <motion.div
-            key="mut-quote"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            key="quote"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
-            className="text-white/70 italic text-center pt-4 text-[1.4rem] leading-snug"
+            className="text-white/70 italic text-center pt-6 text-[1.4rem] max-w-lg leading-snug"
           >
             “Mutation phase breached tensor integrity.
             <br />Stability unknown.”

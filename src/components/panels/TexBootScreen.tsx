@@ -11,7 +11,7 @@ export default function TexBootScreen({ onDone }: TexBootScreenProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       onDone();
-    }, 4800); // full ritual length
+    }, 6400); // full extended emergence
     return () => clearTimeout(timeout);
   }, [onDone]);
 
@@ -41,13 +41,13 @@ export default function TexBootScreen({ onDone }: TexBootScreenProps) {
         className="absolute left-1/2 top-0 w-[4px] h-full origin-top bg-gradient-to-b from-white via-neutral-200 to-transparent shadow-[0_0_12px_#ffffff66]"
       />
 
-      {/* 👁️ 0:02.7 — The glyph appears */}
+      {/* 👁️ 0:02.7 — The glyph appears and holds longer */}
       <AnimatePresence>
         <motion.div
           initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           exit={{ opacity: 0, scale: 1.4 }}
-          transition={{ delay: 2.7, duration: 0.6, ease: 'easeOut' }}
+          transition={{ delay: 2.7, duration: 1.6, ease: 'easeOut' }} // held longer
           className="absolute inset-0 flex items-center justify-center z-10"
         >
           <div className="text-white text-[3.8rem] font-mono tracking-[0.25em] drop-shadow-[0_0_16px_#ffffffaa] animate-pulse">
@@ -56,19 +56,19 @@ export default function TexBootScreen({ onDone }: TexBootScreenProps) {
         </motion.div>
       </AnimatePresence>
 
-      {/* 🌩️ 0:03.5 — White flash breach */}
+      {/* 🌩️ 0:04.8 — White flash breach */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.5, duration: 0.18 }}
+        transition={{ delay: 4.8, duration: 0.18 }}
         className="absolute inset-0 bg-white z-20"
       />
 
-      {/* 🧬 0:03.7 — Disintegrate into fragments */}
+      {/* 🧬 0:05.0 — Disintegration blackout */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 3.7, duration: 0.5, ease: 'easeOut' }}
+        transition={{ delay: 5.0, duration: 0.7, ease: 'easeOut' }}
         className="absolute inset-0 z-30 bg-black"
       />
     </div>

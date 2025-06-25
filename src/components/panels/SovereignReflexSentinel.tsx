@@ -18,7 +18,7 @@ export default function WorldSimulationPanel() {
         setTimeout(() => setStage(4), 5600),
       ];
       return () => timers.forEach(clearTimeout);
-    }, 16600); // ⏱️ Final delay tuned to 16.6s
+    }, 14600); // ⏱️ New delay = 14.6s
 
     return () => clearTimeout(showTimer);
   }, []);

@@ -62,7 +62,7 @@ const config: Config = {
       },
       animation: {
         fadeIn: "fadeInOut 3s ease-in-out",
-        'spin-slow': "spin 24s linear infinite",
+        'spin-slow': "spin 18s linear infinite",
         'pulse-fade': "pulseFade 5s ease-in-out infinite",
         'ripple-ping': "ripplePing 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },

@@ -54,14 +54,14 @@ export default function FinancialReflexPanel() {
           Financial Reflex Cortex
         </div>
 
-        <div className="space-y-6 text-[1.35rem] text-white/90 w-full">
-          <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-5 bg-white/5 text-sovereignCyan text-[1.3rem]">
+        <div className="space-y-6 text-[1.45rem] text-white/90 w-full">
+          <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-5 bg-white/5 text-sovereignCyan text-[1.4rem]">
             <span>Reflex Strategy</span>
             <span>{strategy || 'Dormant'}</span>
           </div>
 
           {(roi.tex !== 0 || roi.human !== 0) && (
-            <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-5 bg-white/5 text-[1.25rem]">
+            <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-5 bg-white/5 text-[1.35rem]">
               <span className="text-sovereignCyan">Tex ROI</span>
               <span className="text-green-400">+{roi.tex}%</span>
               <span className="text-white/30">|</span>
@@ -74,7 +74,7 @@ export default function FinancialReflexPanel() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-sm text-white/70 text-center pt-3"
+              className="text-base text-white/70 text-center pt-3"
             >
               {triggerLine}
             </motion.div>

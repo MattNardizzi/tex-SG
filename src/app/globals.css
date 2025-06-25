@@ -104,6 +104,32 @@ html, body {
 .animate-glitch {
   animation: glitch 2s infinite;
 }
+/* ⚛️ Quantum Pulse Glitch */
+@keyframes pulse-glitch {
+  0% {
+    text-shadow: 0 0 0px rgba(0,255,255,0.3);
+    transform: translateX(0);
+  }
+  25% {
+    text-shadow: 0 0 4px rgba(0,255,255,0.5);
+    transform: translateX(-0.4px);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(0,255,255,0.8);
+    transform: translateX(0.4px);
+  }
+  75% {
+    text-shadow: 0 0 6px rgba(255,255,255,0.5);
+    transform: translateX(-0.2px);
+  }
+  100% {
+    text-shadow: 0 0 0px rgba(0,255,255,0.3);
+    transform: translateX(0);
+  }
+}
+.animate-pulse-glitch {
+  animation: pulse-glitch 2.5s ease-in-out infinite alternate;
+}
 
 /* 🌫️ Fade-In */
 @keyframes fade-in {

@@ -66,8 +66,8 @@ export default function ReflexCognitionPanel() {
           Reflex Cognition Core
         </div>
 
-        <div className="space-y-6 text-[1.1rem] text-white/80 w-full">
-          <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-4 bg-white/5 text-sovereignCyan">
+        <div className="space-y-6 text-[1.25rem] text-white/90 w-full">
+          <div className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-5 bg-white/5 text-sovereignCyan text-[1.25rem]">
             <span>Active Reflex</span>
             <span>lifepulse()</span>
           </div>
@@ -76,7 +76,7 @@ export default function ReflexCognitionPanel() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-4 bg-white/5 text-violetMeta"
+              className="flex justify-between w-full border border-white/10 rounded-xl px-6 py-5 bg-white/5 text-violetMeta text-[1.25rem]"
             >
               <span>Trigger</span>
               <span>{trigger}</span>
@@ -84,16 +84,16 @@ export default function ReflexCognitionPanel() {
           )}
 
           {(contradiction > 0 || entropy > 0) && (
-            <div className="flex flex-col w-full space-y-4">
-              <div className="flex justify-between px-6 py-4 border border-white/10 rounded-xl bg-white/5 text-contradictionRed/90">
+            <div className="flex flex-col w-full space-y-4 text-[1.25rem]">
+              <div className="flex justify-between px-6 py-5 border border-white/10 rounded-xl bg-white/5 text-contradictionRed/90">
                 <span>Contradiction</span>
                 <span>{contradiction.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between px-6 py-4 border border-white/10 rounded-xl bg-white/5 text-entropyBlue">
+              <div className="flex justify-between px-6 py-5 border border-white/10 rounded-xl bg-white/5 text-entropyBlue">
                 <span>Entropy</span>
                 <span>{entropy.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between px-6 py-4 border border-white/10 rounded-xl bg-white/5 text-reflexGold">
+              <div className="flex justify-between px-6 py-5 border border-white/10 rounded-xl bg-white/5 text-reflexGold">
                 <span>Urgency</span>
                 <span>{urgency.toFixed(2)}</span>
               </div>

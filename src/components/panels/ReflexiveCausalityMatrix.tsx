@@ -87,7 +87,7 @@ export default function FinancialTimewarpPanel() {
             </div>
             <div className="flex items-center gap-2 pt-1">
               Override:{' '}
-              <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-3 py-[2px] rounded-md text-[0.95rem] font-semibold shadow-sm">
+              <span className="bg-rose-500/20 border border-rose-300/50 text-rose-300 px-3 py-[2px] rounded-md text-[1.2rem] font-semibold shadow-sm">
                 ❌ BLOCKED
               </span>
             </div>

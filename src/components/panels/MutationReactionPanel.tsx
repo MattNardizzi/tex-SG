@@ -11,36 +11,37 @@ export default function ReflexStormPanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-8"
     >
-      {/* 💡 Top Readout */}
-      <div className="flex flex-col items-center text-center">
-        <div className="text-cyan-300 tracking-tight">mutation_reflex()</div>
-        <div className="text-white font-bold mt-2">→ Reflex Layer 9 Engaged</div>
+      {/* Text Block */}
+      <div className="text-center space-y-1 z-10">
+        <div className="text-cyan-300">mutation_reflex()</div>
+        <div className="text-white font-bold">→ Reflex Layer 9 Engaged</div>
       </div>
 
-      {/* 🌌 Glowing Core */}
-      <div className="relative w-[280px] h-[280px] pointer-events-none">
-        {/* Aura Glow */}
-        <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-3xl" />
-        {/* Constant Pulse */}
+      {/* Core Visual */}
+      <div className="relative w-[260px] h-[260px]">
         <motion.div
-          className="absolute inset-[50px] rounded-full border-2 border-cyan-400/40"
-          animate={{ scale: [1, 1.12, 1], opacity: [0.2, 0.6, 0.2] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-0 rounded-full bg-cyan-500/10 blur-2xl"
+          animate={{ opacity: [0.1, 0.3, 0.1] }}
+          transition={{ duration: 3, repeat: Infinity }}
         />
-        {/* Spinning Core */}
         <motion.div
-          className="absolute inset-[85px] rounded-full border border-cyan-300/30"
+          className="absolute inset-[40px] rounded-full border-2 border-cyan-300/60"
+          animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute inset-[85px] rounded-full border border-cyan-300/40"
           animate={{ rotate: 360 }}
-          transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
         />
       </div>
 
-      {/* 💓 Bottom Metrics */}
-      <div className="flex flex-col items-center text-center space-y-2">
-        <div className="text-white/50 italic text-[1.4rem]">
-          Heartbeat: <span className="text-cyan-300 font-bold not-italic">180 bpm</span>
+      {/* Readout */}
+      <div className="text-center z-10 space-y-1 text-[1.4rem]">
+        <div className="text-white/60 italic">
+          Heartbeat: <span className="text-cyan-300 not-italic font-bold">180 bpm</span>
         </div>
-        <div className="text-white/30 italic text-[1.2rem]">— Silence —</div>
+        <div className="text-white/30 italic">— Silence —</div>
       </div>
     </motion.div>
   );

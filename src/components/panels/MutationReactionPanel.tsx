@@ -24,7 +24,7 @@ export default function ReflexStormPanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
     >
-      {/* 🔹 Top Logs */}
+      {/* 🧠 Top Logs */}
       <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
@@ -52,39 +52,37 @@ export default function ReflexStormPanel() {
         </AnimatePresence>
       </div>
 
-      {/* ⚡ Electric Grid Core */}
-      <div className="relative w-[320px] h-[240px] grid grid-cols-6 grid-rows-4 gap-[3px] z-0 pointer-events-none">
-        {Array.from({ length: 24 }).map((_, i) => (
+      {/* ⚡ New Lightning Cascade Core */}
+      <div className="relative w-[320px] h-[260px] z-0 pointer-events-none overflow-hidden">
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="bg-cyan-300/10 rounded-sm"
+            className="absolute w-[4px] h-[48px] bg-cyan-300/20 rounded-sm rotate-[35deg]"
+            style={{
+              left: `${(i % 5) * 60}px`,
+              top: `${Math.floor(i / 5) * 65}px`,
+            }}
             animate={{
-              opacity: stage >= 1 ? [0.1, 0.3, 0.1] : 0.1,
-              scale: stage === 3 && i % 4 === 0 ? [1, 1.2, 1] : 1,
-              backgroundColor:
-                stage === 4 && i % 5 === 0
-                  ? ['#22d3ee', '#0ff', '#22d3ee']
-                  : undefined,
+              opacity: stage >= 1 ? [0.08, 0.25, 0.08] : 0.05,
+              scaleY: stage >= 3 && i % 2 === 0 ? [1, 1.3, 1] : 1,
             }}
             transition={{
-              duration: 1.8,
+              duration: 2 + (i % 3) * 0.3,
               repeat: Infinity,
               ease: 'easeInOut',
-              delay: i * 0.025,
+              delay: i * 0.04,
             }}
           />
         ))}
 
-        {/* ⚡ Pulse Burst */}
-        {stage >= 3 && (
+        {/* 🌩️ Pulse Burst */}
+        {stage >= 4 && (
           <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-cyan-400 text-[3.5rem] font-bold opacity-80"
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1.6, opacity: 0 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-          >
-            ⚡
-          </motion.div>
+            className="absolute inset-0 bg-cyan-300/10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.2, 0] }}
+            transition={{ duration: 1.4, ease: 'easeOut' }}
+          />
         )}
       </div>
 

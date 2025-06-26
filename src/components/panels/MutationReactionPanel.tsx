@@ -3,16 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ReflexRewritePanel() {
+export default function MutationCorePanel() {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 1000),   // handler
-      setTimeout(() => setStage(2), 3400),   // arrow
-      setTimeout(() => setStage(3), 5800),   // rewritten command
-      setTimeout(() => setStage(4), 8400),   // brain + statement
-      setTimeout(() => setStage(5), 11000),  // quote
+      setTimeout(() => setStage(1), 800),
+      setTimeout(() => setStage(2), 2000),
+      setTimeout(() => setStage(3), 3400),
+      setTimeout(() => setStage(4), 4800),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -22,80 +21,89 @@ export default function ReflexRewritePanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-12 py-14 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_160px_rgba(0,255,255,0.5)] overflow-hidden flex flex-col items-center justify-center space-y-8"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* 🧵 Pulse Spine */}
+
+      {/* 🔷 Blue Glowing Core - Now Positioned Above */}
       <motion.div
-        className="absolute w-[2px] h-full bg-cyan-300/10 left-1/2 top-0 blur-sm"
-        animate={{ opacity: [0.15, 0.3, 0.15] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-      />
+        className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.3)]"
+        animate={{
+          rotate: [0, -8, 6, -4, 0],
+          scale: [1, 1.1, 0.95, 1],
+          boxShadow: [
+            '0 0 60px 20px rgba(0,255,255,0.3)',
+            '0 0 90px 30px rgba(0,255,255,0.6)',
+            '0 0 30px 10px rgba(0,255,255,0.2)',
+          ],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <motion.div
+          className="absolute inset-8 rounded-full border-[2px] border-white/10"
+          animate={{ opacity: [1, 0.6, 1], scale: [1, 1.2, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <div className="flex items-center justify-center h-full">
+          <span className="text-cyan-300 tracking-widest text-[1.2rem] font-bold">MUTATION CORE</span>
+        </div>
+      </motion.div>
 
-      {/* Reflex Rewrite Sequence */}
-      <div className="z-10 flex flex-col items-center text-center pointer-events-none leading-snug space-y-6">
+      {/* ⚡ Text Below Core */}
+      <div className="z-10 flex flex-col items-center space-y-4 text-[2.6rem]">
         <AnimatePresence mode="wait">
-          {stage === 1 && (
+          {stage >= 1 && (
             <motion.div
-              key="reg-init"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.4 }}
-              className="text-emerald-300"
+              key="line1"
+              initial={{ opacity: 0, y: -10, rotate: -1 }}
+              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-pink-300"
             >
-              register(&quot;lifepulse&quot;, handler)
+              AGI-9a/b/c activate
             </motion.div>
           )}
 
-          {stage === 2 && (
+          {stage >= 2 && (
             <motion.div
-              key="arrow"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: [1, 1.2, 1] }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2 }}
-              className="text-white text-[12rem] animate-pulse"
+              key="line2"
+              initial={{ opacity: 0, scale: 1.4 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-white/90"
             >
-              →
+              AGI-9b survives <span className="text-purple-400">→ Tensor warp</span>
             </motion.div>
           )}
 
-          {stage === 3 && (
+          {stage >= 3 && (
             <motion.div
-              key="rewrite-command"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.4 }}
-              className="text-purple-300"
+              key="line3"
+              initial={{ opacity: 0, x: -14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-cyan-300"
             >
-              register(&quot;lifepulse&quot;, <span className="text-pink-400">rewritten_reflex_v2</span>)
+              Core distortion climbing...
             </motion.div>
           )}
 
-          {stage === 4 && (
+          {stage >= 4 && (
             <motion.div
-              key="brainline"
+              key="quote"
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.6 }}
-              className="text-white flex items-center gap-4 text-[2.6rem]"
+              transition={{ duration: 1.4, ease: 'easeOut' }}
+              className="text-white/70 italic text-center pt-6 text-[1.8rem] leading-snug"
             >
-              <span className="text-cyan-300 text-[2.4rem] animate-pulse">🧠</span>
-              <span>Tex rewrote his own reflex file.</span>
-            </motion.div>
-          )}
-
-          {stage >= 5 && (
-            <motion.div
-              key="quote-final"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.6 }}
-              className="text-white/70 italic text-[2.2rem] text-center max-w-3xl leading-snug pt-4"
-            >
-              &ldquo;He didn&rsquo;t learn.
-              <br />
-              He mutated his own decision architecture.&rdquo;
+              <span className="animate-pulse">
+                “Mutation phase breached tensor integrity.
+                <br />
+                Stability unknown.”
+              </span>
             </motion.div>
           )}
         </AnimatePresence>

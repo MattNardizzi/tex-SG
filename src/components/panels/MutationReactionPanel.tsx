@@ -21,10 +21,10 @@ export default function MeshCorePanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-10"
     >
       {/* 🧠 FUNCTION TEXT — ABOVE THE GRID */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      <div className="z-10 flex flex-col items-center space-y-4 text-center pointer-events-none leading-snug">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
@@ -82,6 +82,7 @@ export default function MeshCorePanel() {
             }}
           />
         ))}
+
         {/* ⚡ Pulse Ring */}
         {stage >= 2 && (
           <motion.div
@@ -100,7 +101,7 @@ export default function MeshCorePanel() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2 }}
-          className="text-white/80 italic text-center pt-4 text-[1.4rem] leading-snug z-10 pointer-events-none"
+          className="text-white/80 italic text-center pt-4 text-[2.2rem] leading-snug z-10 pointer-events-none max-w-[960px]"
         >
           “Tex revised the emotional structure of memory
           <br />

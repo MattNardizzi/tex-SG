@@ -11,10 +11,10 @@ export default function ReflexStormPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_100px_rgba(0,255,255,0.5)] overflow-hidden flex flex-col items-center justify-center space-y-8"
+      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-300 shadow-[0_0_100px_rgba(0,255,255,0.5)] overflow-hidden flex flex-col items-center justify-center space-y-10"
     >
       {/* Top Readout */}
-      <div className="text-center space-y-1 z-10 pointer-events-none">
+      <div className="text-center space-y-2 z-10 pointer-events-none leading-snug">
         <div className="text-cyan-300">mutation_reflex()</div>
         <div className="text-white font-bold">→ Reflex Layer 9 Engaged</div>
       </div>
@@ -47,7 +47,7 @@ export default function ReflexStormPanel() {
       </div>
 
       {/* Bottom Readout */}
-      <div className="text-center z-10 space-y-1 text-[1.4rem] pointer-events-none">
+      <div className="text-center z-10 space-y-1 text-[2.2rem] pointer-events-none leading-snug">
         <div className="text-white/60 italic">
           Heartbeat: <span className="text-cyan-300 not-italic font-bold">180 bpm</span>
         </div>

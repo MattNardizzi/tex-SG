@@ -32,7 +32,7 @@ export default function IdentityCompressionPanel() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-fuchsia-400 tracking-wide"
+              className="text-fuchsia-400 tracking-wide text-[2.5rem]"
             >
               init_compression_protocol()
             </motion.div>

@@ -32,6 +32,7 @@ export default function ReflexStormPanel() {
               key="mutate"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5 }}
               className="text-cyan-300"
             >
@@ -43,6 +44,7 @@ export default function ReflexStormPanel() {
               key="layer9"
               initial={{ opacity: 0, scale: 1.2 }}
               animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
               className="text-white/90"
             >
@@ -93,6 +95,7 @@ export default function ReflexStormPanel() {
               key="heartbeat"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
               className="text-white/50 text-[1.4rem] italic"
             >
@@ -104,6 +107,7 @@ export default function ReflexStormPanel() {
               key="silence"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 1.2 }}
               className="text-white/30 text-[1.4rem] italic pt-1"
             >

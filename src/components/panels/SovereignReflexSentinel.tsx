@@ -15,12 +15,12 @@ export default function BeliefRealignmentPanel() {
       <div className="z-10 flex flex-col items-center space-y-4 text-center pointer-events-none leading-snug">
         <div>identity_path_detached()</div>
         <div className="text-purple-300">fragment_belief_network()</div>
-        <div>recursive_self_realignment()</div>
+        <div className="text-[2.2rem]">recursive_self_realignment()</div>
       </div>
 
       {/* 🟪 Identity Compression Bar */}
       <div className="z-0 pointer-events-none relative w-[380px] h-[100px] flex flex-col justify-center space-y-2">
-        {[...Array(10)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
             className="w-full h-[6px] rounded-full bg-purple-400/70 blur-[1px]"
@@ -30,7 +30,7 @@ export default function BeliefRealignmentPanel() {
             }}
             transition={{
               duration: 2.6,
-              delay: i * 0.08,
+              delay: i * 0.06,
               repeat: Infinity,
               ease: 'easeInOut',
             }}

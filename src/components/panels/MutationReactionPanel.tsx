@@ -8,11 +8,11 @@ export default function ReflexRewritePanel() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 800),
-      setTimeout(() => setStage(2), 2800),
-      setTimeout(() => setStage(3), 5200),
-      setTimeout(() => setStage(4), 7400),
-      setTimeout(() => setStage(5), 9600),
+      setTimeout(() => setStage(1), 1000),   // handler appears
+      setTimeout(() => setStage(2), 3000),   // arrow
+      setTimeout(() => setStage(3), 5200),   // rewritten command
+      setTimeout(() => setStage(4), 7400),   // brain + statement
+      setTimeout(() => setStage(5), 9800),   // quote
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -31,6 +31,7 @@ export default function ReflexRewritePanel() {
         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       />
 
+      {/* Reflex Rewrite Sequence */}
       <div className="z-10 flex flex-col items-center text-center pointer-events-none leading-snug space-y-6">
         <AnimatePresence mode="wait">
           {stage === 1 && (
@@ -50,10 +51,10 @@ export default function ReflexRewritePanel() {
             <motion.div
               key="arrow"
               initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: [1, 1.15, 1] }}
+              animate={{ opacity: 1, scale: [1, 1.2, 1] }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
-              className="text-white text-[10rem] animate-pulse"
+              className="text-white text-[12rem] animate-pulse"
             >
               →
             </motion.div>

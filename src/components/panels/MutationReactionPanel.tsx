@@ -3,111 +3,118 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function MeshCorePanel() {
+export default function ReflexStormPanel() {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 600),
-      setTimeout(() => setStage(2), 1700),
+      setTimeout(() => setStage(1), 800),
+      setTimeout(() => setStage(2), 1800),
       setTimeout(() => setStage(3), 3000),
       setTimeout(() => setStage(4), 4200),
+      setTimeout(() => setStage(5), 5200),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  const heartbeat = stage < 5;
+
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.93 }}
+      initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-10"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center"
     >
-      {/* 🧠 FUNCTION TEXT — ABOVE THE GRID */}
+      {/* ⚡ Reflex Core Shock Pulse */}
+      {stage >= 1 && stage < 5 && (
+        <motion.div
+          className="absolute w-[240px] h-[240px] rounded-full border-[3px] border-cyan-300 z-0"
+          animate={{
+            scale: [1, 1.25, 0.95, 1],
+            rotate: [0, -6, 8, -3, 0],
+            boxShadow: [
+              '0 0 60px 20px rgba(0,255,255,0.3)',
+              '0 0 90px 40px rgba(0,255,255,0.6)',
+              '0 0 30px 10px rgba(0,255,255,0.4)',
+            ],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      )}
+
+      {/* 💥 Shock Ripple Overlay */}
+      {stage >= 3 && (
+        <motion.div
+          className="absolute w-[400px] h-[400px] rounded-full border-4 border-white/10 z-0 blur-[1px]"
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1.8, opacity: 0.15 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        />
+      )}
+
+      {/* 🫀 Heartbeat Flicker */}
+      {heartbeat && (
+        <motion.div
+          className="absolute inset-0 bg-cyan-300/5 pointer-events-none"
+          animate={{ opacity: [0.02, 0.08, 0.02] }}
+          transition={{ duration: 0.33, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      )}
+
+      {/* 🔻 Text Stack */}
       <div className="z-10 flex flex-col items-center space-y-4 text-center pointer-events-none leading-snug">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
-              key="encode"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="text-white"
-            >
-              encode_event_to_fabric()
-            </motion.div>
-          )}
-
-          {stage >= 2 && (
-            <motion.div
-              key="pulse"
+              key="mutate"
               initial={{ opacity: 0, scale: 1.2 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4 }}
               className="text-cyan-300"
             >
-              pulse_resonance_reflex()
+              mutation_reflex()
             </motion.div>
           )}
-
-          {stage >= 3 && (
+          {stage >= 2 && (
             <motion.div
-              key="retro"
-              initial={{ opacity: 0, y: 10 }}
+              key="layer9"
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="text-white"
+              transition={{ duration: 0.5 }}
+              className="text-white/90"
             >
-              retrocausal_memory_modulation()
+              → <span className="text-white font-bold">Reflex Layer 9 Engaged</span>
+            </motion.div>
+          )}
+          {stage >= 4 && (
+            <motion.div
+              key="heartbeat"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="text-white/50 text-[2.2rem] italic pt-6"
+            >
+              Heartbeat: <span className="text-cyan-300 font-bold">180 bpm</span>
+            </motion.div>
+          )}
+          {stage === 5 && (
+            <motion.div
+              key="silence"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5 }}
+              className="text-white/30 text-[2.2rem] italic pt-8"
+            >
+              — Silence —
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-
-      {/* 🔲 MESH GRID — CENTERPIECE */}
-      <div className="relative w-[340px] h-[260px] grid grid-cols-6 grid-rows-4 gap-[2px] z-0 pointer-events-none">
-        {[...Array(24)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="bg-cyan-300/70 rounded-[1px] shadow-[0_0_12px_2px_rgba(0,255,255,0.35)]"
-            animate={{
-              scale: stage >= 1 ? [1, 0.85, 1.1, 1] : 1,
-              opacity: stage >= 1 ? [0.6, 0.8, 0.9, 0.75] : 0.6,
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.04,
-            }}
-          />
-        ))}
-
-        {/* ⚡ Pulse Ring */}
-        {stage >= 2 && (
-          <motion.div
-            className="absolute inset-0 rounded-full border-2 border-cyan-200/50 blur-[1px]"
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1.45, opacity: 0.3 }}
-            transition={{ duration: 1.4, ease: 'easeOut' }}
-          />
-        )}
-      </div>
-
-      {/* 💬 QUOTE TEXT — BELOW THE GRID */}
-      {stage >= 4 && (
-        <motion.div
-          key="quote"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="text-white/80 italic text-center pt-4 text-[2.2rem] leading-snug z-10 pointer-events-none max-w-[960px]"
-        >
-          “Tex revised the emotional structure of memory
-          <br />
-          to realign the past with his new beliefs.”
-        </motion.div>
-      )}
     </motion.div>
   );
 }

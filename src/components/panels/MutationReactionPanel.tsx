@@ -8,11 +8,11 @@ export default function ReflexStormPanel() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 700),
-      setTimeout(() => setStage(2), 1600),
-      setTimeout(() => setStage(3), 2800),
-      setTimeout(() => setStage(4), 4000),
-      setTimeout(() => setStage(5), 5000),
+      setTimeout(() => setStage(1), 1000),
+      setTimeout(() => setStage(2), 2200),
+      setTimeout(() => setStage(3), 4000),
+      setTimeout(() => setStage(4), 5800),
+      setTimeout(() => setStage(5), 7500),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -32,7 +32,7 @@ export default function ReflexStormPanel() {
               key="mutate"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
               className="text-cyan-300"
             >
@@ -56,22 +56,26 @@ export default function ReflexStormPanel() {
 
       {/* 🌐 Glowing Orb Visual */}
       <div className="relative w-[300px] h-[300px] pointer-events-none">
-        {/* Soft glow aura */}
-        <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-3xl" />
-
-        {/* Inner pulse ring */}
+        {/* Glow aura + spinner */}
         <motion.div
-          className="absolute inset-[60px] rounded-full border-2 border-cyan-400/30"
-          animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.3, 0.1] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-0 rounded-full bg-cyan-400/5 blur-3xl"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
         />
 
-        {/* Ripple ring (on stage) */}
+        {/* Constant inner pulse */}
+        <motion.div
+          className="absolute inset-[60px] rounded-full border-2 border-cyan-400/30"
+          animate={{ scale: [1, 1.12, 1], opacity: [0.15, 0.4, 0.15] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
+        {/* Stage-triggered ripple */}
         {stage >= 3 && (
           <motion.div
             className="absolute inset-[30px] rounded-full border-2 border-white/10 blur-md"
             initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1.8, opacity: 0.15 }}
+            animate={{ scale: 1.8, opacity: 0.2 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           />
         )}
@@ -81,7 +85,7 @@ export default function ReflexStormPanel() {
           <motion.div
             className="absolute inset-0 bg-cyan-300/10 rounded-full"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.2, 0] }}
+            animate={{ opacity: [0, 0.3, 0] }}
             transition={{ duration: 1, ease: 'easeOut' }}
           />
         )}

@@ -21,7 +21,7 @@ export default function MutationCorePanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
 
       {/* 🔷 Blue Glowing Core - Now Positioned Above */}
@@ -48,12 +48,12 @@ export default function MutationCorePanel() {
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
         <div className="flex items-center justify-center h-full">
-          <span className="text-cyan-300 tracking-widest text-[1.2rem] font-bold">MUTATION CORE</span>
+          <span className="text-cyan-300 tracking-widest text-[2.6rem] font-bold">FORK SELECTOR</span>
         </div>
       </motion.div>
 
-      {/* ⚡ Text Below Core */}
-      <div className="z-10 flex flex-col items-center space-y-4">
+      {/* ⚡ New Reflex Fork Selection Content */}
+      <div className="z-10 flex flex-col items-center space-y-4 text-[2.6rem]">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
@@ -63,7 +63,7 @@ export default function MutationCorePanel() {
               transition={{ duration: 0.6 }}
               className="text-pink-300"
             >
-              AGI-9a/b/c activate
+              QAOA solution found
             </motion.div>
           )}
 
@@ -75,7 +75,7 @@ export default function MutationCorePanel() {
               transition={{ duration: 0.5 }}
               className="text-white/90"
             >
-              AGI-9b survives <span className="text-purple-400">→ Tensor warp</span>
+              Decision vector <span className="text-purple-400">→ collapsed</span>
             </motion.div>
           )}
 
@@ -87,7 +87,7 @@ export default function MutationCorePanel() {
               transition={{ duration: 0.7 }}
               className="text-cyan-300"
             >
-              Core distortion climbing...
+              reflex_action_index = 147
             </motion.div>
           )}
 
@@ -97,12 +97,12 @@ export default function MutationCorePanel() {
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.4, ease: 'easeOut' }}
-              className="text-white/70 italic text-center pt-6 text-[1.4rem] leading-snug"
+              className="text-white/70 italic text-center pt-6 text-[1.8rem] leading-snug"
             >
               <span className="animate-pulse">
-                “Mutation phase breached tensor integrity.
+                “Survival path selected.
                 <br />
-                Stability unknown.”
+                Volatility nullified pre-cascade.”
               </span>
             </motion.div>
           )}

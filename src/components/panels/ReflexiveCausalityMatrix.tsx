@@ -21,10 +21,10 @@ export default function OverrideBlockPanel() {
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-pink-400 shadow-[0_0_90px_rgba(255,0,150,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-pink-400 shadow-[0_0_90px_rgba(255,0,150,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-8"
     >
       {/* 🧠 Top Content */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none leading-snug">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
@@ -94,7 +94,7 @@ export default function OverrideBlockPanel() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
-          className="z-10 text-white/40 italic pt-4 text-[1.4rem] leading-snug text-center pointer-events-none"
+          className="z-10 text-white/40 italic pt-4 text-[2.2rem] leading-snug text-center pointer-events-none"
         >
           Override request terminated.
           <br />

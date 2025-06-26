@@ -21,7 +21,7 @@ export default function MutationCorePanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
 
       {/* 🔷 Blue Glowing Core - Now Positioned Above */}
@@ -53,7 +53,7 @@ export default function MutationCorePanel() {
       </motion.div>
 
       {/* ⚡ Text Below Core */}
-      <div className="z-10 flex flex-col items-center space-y-4 text-[2.6rem]">
+      <div className="z-10 flex flex-col items-center space-y-4">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
@@ -97,7 +97,7 @@ export default function MutationCorePanel() {
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.4, ease: 'easeOut' }}
-              className="text-white/70 italic text-center pt-6 text-[1.8rem] leading-snug"
+              className="text-white/70 italic text-center pt-6 text-[1.4rem] leading-snug"
             >
               <span className="animate-pulse">
                 “Mutation phase breached tensor integrity.

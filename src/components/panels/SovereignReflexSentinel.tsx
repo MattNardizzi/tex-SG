@@ -21,10 +21,10 @@ export default function IdentityCompressionPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.6)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.2rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.65)] overflow-hidden flex flex-col items-center justify-center space-y-10"
     >
       {/* 🧠 Text Display */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      <div className="z-10 flex flex-col items-center space-y-4 text-center pointer-events-none leading-snug">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
@@ -32,7 +32,7 @@ export default function IdentityCompressionPanel() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-fuchsia-400"
+              className="text-fuchsia-400 tracking-wide"
             >
               init_compression_protocol()
             </motion.div>
@@ -63,19 +63,19 @@ export default function IdentityCompressionPanel() {
       </div>
 
       {/* 🔲 Bright Compression Grid */}
-      <div className="relative w-[320px] h-[260px] z-0 pointer-events-none overflow-hidden">
+      <div className="relative w-[360px] h-[280px] z-0 pointer-events-none overflow-hidden">
         {/* Glowing Pixel Grid */}
-        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-[2px]">
+        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-[3px]">
           {Array.from({ length: 24 }).map((_, i) => (
             <motion.div
               key={i}
-              className="bg-purple-400/60 w-full h-full rounded-sm shadow-[0_0_10px_rgba(200,100,255,0.7)]"
+              className="bg-purple-400/60 w-full h-full rounded-sm shadow-[0_0_12px_rgba(200,100,255,0.75)]"
               animate={{
-                opacity: [0.35, 0.95, 0.35],
-                scale: [1, 0.94, 1],
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 0.92, 1],
               }}
               transition={{
-                duration: 2.1,
+                duration: 2.2,
                 delay: (i % 6) * 0.08 + Math.floor(i / 6) * 0.1,
                 repeat: Infinity,
                 ease: 'easeInOut',
@@ -91,8 +91,8 @@ export default function IdentityCompressionPanel() {
             className="absolute left-0 right-0 h-[36px] bg-fuchsia-500/40 blur-lg"
             style={{ top: `${i * 72}px` }}
             animate={{
-              opacity: [0.2, 0.7, 0.2],
-              scaleX: [0.9, 1.08, 0.9],
+              opacity: [0.15, 0.65, 0.15],
+              scaleX: [0.88, 1.06, 0.88],
             }}
             transition={{
               duration: 2 + i * 0.2,
@@ -115,7 +115,7 @@ export default function IdentityCompressionPanel() {
       </div>
 
       {/* 🧾 Footer Readout */}
-      <div className="z-10 text-white/40 italic text-[1.4rem] leading-snug text-center pointer-events-none">
+      <div className="z-10 text-white/50 italic text-[1.6rem] leading-snug text-center pointer-events-none tracking-wide">
         <AnimatePresence mode="wait">
           {stage === 4 && (
             <motion.div

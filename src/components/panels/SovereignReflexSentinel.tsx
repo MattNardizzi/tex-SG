@@ -23,7 +23,7 @@ export default function IdentityCompressionPanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
     >
-      {/* 🧠 Top Text */}
+      {/* 🧠 Text Display */}
       <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
@@ -62,50 +62,59 @@ export default function IdentityCompressionPanel() {
         </AnimatePresence>
       </div>
 
-      {/* 🔷 Compression Scanwave Visual */}
+      {/* 🧊 Animated Compression Grid */}
       <div className="relative w-[320px] h-[260px] z-0 pointer-events-none overflow-hidden">
-
-        {/* 🟪 Background Grid */}
+        {/* Pixel grid that flickers */}
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-[3px]">
           {Array.from({ length: 24 }).map((_, i) => (
-            <div
+            <motion.div
               key={i}
-              className="bg-purple-500/5 w-full h-full rounded-sm"
+              className="bg-purple-500/10 w-full h-full rounded-sm"
+              animate={{
+                opacity: [0.05, 0.15, 0.05],
+                scale: [1, 0.94, 1],
+              }}
+              transition={{
+                duration: 2.6,
+                delay: (i % 6) * 0.08 + (Math.floor(i / 6) * 0.12),
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
             />
           ))}
         </div>
 
-        {/* 🔊 Horizontal scan band sweeps */}
+        {/* Horizontal scanwaves */}
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={`scan-${i}`}
             className="absolute left-0 right-0 h-[38px] bg-fuchsia-400/10 blur-md"
             style={{ top: `${i * 70}px` }}
             animate={{
-              opacity: [0.05, 0.2, 0.05],
-              scaleX: [0.95, 1.05, 0.95],
+              opacity: [0.05, 0.3, 0.05],
+              scaleX: [0.92, 1.05, 0.92],
             }}
             transition={{
-              duration: 2 + i * 0.5,
+              duration: 2 + i * 0.4,
               repeat: Infinity,
               ease: 'easeInOut',
-              delay: i * 0.25,
+              delay: i * 0.3,
             }}
           />
         ))}
 
-        {/* ✴️ One-time data lock burst */}
+        {/* Final burst overlay */}
         {stage >= 4 && (
           <motion.div
             className="absolute inset-0 bg-purple-300/10"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.2, 0] }}
+            animate={{ opacity: [0, 0.25, 0] }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           />
         )}
       </div>
 
-      {/* 📜 Footer Diagnostic */}
+      {/* Footer Diagnostic */}
       <div className="z-10 text-white/40 italic text-[1.4rem] leading-snug text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage === 4 && (

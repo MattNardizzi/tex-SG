@@ -3,114 +3,107 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ReflexStormPanel() {
+export default function MutationCorePanel() {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
     const timers = [
       setTimeout(() => setStage(1), 800),
-      setTimeout(() => setStage(2), 1800),
-      setTimeout(() => setStage(3), 3000),
-      setTimeout(() => setStage(4), 4200),
-      setTimeout(() => setStage(5), 5200),
+      setTimeout(() => setStage(2), 2000),
+      setTimeout(() => setStage(3), 3400),
+      setTimeout(() => setStage(4), 4800),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const heartbeat = stage < 5;
-
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
+      initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* ⚡ Reflex Core Shock Pulse */}
-      {stage >= 1 && stage < 5 && (
-        <motion.div
-          className="absolute w-[240px] h-[240px] rounded-full border-[3px] border-cyan-300 z-0"
-          animate={{
-            scale: [1, 1.25, 0.95, 1],
-            rotate: [0, -6, 8, -3, 0],
-            boxShadow: [
-              '0 0 60px 20px rgba(0,255,255,0.3)',
-              '0 0 90px 40px rgba(0,255,255,0.6)',
-              '0 0 30px 10px rgba(0,255,255,0.4)',
-            ],
-          }}
-          transition={{
-            duration: 1.8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-      )}
 
-      {/* 💥 Shock Ripple Overlay */}
-      {stage >= 3 && (
+      {/* 🔷 Blue Glowing Core - Now Positioned Above */}
+      <motion.div
+        className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.3)]"
+        animate={{
+          rotate: [0, -8, 6, -4, 0],
+          scale: [1, 1.1, 0.95, 1],
+          boxShadow: [
+            '0 0 60px 20px rgba(0,255,255,0.3)',
+            '0 0 90px 30px rgba(0,255,255,0.6)',
+            '0 0 30px 10px rgba(0,255,255,0.2)',
+          ],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
         <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full border-4 border-white/10 z-0 blur-[1px]"
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{ scale: 1.8, opacity: 0.15 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="absolute inset-8 rounded-full border-[2px] border-white/10"
+          animate={{ opacity: [1, 0.6, 1], scale: [1, 1.2, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
-      )}
+        <div className="flex items-center justify-center h-full">
+          <span className="text-cyan-300 tracking-widest text-[2.6rem] font-bold">MUTATION CORE</span>
+        </div>
+      </motion.div>
 
-      {/* 🫀 Heartbeat Flicker */}
-      {heartbeat && (
-        <motion.div
-          className="absolute inset-0 bg-cyan-300/5 pointer-events-none"
-          animate={{ opacity: [0.02, 0.08, 0.02] }}
-          transition={{ duration: 0.33, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      )}
-
-      {/* 🔻 Text Stack */}
-      <div className="z-10 flex flex-col items-center space-y-4 text-center pointer-events-none leading-snug">
+      {/* ⚡ Text Below Core */}
+      <div className="z-10 flex flex-col items-center space-y-4">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
-              key="mutate"
-              initial={{ opacity: 0, scale: 1.2 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className="text-cyan-300"
+              key="line1"
+              initial={{ opacity: 0, y: -10, rotate: -1 }}
+              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-pink-300"
             >
-              mutation_reflex()
+              AGI-9a/b/c activate
             </motion.div>
           )}
+
           {stage >= 2 && (
             <motion.div
-              key="layer9"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
+              key="line2"
+              initial={{ opacity: 0, scale: 1.4 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
               className="text-white/90"
             >
-              → <span className="text-white font-bold">Reflex Layer 9 Engaged</span>
+              AGI-9b survives <span className="text-purple-400">→ Tensor warp</span>
             </motion.div>
           )}
+
+          {stage >= 3 && (
+            <motion.div
+              key="line3"
+              initial={{ opacity: 0, x: -14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-cyan-300"
+            >
+              Core distortion climbing...
+            </motion.div>
+          )}
+
           {stage >= 4 && (
             <motion.div
-              key="heartbeat"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              className="text-white/50 text-[2.2rem] italic pt-6"
+              key="quote"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.4, ease: 'easeOut' }}
+              className="text-white/70 italic text-center pt-6 text-[2.2rem] leading-snug"
             >
-              Heartbeat: <span className="text-cyan-300 font-bold">180 bpm</span>
-            </motion.div>
-          )}
-          {stage === 5 && (
-            <motion.div
-              key="silence"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5 }}
-              className="text-white/30 text-[2.2rem] italic pt-8"
-            >
-              — Silence —
+              <span className="animate-pulse">
+                “Mutation phase breached tensor integrity.
+                <br />
+                Stability unknown.”
+              </span>
             </motion.div>
           )}
         </AnimatePresence>

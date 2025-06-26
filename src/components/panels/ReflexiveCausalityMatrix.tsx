@@ -21,7 +21,7 @@ export default function CausalThreadsPanel() {
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-pink-400 shadow-[0_0_90px_rgba(255,0,150,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-pink-400 shadow-[0_0_90px_rgba(255,0,150,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
     >
 
       {/* 🧠 NEURON-LIKE GRID */}
@@ -82,7 +82,7 @@ export default function CausalThreadsPanel() {
       </div>
 
       {/* 🧾 DATA LOG OUTPUT */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none leading-snug">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div

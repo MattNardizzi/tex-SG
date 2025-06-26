@@ -23,6 +23,7 @@ export default function MutationCorePanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
+
       {/* Animated Core Pulse */}
       <motion.div
         className="relative w-[140px] h-[140px] flex items-center justify-center mb-4"

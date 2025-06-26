@@ -21,7 +21,7 @@ export default function IdentityCompressionPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.3rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.65)] overflow-hidden flex flex-col items-center justify-center space-y-10"
+      className="relative w-full h-full px-10 py-12 rounded-panel bg-black text-white font-mono text-[2.4rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.65)] overflow-hidden flex flex-col items-center justify-center space-y-10"
     >
       {/* 🧠 Text Display */}
       <div className="z-10 flex flex-col items-center space-y-4 text-center pointer-events-none leading-snug">
@@ -64,7 +64,6 @@ export default function IdentityCompressionPanel() {
 
       {/* 🔲 Bright Compression Grid */}
       <div className="relative w-[360px] h-[280px] z-0 pointer-events-none overflow-hidden">
-        {/* Glowing Pixel Grid */}
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-[3px]">
           {Array.from({ length: 24 }).map((_, i) => (
             <motion.div
@@ -115,7 +114,7 @@ export default function IdentityCompressionPanel() {
       </div>
 
       {/* 🧾 Footer Readout */}
-      <div className="z-10 text-white/50 italic text-[1.8rem] leading-snug text-center pointer-events-none tracking-wide">
+      <div className="z-10 text-white/50 italic text-[1.9rem] leading-snug text-center pointer-events-none tracking-wide">
         <AnimatePresence mode="wait">
           {stage === 4 && (
             <motion.div

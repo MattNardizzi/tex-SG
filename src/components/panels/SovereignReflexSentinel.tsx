@@ -18,18 +18,18 @@ export default function IdentityCompressionPanel() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.94 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.45)] overflow-hidden flex flex-col justify-between items-center"
+      className="relative w-full h-full bg-black rounded-panel border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.45)] text-white font-mono text-[1.8rem] overflow-hidden flex flex-col"
     >
-      {/* 🔼 Top Logs */}
-      <div className="z-10 pt-4 flex flex-col items-center space-y-2 text-center pointer-events-none">
+      {/* 🔼 Top Header — Fully Anchored */}
+      <div className="w-full px-8 pt-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage >= 1 && (
             <motion.div
               key="init"
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
               className="text-fuchsia-400"
@@ -51,7 +51,7 @@ export default function IdentityCompressionPanel() {
           {stage >= 3 && (
             <motion.div
               key="vector"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="text-emerald-400"
@@ -62,73 +62,47 @@ export default function IdentityCompressionPanel() {
         </AnimatePresence>
       </div>
 
-      {/* 🧠 Compression Core */}
-      <div className="relative w-[360px] h-[360px] z-0 pointer-events-none">
-        {/* ✴️ Inner Persistent Glow */}
+      {/* 🧠 Middle Visualization — Isolated Layer */}
+      <div className="relative flex-1 flex items-center justify-center overflow-hidden pointer-events-none">
+        {/* ⚙️ Compression Grid */}
+        <div className="relative w-[420px] h-[260px] grid grid-cols-6 grid-rows-4 gap-[3px]">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="bg-purple-500/10"
+              animate={{
+                opacity: [0.06, 0.16, 0.06],
+                scale: [1, 1.04, 1],
+              }}
+              transition={{
+                duration: 2.4 + (i % 4) * 0.3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* 🔥 Vertical pulse beam */}
         <motion.div
-          className="absolute inset-[70px] rounded-full bg-fuchsia-500/10 blur-2xl"
-          animate={{
-            scale: [1, 1.04, 1],
-            opacity: [0.08, 0.2, 0.08],
-          }}
-          transition={{
-            duration: 3.2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+          className="absolute left-1/2 top-0 w-[2px] h-full bg-fuchsia-400/20 blur-[2px]"
+          animate={{ scaleY: [1, 1.3, 1], opacity: [0.1, 0.4, 0.1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        {/* 🌀 Rotating Contour Grid */}
-        <motion.div
-          className="absolute inset-[40px] rounded-full border border-purple-400/25"
-          animate={{
-            rotate: [0, 360],
-            opacity: [0.12, 0.2, 0.12],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-
-        {/* 🌪️ One-Time Identity Vortex */}
-        {stage >= 2 && (
+        {/* ⚡ Flash pulse (triggered) */}
+        {stage >= 3 && (
           <motion.div
-            className="absolute inset-[50px] rounded-full border-2 border-fuchsia-400 blur-sm"
-            initial={{ scale: 1, rotate: 0 }}
-            animate={{
-              scale: [1, 0.8, 0.6],
-              rotate: 540,
-              opacity: [0.4, 0.1, 0],
-            }}
-            transition={{
-              duration: 3,
-              ease: 'easeOut',
-            }}
+            className="absolute inset-0 bg-fuchsia-500/10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.15, 0] }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
           />
         )}
-
-        {/* ⚪ Static Inner Contour */}
-        <div className="absolute inset-[60px] rounded-full border border-purple-500/30 shadow-[0_0_60px_rgba(180,100,255,0.2)]" />
-
-        {/* ✳ Flickering Field */}
-        <motion.div
-          className="absolute inset-[30px] rounded-full border border-white/10"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.04, 0.1, 0.04],
-          }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
       </div>
 
-      {/* 🔽 Bottom Diagnostic Text */}
-      <div className="z-10 pb-4 flex flex-col items-center space-y-1 text-center pointer-events-none">
+      {/* 🔽 Bottom Status — Fully Anchored */}
+      <div className="w-full px-8 pb-10 flex flex-col items-center space-y-1 text-center pointer-events-none">
         <AnimatePresence mode="wait">
           {stage === 4 && (
             <motion.div
@@ -140,7 +114,7 @@ export default function IdentityCompressionPanel() {
             >
               Core identity stabilized.
             </motion.div>
-          )} 
+          )}
         </AnimatePresence>
       </div>
     </motion.div>

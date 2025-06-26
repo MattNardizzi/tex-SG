@@ -20,7 +20,7 @@ export default function BeliefRealignmentPanel() {
 
       {/* 🟪 Identity Compression Bar */}
       <div className="z-0 pointer-events-none relative w-[380px] h-[100px] flex flex-col justify-center space-y-2">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
             className="w-full h-[6px] rounded-full bg-purple-400/70 blur-[1px]"
@@ -30,7 +30,7 @@ export default function BeliefRealignmentPanel() {
             }}
             transition={{
               duration: 2.6,
-              delay: i * 0.07,
+              delay: i * 0.08,
               repeat: Infinity,
               ease: 'easeInOut',
             }}

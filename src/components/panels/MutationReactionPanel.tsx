@@ -23,15 +23,30 @@ export default function MutationCorePanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-      {/* 🔵 Animated Core Pulse with Cyan Glow */}
+      {/* 🌌 Sovereign Cyan Core */}
       <motion.div
         className="relative w-[140px] h-[140px] flex items-center justify-center mb-4"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
+        animate={{
+          rotate: 360,
+          boxShadow: [
+            '0 0 60px 10px rgba(0,255,255,0.4)',
+            '0 0 140px 40px rgba(0,255,255,0.6)',
+            '0 0 60px 10px rgba(0,255,255,0.4)',
+          ],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
       >
-        <div className="absolute inset-0 rounded-full border-[4px] border-cyan-300/60 shadow-[0_0_80px_12px_rgba(0,255,255,0.35)] blur-sm" />
-        <div className="absolute inset-6 rounded-full border-[2px] border-white/10 animate-pulse" />
+        {/* Primary bright outer ring */}
+        <div className="absolute inset-0 rounded-full border-[4px] border-cyan-300/60 shadow-[0_0_120px_30px_rgba(0,255,255,0.5)]" />
+        {/* Secondary halo glow layer */}
+        <div className="absolute inset-1 rounded-full border-[2px] border-cyan-100/20 shadow-[0_0_60px_15px_rgba(0,255,255,0.3)]" />
+        {/* Label */}
         <div className="z-10 text-cyan-300 font-bold text-[2.6rem] tracking-wide">CORE</div>
+        {/* Orbital dot */}
         <motion.div
           className="absolute w-3 h-3 bg-cyan-300 rounded-full"
           animate={{ rotate: 360 }}

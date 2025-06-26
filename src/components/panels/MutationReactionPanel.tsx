@@ -23,18 +23,17 @@ export default function MutationCorePanel() {
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)] flex flex-col items-center justify-center space-y-6 overflow-hidden"
     >
-
-      {/* Animated Core Pulse */}
+      {/* 🔵 Animated Core Pulse with Cyan Glow */}
       <motion.div
         className="relative w-[140px] h-[140px] flex items-center justify-center mb-4"
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
       >
-        <div className="absolute inset-0 rounded-full border-[4px] border-fuchsia-500/40 shadow-[0_0_70px_8px_rgba(255,0,255,0.25)] blur-sm" />
+        <div className="absolute inset-0 rounded-full border-[4px] border-cyan-300/60 shadow-[0_0_80px_12px_rgba(0,255,255,0.35)] blur-sm" />
         <div className="absolute inset-6 rounded-full border-[2px] border-white/10 animate-pulse" />
-        <div className="z-10 text-pink-400 font-bold text-[2.6rem] tracking-wide">CORE</div>
+        <div className="z-10 text-cyan-300 font-bold text-[2.6rem] tracking-wide">CORE</div>
         <motion.div
-          className="absolute w-3 h-3 bg-fuchsia-400 rounded-full"
+          className="absolute w-3 h-3 bg-cyan-300 rounded-full"
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 5, ease: 'linear' }}
           style={{ transformOrigin: '70px 70px' }}

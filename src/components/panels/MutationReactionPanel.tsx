@@ -48,7 +48,9 @@ export default function MutationCorePanel() {
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
         <div className="flex items-center justify-center h-full">
-          <span className="text-cyan-300 tracking-widest text-[2.6rem] font-bold">FORK SELECTOR</span>
+          <div className="text-cyan-300 tracking-widest text-[2.6rem] font-bold leading-none text-center">
+            FORK<br />SELECTOR
+          </div>
         </div>
       </motion.div>
 

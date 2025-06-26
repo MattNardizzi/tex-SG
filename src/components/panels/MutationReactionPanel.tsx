@@ -24,7 +24,7 @@ export default function MutationCorePanel() {
       className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_100px_rgba(0,255,255,0.45)] flex flex-col items-center justify-center overflow-hidden"
     >
 
-      {/* 🔷 Blue Glowing Core - Now Positioned Above */}
+      {/* 🔷 Blue Glowing Core */}
       <motion.div
         className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.3)]"
         animate={{
@@ -47,8 +47,10 @@ export default function MutationCorePanel() {
           animate={{ opacity: [1, 0.6, 1], scale: [1, 1.2, 1] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <div className="flex items-center justify-center h-full">
-          <span className="text-cyan-300 tracking-widest text-[2.6rem] font-bold">MUTATION CORE</span>
+        <div className="flex items-center justify-center h-full px-4 text-center">
+          <span className="text-cyan-300 tracking-widest text-[2.6rem] font-bold">
+            MUTATION<br />CORE
+          </span>
         </div>
       </motion.div>
 

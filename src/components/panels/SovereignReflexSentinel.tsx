@@ -21,7 +21,7 @@ export default function IdentityCompressionPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-purple-500 shadow-[0_0_100px_rgba(180,100,255,0.6)] overflow-hidden flex flex-col items-center justify-center space-y-6"
     >
       {/* 🧠 Text Display */}
       <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
@@ -62,21 +62,21 @@ export default function IdentityCompressionPanel() {
         </AnimatePresence>
       </div>
 
-      {/* 🔲 Animated Compression Grid */}
+      {/* 🔲 Bright Compression Grid */}
       <div className="relative w-[320px] h-[260px] z-0 pointer-events-none overflow-hidden">
         {/* Glowing Pixel Grid */}
-        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-[4px]">
+        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-[2px]">
           {Array.from({ length: 24 }).map((_, i) => (
             <motion.div
               key={i}
-              className="bg-purple-400/20 w-full h-full rounded-sm shadow-[0_0_6px_rgba(200,100,255,0.4)]"
+              className="bg-purple-400/60 w-full h-full rounded-sm shadow-[0_0_10px_rgba(200,100,255,0.7)]"
               animate={{
-                opacity: [0.08, 0.5, 0.08],
-                scale: [1, 0.95, 1],
+                opacity: [0.35, 0.95, 0.35],
+                scale: [1, 0.94, 1],
               }}
               transition={{
-                duration: 2.2,
-                delay: (i % 6) * 0.1 + Math.floor(i / 6) * 0.1,
+                duration: 2.1,
+                delay: (i % 6) * 0.08 + Math.floor(i / 6) * 0.1,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
@@ -84,31 +84,31 @@ export default function IdentityCompressionPanel() {
           ))}
         </div>
 
-        {/* 🔊 Bright Scanbars */}
+        {/* ⚡ Neon Scanbars */}
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={`scan-${i}`}
-            className="absolute left-0 right-0 h-[36px] bg-purple-500/25 blur-lg"
+            className="absolute left-0 right-0 h-[36px] bg-fuchsia-500/40 blur-lg"
             style={{ top: `${i * 72}px` }}
             animate={{
-              opacity: [0.05, 0.4, 0.05],
-              scaleX: [0.9, 1.05, 0.9],
+              opacity: [0.2, 0.7, 0.2],
+              scaleX: [0.9, 1.08, 0.9],
             }}
             transition={{
-              duration: 2 + i * 0.3,
+              duration: 2 + i * 0.2,
               repeat: Infinity,
               ease: 'easeInOut',
-              delay: i * 0.25,
+              delay: i * 0.2,
             }}
           />
         ))}
 
-        {/* ✴️ Final Burst */}
+        {/* ✴️ Stage 4 Burst */}
         {stage >= 4 && (
           <motion.div
-            className="absolute inset-0 bg-purple-300/20"
+            className="absolute inset-0 bg-purple-300/40"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.4, 0] }}
+            animate={{ opacity: [0, 0.65, 0] }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           />
         )}

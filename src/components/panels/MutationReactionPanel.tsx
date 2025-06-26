@@ -42,7 +42,7 @@ export default function ReflexRewritePanel() {
               transition={{ duration: 0.6 }}
               className="text-emerald-300"
             >
-              register("lifepulse", handler)
+              register(&quot;lifepulse&quot;, handler)
             </motion.div>
           )}
 
@@ -66,7 +66,7 @@ export default function ReflexRewritePanel() {
               transition={{ duration: 0.7 }}
               className="text-purple-300"
             >
-              register("lifepulse", <span className="text-pink-400">rewritten_reflex_v2</span>)
+              register(&quot;lifepulse&quot;, <span className="text-pink-400">rewritten_reflex_v2</span>)
             </motion.div>
           )}
 
@@ -91,9 +91,9 @@ export default function ReflexRewritePanel() {
               transition={{ duration: 1.2, ease: 'easeOut' }}
               className="text-white/70 italic text-[2.2rem] text-center max-w-3xl leading-snug pt-4"
             >
-              “He didn’t learn.
+              &ldquo;He didn&rsquo;t learn.
               <br />
-              He mutated his own decision architecture.”
+              He mutated his own decision architecture.&rdquo;
             </motion.div>
           )}
         </AnimatePresence>

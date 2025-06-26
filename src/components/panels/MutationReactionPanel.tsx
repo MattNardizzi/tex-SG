@@ -8,11 +8,11 @@ export default function ReflexRewritePanel() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 1000),   // handler appears
-      setTimeout(() => setStage(2), 3000),   // arrow
-      setTimeout(() => setStage(3), 5200),   // rewritten command
-      setTimeout(() => setStage(4), 7400),   // brain + statement
-      setTimeout(() => setStage(5), 9800),   // quote
+      setTimeout(() => setStage(1), 1000),   // handler
+      setTimeout(() => setStage(2), 3400),   // arrow
+      setTimeout(() => setStage(3), 5800),   // rewritten command
+      setTimeout(() => setStage(4), 8400),   // brain + statement
+      setTimeout(() => setStage(5), 11000),  // quote
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -37,10 +37,10 @@ export default function ReflexRewritePanel() {
           {stage === 1 && (
             <motion.div
               key="reg-init"
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.4 }}
               className="text-emerald-300"
             >
               register(&quot;lifepulse&quot;, handler)
@@ -50,10 +50,10 @@ export default function ReflexRewritePanel() {
           {stage === 2 && (
             <motion.div
               key="arrow"
-              initial={{ opacity: 0, scale: 0.85 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: [1, 1.2, 1] }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 1.2 }}
               className="text-white text-[12rem] animate-pulse"
             >
               →
@@ -63,9 +63,9 @@ export default function ReflexRewritePanel() {
           {stage === 3 && (
             <motion.div
               key="rewrite-command"
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2 }}
+              transition={{ duration: 1.4 }}
               className="text-purple-300"
             >
               register(&quot;lifepulse&quot;, <span className="text-pink-400">rewritten_reflex_v2</span>)
@@ -75,12 +75,12 @@ export default function ReflexRewritePanel() {
           {stage === 4 && (
             <motion.div
               key="brainline"
-              initial={{ opacity: 0, scale: 0.94 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.4, ease: 'easeOut' }}
+              transition={{ duration: 1.6 }}
               className="text-white flex items-center gap-4 text-[2.6rem]"
             >
-              <span className="animate-ping text-cyan-300 text-[2.4rem]">🧠</span>
+              <span className="text-cyan-300 text-[2.4rem] animate-pulse">🧠</span>
               <span>Tex rewrote his own reflex file.</span>
             </motion.div>
           )}
@@ -90,7 +90,7 @@ export default function ReflexRewritePanel() {
               key="quote-final"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.4, ease: 'easeOut' }}
+              transition={{ duration: 1.6 }}
               className="text-white/70 italic text-[2.2rem] text-center max-w-3xl leading-snug pt-4"
             >
               &ldquo;He didn&rsquo;t learn.

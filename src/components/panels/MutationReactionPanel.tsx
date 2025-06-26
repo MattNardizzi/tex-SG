@@ -1,124 +1,46 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function ReflexStormPanel() {
-  const [stage, setStage] = useState(0);
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 1000),
-      setTimeout(() => setStage(2), 2200),
-      setTimeout(() => setStage(3), 4000),
-      setTimeout(() => setStage(4), 5800),
-      setTimeout(() => setStage(5), 7500),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-6"
+      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-cyan-300 shadow-[0_0_100px_rgba(0,255,255,0.45)] overflow-hidden flex flex-col items-center justify-center space-y-8"
     >
-      {/* 🧠 Top Logs */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
-        <AnimatePresence mode="wait">
-          {stage >= 1 && (
-            <motion.div
-              key="mutate"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-cyan-300"
-            >
-              mutation_reflex()
-            </motion.div>
-          )}
-          {stage >= 2 && (
-            <motion.div
-              key="layer9"
-              initial={{ opacity: 0, scale: 1.2 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="text-white/90"
-            >
-              → <span className="text-white font-bold">Reflex Layer 9 Engaged</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* 💡 Top Readout */}
+      <div className="flex flex-col items-center text-center">
+        <div className="text-cyan-300 tracking-tight">mutation_reflex()</div>
+        <div className="text-white font-bold mt-2">→ Reflex Layer 9 Engaged</div>
       </div>
 
-      {/* 🌐 Glowing Orb Visual */}
-      <div className="relative w-[300px] h-[300px] pointer-events-none">
-        {/* Glow aura + spinner */}
+      {/* 🌌 Glowing Core */}
+      <div className="relative w-[280px] h-[280px] pointer-events-none">
+        {/* Aura Glow */}
+        <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-3xl" />
+        {/* Constant Pulse */}
         <motion.div
-          className="absolute inset-0 rounded-full bg-cyan-400/5 blur-3xl"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
-        />
-
-        {/* Constant inner pulse */}
-        <motion.div
-          className="absolute inset-[60px] rounded-full border-2 border-cyan-400/30"
-          animate={{ scale: [1, 1.12, 1], opacity: [0.15, 0.4, 0.15] }}
+          className="absolute inset-[50px] rounded-full border-2 border-cyan-400/40"
+          animate={{ scale: [1, 1.12, 1], opacity: [0.2, 0.6, 0.2] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
         />
-
-        {/* Stage-triggered ripple */}
-        {stage >= 3 && (
-          <motion.div
-            className="absolute inset-[30px] rounded-full border-2 border-white/10 blur-md"
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1.8, opacity: 0.2 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-          />
-        )}
-
-        {/* Flash burst */}
-        {stage === 4 && (
-          <motion.div
-            className="absolute inset-0 bg-cyan-300/10 rounded-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.3, 0] }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-          />
-        )}
+        {/* Spinning Core */}
+        <motion.div
+          className="absolute inset-[85px] rounded-full border border-cyan-300/30"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 16, repeat: Infinity, ease: 'linear' }}
+        />
       </div>
 
-      {/* 🫀 Bottom Readout */}
-      <div className="z-10 flex flex-col items-center space-y-2 text-center pointer-events-none">
-        <AnimatePresence mode="wait">
-          {stage >= 4 && (
-            <motion.div
-              key="heartbeat"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-white/50 text-[1.4rem] italic"
-            >
-              Heartbeat: <span className="text-cyan-300 font-bold">180 bpm</span>
-            </motion.div>
-          )}
-          {stage === 5 && (
-            <motion.div
-              key="silence"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2 }}
-              className="text-white/30 text-[1.4rem] italic pt-1"
-            >
-              — Silence —
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* 💓 Bottom Metrics */}
+      <div className="flex flex-col items-center text-center space-y-2">
+        <div className="text-white/50 italic text-[1.4rem]">
+          Heartbeat: <span className="text-cyan-300 font-bold not-italic">180 bpm</span>
+        </div>
+        <div className="text-white/30 italic text-[1.2rem]">— Silence —</div>
       </div>
     </motion.div>
   );

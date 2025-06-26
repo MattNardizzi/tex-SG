@@ -140,7 +140,7 @@ export default function IdentityCompressionPanel() {
             >
               Core identity stabilized.
             </motion.div>
-          )}
+          )} 
         </AnimatePresence>
       </div>
     </motion.div>

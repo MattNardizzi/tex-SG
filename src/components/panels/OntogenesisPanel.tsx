@@ -5,15 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function OntogenesisPanel() {
   const [stage, setStage] = useState(0);
+  const [orchestratorPulse, setOrchestratorPulse] = useState(false);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 1000),
-      setTimeout(() => setStage(2), 2200),
-      setTimeout(() => setStage(3), 3600),
-      setTimeout(() => setStage(4), 5000),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const ws = new WebSocket('ws://localhost:8000/ws/aei');
+
+    ws.onmessage = (event) => {
+      const msg = event.data;
+
+      // === Orchestrator-level broadcast ===
+      if (msg === 'orchestrator:reflex_triggered:run_demo_ontogenesis_spawn') {
+        setOrchestratorPulse(true);
+        setTimeout(() => setOrchestratorPulse(false), 3000);
+      }
+
+      // === Reflex-level state triggers ===
+      if (msg === 'ontogenesis:start') setStage(1);
+      if (msg === 'ontogenesis:rewrite_triggered') setStage(2);
+      if (msg === 'ontogenesis:children_spawned') setStage(3);
+      if (msg === 'ontogenesis:coherence_passed' || msg === 'ontogenesis:complete') setStage(4);
+    };
+
+    return () => ws.close();
   }, []);
 
   return (
@@ -21,9 +34,12 @@ export default function OntogenesisPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-green-400 shadow-[0_0_90px_rgba(0,255,150,0.4)] flex flex-col items-center justify-center overflow-hidden"
+      className={`relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 ${
+        orchestratorPulse
+          ? 'border-yellow-300 shadow-[0_0_80px_rgba(255,255,150,0.5)]'
+          : 'border-green-400 shadow-[0_0_90px_rgba(0,255,150,0.4)]'
+      } flex flex-col items-center justify-center overflow-hidden`}
     >
-
       {/* 🌱 Ontogenesis Core Orb */}
       <motion.div
         className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-green-400 shadow-[0_0_60px_20px_rgba(0,255,120,0.4)]"

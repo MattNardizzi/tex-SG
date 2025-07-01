@@ -5,15 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function RealityForkPanel() {
   const [stage, setStage] = useState(0);
+  const [orchestratorPulse, setOrchestratorPulse] = useState(false);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 1000),
-      setTimeout(() => setStage(2), 2200),
-      setTimeout(() => setStage(3), 3500),
-      setTimeout(() => setStage(4), 5000),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const ws = new WebSocket('ws://localhost:8000/ws/aei');
+
+    ws.onmessage = (event) => {
+      const msg = event.data;
+
+      // === Orchestrator signal trigger ===
+      if (msg === 'orchestrator:reflex_triggered:run_demo_reality_fork_override') {
+        setOrchestratorPulse(true);
+        setTimeout(() => setOrchestratorPulse(false), 3000);
+      }
+
+      // === Reflex-specific states
+      if (msg === 'forkoverride:start') setStage(1);
+      if (msg === 'forkoverride:soulgraph_updated') setStage(2);
+      if (msg === 'forkoverride:market_executed') setStage(3);
+      if (msg === 'forkoverride:belief_encoded' || msg === 'forkoverride:complete') setStage(4);
+    };
+
+    return () => ws.close();
   }, []);
 
   return (
@@ -21,9 +34,12 @@ export default function RealityForkPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-yellow-300 shadow-[0_0_90px_rgba(255,255,0,0.4)] flex flex-col items-center justify-center overflow-hidden"
+      className={`relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 ${
+        orchestratorPulse
+          ? 'border-yellow-200 shadow-[0_0_80px_rgba(255,255,180,0.5)]'
+          : 'border-yellow-300 shadow-[0_0_90px_rgba(255,255,0,0.4)]'
+      } flex flex-col items-center justify-center overflow-hidden`}
     >
-
       {/* 🔶 Reflex Glow Orb */}
       <motion.div
         className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-yellow-300 shadow-[0_0_60px_20px_rgba(255,255,100,0.4)]"

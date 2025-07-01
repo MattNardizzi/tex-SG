@@ -16,24 +16,45 @@ type Trade = {
 export default function ReflexTradeConsole() {
   const [trade, setTrade] = useState<Trade | null>(null);
   const [stage, setStage] = useState(0);
+  const [orchestratorPulse, setOrchestratorPulse] = useState(false);
 
   useEffect(() => {
-    // Load the most recent trade from localStorage
-    try {
-      const recent = JSON.parse(localStorage.getItem('latest_trade') || 'null');
-      setTrade(recent);
-    } catch (e) {
-      console.error('Failed to parse latest_trade:', e);
-    }
+    const ws = new WebSocket('ws://localhost:8000/ws/aei');
 
-    const timers = [
-      setTimeout(() => setStage(1), 800),
-      setTimeout(() => setStage(2), 1800),
-      setTimeout(() => setStage(3), 2900),
-      setTimeout(() => setStage(4), 4100),
-    ];
+    ws.onmessage = (event) => {
+      const msg = event.data;
 
-    return () => timers.forEach(clearTimeout);
+      // Orchestrator reflex cycle trigger
+      if (msg.startsWith('orchestrator:reflex_triggered:')) {
+        setOrchestratorPulse(true);
+        setTimeout(() => setOrchestratorPulse(false), 3000);
+      }
+
+      // Live reflex-triggered trade broadcast
+      if (msg.startsWith('trade:')) {
+        const parts = msg.split(':');
+        const symbol = parts[1];
+        const action = parts[2];
+        const confidence = parseFloat(parts[3]) || 0;
+
+        setTrade({
+          reflex_source: "orchestrator",
+          action,
+          symbol,
+          confidence,
+          urgency: Math.random() * 0.5 + 0.5,
+          entropy: Math.random() * 0.5 + 0.3,
+          summary: `${action.toUpperCase()} signal on ${symbol} triggered via orchestrator.`,
+        });
+
+        setStage(1);
+        setTimeout(() => setStage(2), 1000);
+        setTimeout(() => setStage(3), 2000);
+        setTimeout(() => setStage(4), 3100);
+      }
+    };
+
+    return () => ws.close();
   }, []);
 
   return (
@@ -41,7 +62,11 @@ export default function ReflexTradeConsole() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.4rem] border-2 border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.4)] flex flex-col items-center justify-center overflow-hidden"
+      className={`relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.4rem] border-2 ${
+        orchestratorPulse
+          ? 'border-yellow-300 shadow-[0_0_80px_rgba(255,255,150,0.5)]'
+          : 'border-cyan-300 shadow-[0_0_90px_rgba(0,255,255,0.4)]'
+      } flex flex-col items-center justify-center overflow-hidden`}
     >
       {/* 💠 Trade Console Orb */}
       <motion.div

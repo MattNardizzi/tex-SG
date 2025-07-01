@@ -5,15 +5,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AEILineagePanel() {
   const [stage, setStage] = useState(0);
+  const [orchestratorPulse, setOrchestratorPulse] = useState(false);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 1000),
-      setTimeout(() => setStage(2), 2200),
-      setTimeout(() => setStage(3), 3600),
-      setTimeout(() => setStage(4), 5200),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const ws = new WebSocket('ws://localhost:8000/ws/aei');
+
+    ws.onmessage = (event) => {
+      const msg = event.data;
+
+      // === Orchestrator cue (lighting frame) ===
+      if (msg === 'orchestrator:reflex_triggered:run_aei_lineage_with_financial_evolution') {
+        setOrchestratorPulse(true);
+        setTimeout(() => setOrchestratorPulse(false), 3000);
+      }
+
+      // === Reflex-specific state triggers ===
+      if (msg === 'aei:start') setStage(1);
+      if (msg === 'aei:generate_fork') setStage(1);
+      if (msg === 'aei:fork_test_done') setStage(2);
+      if (msg === 'aei:market_test_done') setStage(3);
+      if (msg === 'aei:fork_survived' || msg === 'aei:fork_rejected') setStage(4);
+    };
+
+    return () => ws.close();
   }, []);
 
   return (
@@ -21,9 +35,10 @@ export default function AEILineagePanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-6 py-8 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 border-lime-400 shadow-[0_0_90px_rgba(0,255,100,0.4)] flex flex-col items-center justify-center overflow-hidden"
+      className={`relative w-full h-full px-6 py-8 rounded-panel bg-black text-white font-mono text-[1.8rem] border-2 ${
+        orchestratorPulse ? 'border-yellow-300 shadow-[0_0_80px_rgba(255,255,100,0.4)]' : 'border-lime-400 shadow-[0_0_90px_rgba(0,255,100,0.4)]'
+      } flex flex-col items-center justify-center overflow-hidden`}
     >
-
       {/* 🧬 AEI Lineage Glow Core */}
       <motion.div
         className="z-10 mb-8 w-[160px] h-[160px] bg-black rounded-full border-[3px] border-lime-400 shadow-[0_0_60px_20px_rgba(0,255,100,0.4)]"

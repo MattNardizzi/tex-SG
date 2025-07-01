@@ -5,15 +5,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function WorldModelPanel() {
   const [stage, setStage] = useState(0);
+  const [orchestratorPulse, setOrchestratorPulse] = useState(false);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setStage(1), 900),
-      setTimeout(() => setStage(2), 2200),
-      setTimeout(() => setStage(3), 3600),
-      setTimeout(() => setStage(4), 5000),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const ws = new WebSocket('ws://localhost:8000/ws/aei');
+
+    ws.onmessage = (event) => {
+      const msg = event.data;
+
+      // === Orchestrator trigger ===
+      if (msg === 'orchestrator:reflex_triggered:run_demo_world_model_simulation') {
+        setOrchestratorPulse(true);
+        setTimeout(() => setOrchestratorPulse(false), 3000);
+      }
+
+      // === Reflex progress stages ===
+      if (msg === 'worldmodel:start') setStage(1);
+      if (msg === 'worldmodel:futures_simulated') setStage(2);
+      if (msg === 'worldmodel:belief_selected') setStage(3);
+      if (
+        msg === 'worldmodel:reality_rewritten' ||
+        msg === 'worldmodel:reality_stable' ||
+        msg === 'worldmodel:complete'
+      ) setStage(4);
+    };
+
+    return () => ws.close();
   }, []);
 
   return (
@@ -21,9 +38,12 @@ export default function WorldModelPanel() {
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)] flex flex-col items-center justify-center overflow-hidden"
+      className={`relative w-full h-full px-8 py-10 rounded-panel bg-black text-white font-mono text-[2.6rem] border-2 ${
+        orchestratorPulse
+          ? 'border-yellow-300 shadow-[0_0_80px_rgba(255,255,150,0.5)]'
+          : 'border-cyan-400 shadow-[0_0_90px_rgba(0,255,255,0.35)]'
+      } flex flex-col items-center justify-center overflow-hidden`}
     >
-
       {/* 🌐 World Model Reflex Orb */}
       <motion.div
         className="z-10 mb-10 w-[200px] h-[200px] bg-black rounded-full border-[3px] border-cyan-400 shadow-[0_0_60px_20px_rgba(0,255,255,0.4)]"

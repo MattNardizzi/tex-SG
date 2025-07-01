@@ -3,14 +3,28 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type Trade = {
+  reflex_source?: string;
+  action?: string;
+  symbol?: string;
+  confidence?: number;
+  urgency?: number;
+  entropy?: number;
+  summary?: string;
+};
+
 export default function ReflexTradeConsole() {
-  const [trade, setTrade] = useState<any | null>(null);
+  const [trade, setTrade] = useState<Trade | null>(null);
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    // Simulate pulling the most recent trade (replace with real data source or prop injection)
-    const recent = JSON.parse(localStorage.getItem('latest_trade') || 'null');
-    setTrade(recent);
+    // Load the most recent trade from localStorage
+    try {
+      const recent = JSON.parse(localStorage.getItem('latest_trade') || 'null');
+      setTrade(recent);
+    } catch (e) {
+      console.error('Failed to parse latest_trade:', e);
+    }
 
     const timers = [
       setTimeout(() => setStage(1), 800),
@@ -18,6 +32,7 @@ export default function ReflexTradeConsole() {
       setTimeout(() => setStage(3), 2900),
       setTimeout(() => setStage(4), 4100),
     ];
+
     return () => timers.forEach(clearTimeout);
   }, []);
 

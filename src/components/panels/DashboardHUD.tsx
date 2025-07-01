@@ -5,13 +5,13 @@ import TexBootScreen from './TexBootScreen';
 import ReflexTradeConsole from './ReflexTradeConsole';
 import MarketTicker from '@/components/ui/MarketTicker';
 
-// 🔹 Reflex Panel Imports
-import RealityForkPanel from './reflex_panels/RealityForkPanel';
-import WorldModelPanel from './reflex_panels/WorldModelPanel';
-import RealityRewritePanel from './reflex_panels/RealityRewritePanel';
-import OntogenesisPanel from './reflex_panels/OntogenesisPanel';
-import ForkStressPanel from './reflex_panels/ForkStressPanel';
-import AEILineagePanel from './reflex_panels/AEILineagePanel';
+// 🔹 Reflex Panel Imports (adjusted paths — all in same folder)
+import RealityForkPanel from './RealityForkPanel';
+import WorldModelPanel from './WorldModelPanel';
+import RealityRewritePanel from './RealityRewritePanel';
+import OntogenesisPanel from './OntogenesisPanel';
+import ForkStressPanel from './ForkStressPanel';
+import AEILineagePanel from './AEILineagePanel';
 
 export default function DashboardHUD() {
   const [bootDone, setBootDone] = useState(false);
